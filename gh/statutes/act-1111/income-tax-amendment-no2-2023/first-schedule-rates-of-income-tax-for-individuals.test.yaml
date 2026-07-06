@@ -1,0 +1,121 @@
+# Companion fixtures for the Act 1111 First Schedule individual income-tax
+# rate schedule. Expected values are computed by hand from the verbatim band
+# widths in the cited corpus provision, then verified digit-by-digit through
+# the engine. Fixture provenance is manual (orchestrator-computed) per the
+# interim convention in axiom-encode#1060: the codex/gpt-5.5 backend produces
+# the rule; companion progressive-tax fixtures are written and attested
+# independently with shown arithmetic.
+#
+# Act 1111 First Schedule, paragraph 1(1), resident-individual annual bands:
+#   First     GH¢5,880  Nil
+#   Next      GH¢1,320  5%      -> cumulative upper 7,200
+#   Next      GH¢1,560  10%     -> cumulative upper 8,760
+#   Next     GH¢38,000  17.5%   -> cumulative upper 46,760
+#   Next    GH¢192,000  25%     -> cumulative upper 238,760
+#   Next    GH¢366,240  30%     -> cumulative upper 605,000
+#   Exceeding GH¢600,000 label  35% band; operates from the cumulative 605,000
+# The six explicit band widths sum to 605,000, which is where the 30% band ends
+# and the 35% band begins (GRA published annual bands operate the 35% band from
+# 605,000; the "Exceeding 600,000" wording is the drafting label).
+# Validation year: 2026 (the Act 1111 schedule is unchanged for 2026; the
+# Income Tax (Amendment) Act, 2025 (Act 1129) left the First Schedule bands
+# untouched).
+
+- name: income_of_5000_within_nil_band_pays_no_tax
+  # Chargeable income of GH¢5,000 is at or below the First GH¢5,880 nil band,
+  # so it falls in band index 0 and the tax is zero (exercises the zero branch).
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals#input.chargeable_income: 5000
+  output:
+    gh:statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals#resident_individual_income_tax_band: 0
+    gh:statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals#resident_individual_income_tax: 0
+
+- name: income_of_10000_taxed_through_17_5_percent_band
+  # Band 2: 1,320 x 0.05          = 66
+  # Band 3: 1,560 x 0.10          = 156
+  # Band 4: (10,000 - 8,760) x 0.175 = 1,240 x 0.175 = 217
+  # Total = 66 + 156 + 217 = 439 ; marginal band index 3
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals#input.chargeable_income: 10000
+  output:
+    gh:statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals#resident_individual_income_tax_band: 3
+    gh:statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals#resident_individual_income_tax: 439
+
+- name: income_of_50000_taxed_through_25_percent_band
+  # Band 2: 1,320 x 0.05             = 66
+  # Band 3: 1,560 x 0.10             = 156
+  # Band 4: 38,000 x 0.175           = 6,650
+  # Band 5: (50,000 - 46,760) x 0.25 = 3,240 x 0.25 = 810
+  # Total = 66 + 156 + 6,650 + 810 = 7,682 ; marginal band index 4
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals#input.chargeable_income: 50000
+  output:
+    gh:statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals#resident_individual_income_tax_band: 4
+    gh:statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals#resident_individual_income_tax: 7682
+
+- name: income_of_250000_taxed_through_30_percent_band
+  # Band 2: 1,320 x 0.05               = 66
+  # Band 3: 1,560 x 0.10               = 156
+  # Band 4: 38,000 x 0.175             = 6,650
+  # Band 5: 192,000 x 0.25             = 48,000
+  # Band 6: (250,000 - 238,760) x 0.30 = 11,240 x 0.30 = 3,372
+  # Total = 66 + 156 + 6,650 + 48,000 + 3,372 = 58,244 ; marginal band index 5
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals#input.chargeable_income: 250000
+  output:
+    gh:statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals#resident_individual_income_tax_band: 5
+    gh:statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals#resident_individual_income_tax: 58244
+
+- name: income_of_700000_taxed_through_top_35_percent_band
+  # Band 2: 1,320 x 0.05               = 66
+  # Band 3: 1,560 x 0.10               = 156
+  # Band 4: 38,000 x 0.175             = 6,650
+  # Band 5: 192,000 x 0.25             = 48,000
+  # Band 6: 366,240 x 0.30             = 109,872
+  # Band 7: (700,000 - 605,000) x 0.35 = 95,000 x 0.35 = 33,250
+  # Total = 66 + 156 + 6,650 + 48,000 + 109,872 + 33,250 = 197,994 ; band index 6
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals#input.chargeable_income: 700000
+  output:
+    gh:statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals#resident_individual_income_tax_band: 6
+    gh:statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals#resident_individual_income_tax: 197994
+
+- name: income_at_605000_band_boundary_fully_within_30_percent_band
+  # Boundary case: chargeable income exactly equals the cumulative upper bound
+  # of the 30% band (5,880 + 1,320 + 1,560 + 38,000 + 192,000 + 366,240),
+  # so no income reaches the 35% band and the marginal band index is 5.
+  # Band 2: 1,320 x 0.05               = 66
+  # Band 3: 1,560 x 0.10               = 156
+  # Band 4: 38,000 x 0.175             = 6,650
+  # Band 5: 192,000 x 0.25             = 48,000
+  # Band 6: (605,000 - 238,760) x 0.30 = 366,240 x 0.30 = 109,872
+  # Total = 66 + 156 + 6,650 + 48,000 + 109,872 = 164,744 ; marginal band index 5
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals#input.chargeable_income: 605000
+  output:
+    gh:statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals#resident_individual_income_tax_band: 5
+    gh:statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals#resident_individual_income_tax: 164744
