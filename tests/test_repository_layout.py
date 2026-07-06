@@ -80,7 +80,12 @@ def test_root_directories_are_allowed() -> None:
 
 
 def test_root_files_are_allowed() -> None:
-    found = {child.name for child in ROOT.iterdir() if child.is_file()}
+    # In a git worktree checkout `.git` is a gitdir-pointer file rather than
+    # a directory, so exclude it here just as IGNORED_DIRS excludes the
+    # `.git` directory in normal clones.
+    found = {
+        child.name for child in ROOT.iterdir() if child.is_file() and child.name != ".git"
+    }
     unexpected = found - ALLOWED_ROOT_FILES
     assert not unexpected, f"unexpected root files: {unexpected}"
 

@@ -18,8 +18,12 @@
 # and the 35% band begins (GRA published annual bands operate the 35% band from
 # 605,000; the "Exceeding 600,000" wording is the drafting label).
 # Validation year: 2026 (the Act 1111 schedule is unchanged for 2026; the
-# Income Tax (Amendment) Act, 2025 (Act 1129) left the First Schedule bands
-# untouched).
+# Income Tax (Amendment) Act, 2025 — Act 1134 on the face of the Assembly
+# Press print, called "Act 1129" in some published tax alerts — amends only
+# sections 6, 85, 115 and 119 of Act 896 and deletes a First Schedule
+# paragraph 8 withholding item, leaving the paragraph 1(1) individual rate
+# bands untouched; corpus provision
+# gh/statute/act-1134/income-tax-amendment-2025/withholding-and-first-schedule-paragraph-8).
 
 - name: income_of_5000_within_nil_band_pays_no_tax
   # Chargeable income of GH¢5,000 is at or below the First GH¢5,880 nil band,

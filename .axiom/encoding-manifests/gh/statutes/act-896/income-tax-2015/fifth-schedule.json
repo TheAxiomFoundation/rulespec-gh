@@ -1,8 +1,12 @@
 {
   "applied_files": [
     {
-      "path": "gh/statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals.test.yaml",
-      "sha256": "a1312c750193ae75d4ea72a770a039a4fe5135399c43aacdf9a876bb641dd002"
+      "path": "gh/statutes/act-896/income-tax-2015/fifth-schedule.test.yaml",
+      "sha256": "b1b4e6337d35e4ad7b074c993ce8c65d07000e1053a8f3c8162fa3a886b3bf1b"
+    },
+    {
+      "path": "gh/statutes/act-896/income-tax-2015/fifth-schedule.yaml",
+      "sha256": "be361f3f2f48ebd01ab54a7011b0296796c25e8037cd0a5e0dc545e4bd19872f"
     }
   ],
   "axiom_encode_git": {
@@ -14,13 +18,13 @@
   },
   "axiom_encode_version": "0.2.1174",
   "backend": "manual",
-  "citation": "gh:statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals",
+  "citation": "gh:statutes/act-896/income-tax-2015/fifth-schedule",
   "context_manifest_file": null,
   "context_manifest_sha256": null,
-  "generated_at": "2026-07-06T17:35:50.399038+00:00",
-  "generated_output_file": "/var/folders/9l/_wztzgbx7mgc7l1r0416cy7m0000gn/T/tmptk6hv5d0/sign-applied-files/gh/statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals.yaml",
+  "generated_at": "2026-07-06T17:35:50.400490+00:00",
+  "generated_output_file": "/var/folders/9l/_wztzgbx7mgc7l1r0416cy7m0000gn/T/tmptk6hv5d0/sign-applied-files/gh/statutes/act-896/income-tax-2015/fifth-schedule.yaml",
   "generated_output_root": "/var/folders/9l/_wztzgbx7mgc7l1r0416cy7m0000gn/T/tmptk6hv5d0",
-  "generated_output_sha256": "6247b82b1e1c45b51da71b965f2fb31b6dd6d63be15ab9efd93ddeab5099f23a",
+  "generated_output_sha256": "be361f3f2f48ebd01ab54a7011b0296796c25e8037cd0a5e0dc545e4bd19872f",
   "generation_prompt_sha256": null,
   "model": "",
   "run_id": null,
@@ -29,7 +33,7 @@
   "signature": {
     "algorithm": "hmac-sha256",
     "key_id": "axiom-encode-apply-v1",
-    "value": "02d1a1d88b5c72b1fd4928011992916fab944c0a0c70238b1503d28c71b90dcb"
+    "value": "c9dc4f3893d00ca25a1f1da361e8b2e428885e2f6817d6ec72669f5a4a3bc4f9"
   },
   "tool": "axiom-encode sign-applied-files",
   "trace_file": null,
