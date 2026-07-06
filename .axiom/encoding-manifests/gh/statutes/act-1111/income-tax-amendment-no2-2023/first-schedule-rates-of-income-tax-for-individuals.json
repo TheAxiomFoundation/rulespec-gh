@@ -1,0 +1,41 @@
+{
+  "applied_files": [
+    {
+      "path": "gh/statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals.test.yaml",
+      "sha256": "b1a370c6857b954bdb0f91cf5683b4348c1a7c4c5df37f226cec2ba24aaf0e33"
+    },
+    {
+      "path": "gh/statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals.yaml",
+      "sha256": "6247b82b1e1c45b51da71b965f2fb31b6dd6d63be15ab9efd93ddeab5099f23a"
+    }
+  ],
+  "axiom_encode_git": {
+    "commit": "b58a01ac5162ffbabed6702325812f4a9acdb2d1",
+    "dirty_tracked": false,
+    "root": "/private/tmp/claude-501/-Users-maxghenis/ca5f4ab7-d8a5-4e03-82eb-71e2a5166288/scratchpad/axiom-encode-1172",
+    "version": "0.2.1172",
+    "version_commit": "b58a01ac5162ffbabed6702325812f4a9acdb2d1"
+  },
+  "axiom_encode_version": "0.2.1172",
+  "backend": "manual",
+  "citation": "gh:statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals",
+  "context_manifest_file": null,
+  "context_manifest_sha256": null,
+  "generated_at": "2026-07-06T13:49:06.642452+00:00",
+  "generated_output_file": "/var/folders/9l/_wztzgbx7mgc7l1r0416cy7m0000gn/T/tmps39gfri7/sign-applied-files/gh/statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals.yaml",
+  "generated_output_root": "/var/folders/9l/_wztzgbx7mgc7l1r0416cy7m0000gn/T/tmps39gfri7",
+  "generated_output_sha256": "6247b82b1e1c45b51da71b965f2fb31b6dd6d63be15ab9efd93ddeab5099f23a",
+  "generation_prompt_sha256": null,
+  "model": "",
+  "run_id": null,
+  "runner": "manual-attestation",
+  "schema_version": "axiom-encode/applied-rulespec/v1",
+  "signature": {
+    "algorithm": "hmac-sha256",
+    "key_id": "axiom-encode-apply-v1",
+    "value": "16c11d9b444d63635b9ba377f9439da66874d7f4d04cdb2a452c141821afd244"
+  },
+  "tool": "axiom-encode sign-applied-files",
+  "trace_file": null,
+  "trace_sha256": null
+}
