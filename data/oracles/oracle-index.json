@@ -1,0 +1,32 @@
+{
+  "generated_at": "2026-07-06",
+  "jurisdiction": "gh",
+  "focus": "Ghana tax-benefit surface: national income tax (PAYE and self-assessment), personal reliefs, social contributions, and cash-transfer / social-protection programmes.",
+  "purpose": "Household-level comparison-oracle and supporting-source references for Ghana Axiom coverage. None of these are legal authority.",
+  "oracle_scope": "A RuleSpec oracle must be an executable, pinned external calculator that accepts household-level inputs and returns household-level tax-benefit outputs comparable to Axiom outputs. Aggregate simulators, distributional reports, parameter documentation, and public model summaries are supporting references only, not oracles.",
+  "oracles": [
+    {
+      "id": "ghamod",
+      "name": "GHAMOD",
+      "url": "https://www.wider.unu.edu/project/ghamod-tax-benefit-microsimulation-model-ghana",
+      "local_path": null,
+      "commit": null,
+      "model": null,
+      "dataset": null,
+      "role": "Intended household-level tax-benefit comparison oracle for Ghana. GHAMOD is the SOUTHMOD tax-benefit microsimulation model for Ghana (UNU-WIDER, in collaboration with the University of Ghana, the Ghana Statistical Service, and the Ministry of Finance / GRA). Built on the EUROMOD platform.",
+      "coverage": [
+        "personal_income_tax",
+        "paye",
+        "social_security_contributions",
+        "cash_transfers",
+        "household_disposable_income"
+      ],
+      "authority": "pending_bundle_clearance",
+      "availability_check": {
+        "checked_at": "2026-07-06",
+        "status": "not_yet_attached",
+        "blocker": "GHAMOD model-and-data bundle (model .xml plus SOUTHMOD/GHAMOD input microdata) is distributed by UNU-WIDER under a licensed-access programme. The bundle must clear UNU-WIDER SOUTHMOD access/licensing terms for use as a pinned comparison surface before it can be wired here. Until then, oracle parity tests are deferred and this repo encodes source-first from Act 896 and GRA/LEAP documentation."
+      }
+    }
+  ]
+}
