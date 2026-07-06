@@ -11,7 +11,7 @@
   },
   "purpose": "Machine-readable intake map from Ghana tax-benefit tracks to upstream official source families, comparison references, and first RuleSpec encoding batches.",
   "source_priority": [
-    "Ghana Publishing Company Limited (Assembly Press) official printed Acts of Parliament and Legislative/Executive Instruments — the authentic text of Act 896 and its amending Acts.",
+    "Ghana Publishing Company Limited (Assembly Press) official printed Acts of Parliament and Legislative/Executive Instruments \u2014 the authentic text of Act 896 and its amending Acts.",
     "Ghana Revenue Authority (GRA) rate tables, PAYE guides, and practice notes only after the governing Act or Instrument is identified.",
     "Ministry of Gender, Children and Social Protection (MoGCSP) / LEAP Management Secretariat official programme documentation for social-transfer rules that are set administratively rather than by Act.",
     "Pinned executable household-level comparison references (GHAMOD) for parity and regression tests; aggregate simulators and documentation are supporting benchmarks only."
@@ -23,7 +23,7 @@
     },
     {
       "id": "corpus-capture-pending",
-      "description": "Official source text for Act 896 (Ghana Publishing / Assembly Press) and the current GRA individual/PAYE rate surface and LEAP documentation must be captured into axiom-corpus under the gh/ citation-path prefix, with signed manifests, before RuleSpec modules can cite corpus provisions and encoding begins."
+      "description": "Captured so far (signed axiom-corpus ingests): Act 1111 First Schedule rate schedule (2026-07-06-gh-income-tax-rate-schedule) and the personal-reliefs provisions \u2014 Act 896 sections 51/133 and Fifth Schedule slices, Act 1007 section 2 amounts, Act 1134 (2026-07-06-gh-income-tax-personal-reliefs). Still pending capture: the current GRA individual/PAYE rate surface and MoGCSP/LEAP programme documentation."
     }
   ],
   "tracks": [
@@ -33,23 +33,25 @@
       "bucket": "statutes",
       "primary_source": "Income Tax Act 2015 (Act 896), First Schedule (rates of income tax) as amended by the annual Income Tax (Amendment) Acts.",
       "agency_surface": "GRA individual income-tax / PAYE annual and monthly rate tables.",
-      "status": "planned",
-      "first_encoding_batch": true
+      "status": "encoded",
+      "first_encoding_batch": true,
+      "rulespec_module": "gh/statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals.yaml"
     },
     {
       "id": "personal-reliefs",
       "namespace": "gh",
       "bucket": "statutes",
-      "primary_source": "Income Tax Act 2015 (Act 896), reliefs provisions (personal reliefs — e.g. marriage/responsibility, child education, aged dependant, disability, old age, professional/technical training) and Fifth Schedule as amended.",
+      "primary_source": "Income Tax Act 2015 (Act 896), reliefs provisions (personal reliefs \u2014 e.g. marriage/responsibility, child education, aged dependant, disability, old age, professional/technical training) and Fifth Schedule as amended.",
       "agency_surface": "GRA reliefs guidance and practice notes.",
-      "status": "planned",
-      "first_encoding_batch": true
+      "status": "encoded",
+      "first_encoding_batch": true,
+      "rulespec_module": "gh/statutes/act-896/income-tax-2015/fifth-schedule.yaml"
     },
     {
       "id": "leap-cash-transfer",
       "namespace": "gh",
       "bucket": "policies",
-      "primary_source": "Livelihood Empowerment Against Poverty (LEAP) programme — MoGCSP / LEAP Management Secretariat official operations manual and gazetted grant amounts.",
+      "primary_source": "Livelihood Empowerment Against Poverty (LEAP) programme \u2014 MoGCSP / LEAP Management Secretariat official operations manual and gazetted grant amounts.",
       "agency_surface": "MoGCSP / LEAP Management Secretariat.",
       "status": "planned",
       "first_encoding_batch": false

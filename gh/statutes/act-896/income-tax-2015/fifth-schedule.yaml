@@ -1,0 +1,347 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: gh/statute/act-896/income-tax-2015/fifth-schedule
+    corpus_citation_paths:
+      - gh/statute/act-896/income-tax-2015/fifth-schedule
+      - gh/statute/act-1007/income-tax-amendment-2019/fifth-schedule-personal-reliefs
+      - gh/statute/act-896/income-tax-2015/51
+      - gh/statute/act-896/income-tax-2015/133
+  summary: |-
+    "In arriving at the chargeable income of a resident individual for a year of assessment under section 2, deduct the personal reliefs specified in the Fifth Schedule" (section 51). The Fifth Schedule grants: a relief for an individual who has a dependant spouse or at least two dependant children; a disability relief of twenty-five percent of the assessable income of that individual from a business or employment; a relief for an individual who is sixty years of age and above; a child-education relief per child or ward up to a maximum of three children or wards; a relief for each of up to two dependant relatives (other than a child or spouse) who are sixty years of age or more; and a relief equivalent to the cost of professional, technical or vocational training up to a cap. The amounts in force from 2020 (and for the 2026 year of assessment) are substituted by section 2 of the Income Tax (Amendment) Act, 2019 (Act 1007): one thousand two hundred; one thousand five hundred; six hundred; one thousand; and two thousand currency points, where a currency point means one Cedi (section 133).
+rules:
+  - name: dependant_spouse_or_children_relief_amount
+    kind: parameter
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: Fifth Schedule to Act 896, paragraph 1(a), amount as substituted by Act 1007, section 2(a)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1007/income-tax-amendment-2019/fifth-schedule-personal-reliefs
+              excerpt: "“two hundred currency points” in subparagraph (a) of paragraph | of “one thousand two hundred currency points”"
+          - path: versions[0].formula
+            kind: unit
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/133
+              excerpt: "“currency point” means one Cedi"
+    versions:
+      - effective_from: '2019-12-30'
+        formula: |-
+          1200
+  - name: dependant_children_minimum_count
+    kind: parameter
+    dtype: Count
+    period: Year
+    source: Fifth Schedule to Act 896, paragraph 1(a) (at least two dependant children)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/fifth-schedule
+              excerpt: "dependant spouse or at least two dependant children"
+    versions:
+      - effective_from: '2019-12-30'
+        formula: |-
+          2
+  - name: disability_relief_rate
+    kind: parameter
+    dtype: Rate
+    period: Year
+    source: Fifth Schedule to Act 896, paragraph 1(b) (not amended by Act 1007)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/fifth-schedule
+              excerpt: "twenty-five percent of the assessable income of that individual from a business or employment"
+    versions:
+      - effective_from: '2019-12-30'
+        formula: |-
+          0.25
+  - name: old_age_relief_amount
+    kind: parameter
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: Fifth Schedule to Act 896, paragraph 1(c), amount as substituted by Act 1007, section 2(b)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1007/income-tax-amendment-2019/fifth-schedule-personal-reliefs
+              excerpt: "“two hundred currency points” in subparagraph (c) of paragraph | of “one thousand five hundred currency points”"
+          - path: versions[0].formula
+            kind: unit
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/133
+              excerpt: "“currency point” means one Cedi"
+    versions:
+      - effective_from: '2019-12-30'
+        formula: |-
+          1500
+  - name: old_age_relief_minimum_age
+    kind: parameter
+    dtype: Integer
+    period: Year
+    source: Fifth Schedule to Act 896, paragraph 1(c) (sixty years of age and above)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/fifth-schedule
+              excerpt: "individual who is sixty years of age and above"
+    versions:
+      - effective_from: '2019-12-30'
+        formula: |-
+          60
+  - name: child_education_relief_amount_per_child
+    kind: parameter
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: Fifth Schedule to Act 896, paragraph 1(d), amount as substituted by Act 1007, section 2(c)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1007/income-tax-amendment-2019/fifth-schedule-personal-reliefs
+              excerpt: "“two hundred currency points” in subparagraph (d) of paragraph | of “six hundred currency points”"
+          - path: versions[0].formula
+            kind: unit
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/133
+              excerpt: "“currency point” means one Cedi"
+    versions:
+      - effective_from: '2019-12-30'
+        formula: |-
+          600
+  - name: child_education_relief_max_children
+    kind: parameter
+    dtype: Count
+    period: Year
+    source: Fifth Schedule to Act 896, paragraph 1(d) (maximum of three children or wards)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/fifth-schedule
+              excerpt: "up to a maximum of three children or wards"
+    versions:
+      - effective_from: '2019-12-30'
+        formula: |-
+          3
+  - name: aged_dependant_relative_relief_amount
+    kind: parameter
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: Fifth Schedule to Act 896, paragraph 1(e), amount as substituted by Act 1007, section 2(d)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1007/income-tax-amendment-2019/fifth-schedule-personal-reliefs
+              excerpt: "“one hundred currency points” in subparagraph (e) of paragraph 1 of “one thousand currency points”"
+          - path: versions[0].formula
+            kind: unit
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/133
+              excerpt: "“currency point” means one Cedi"
+    versions:
+      - effective_from: '2019-12-30'
+        formula: |-
+          1000
+  - name: aged_dependant_relative_relief_max_relatives
+    kind: parameter
+    dtype: Count
+    period: Year
+    source: Fifth Schedule to Act 896, paragraph 1(e) (relief in respect of two dependant relatives)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/fifth-schedule
+              excerpt: "may only claim relief in respect of two dependant relatives"
+    versions:
+      - effective_from: '2019-12-30'
+        formula: |-
+          2
+  - name: training_relief_cap
+    kind: parameter
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: Fifth Schedule to Act 896, paragraph 1(f), amount as substituted by Act 1007, section 2(e)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1007/income-tax-amendment-2019/fifth-schedule-personal-reliefs
+              excerpt: "“four hundred currency points”; in subparagraph () of paragraph | of “two thousand currency points.”"
+          - path: versions[0].formula
+            kind: unit
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/133
+              excerpt: "“currency point” means one Cedi"
+    versions:
+      - effective_from: '2019-12-30'
+        formula: |-
+          2000
+  - name: dependant_spouse_or_children_personal_relief
+    kind: derived
+    entity: Person
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: Fifth Schedule to Act 896, paragraph 1(a)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/fifth-schedule
+              excerpt: "in the case of an individual who has a dependant spouse or at least two dependant children, that individual is enniled to a personal relief"
+    versions:
+      - effective_from: '2019-12-30'
+        formula: |-
+          if has_dependant_spouse or dependant_child_count >= dependant_children_minimum_count: dependant_spouse_or_children_relief_amount else: 0
+  - name: disability_personal_relief
+    kind: derived
+    entity: Person
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: Fifth Schedule to Act 896, paragraph 1(b)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/fifth-schedule
+              excerpt: "in the case of an individual who has a disability, that individual is entitled to a personal relief of twenty-five percent of the assessable income of that individual from a business or employment"
+    versions:
+      - effective_from: '2019-12-30'
+        formula: |-
+          if has_disability: disability_relief_rate * max(0, assessable_business_or_employment_income) else: 0
+  - name: old_age_personal_relief
+    kind: derived
+    entity: Person
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: Fifth Schedule to Act 896, paragraph 1(c)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/fifth-schedule
+              excerpt: "in the case of an individual who is sixty years of age and above, that individual is entitled to a personal reli"
+    versions:
+      - effective_from: '2019-12-30'
+        formula: |-
+          if age >= old_age_relief_minimum_age: old_age_relief_amount else: 0
+  - name: child_education_personal_relief
+    kind: derived
+    entity: Person
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: Fifth Schedule to Act 896, paragraph 1(d)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/fifth-schedule
+              excerpt: "sponsoring the educa- tion of the child or ward of that individual in a recognised Tegistered educational institution in the country"
+    versions:
+      - effective_from: '2019-12-30'
+        formula: |-
+          child_education_relief_amount_per_child * min(max(0, sponsored_children_in_education_count), child_education_relief_max_children)
+  - name: aged_dependant_relative_personal_relief
+    kind: derived
+    entity: Person
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: Fifth Schedule to Act 896, paragraph 1(e)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/fifth-schedule
+              excerpt: "in the case of an individual who has a dependant relative, other than a child or spouse, who is sixty years of ape or more"
+    versions:
+      - effective_from: '2019-12-30'
+        formula: |-
+          aged_dependant_relative_relief_amount * min(max(0, aged_dependant_relative_count), aged_dependant_relative_relief_max_relatives)
+  - name: training_personal_relief
+    kind: derived
+    entity: Person
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: Fifth Schedule to Act 896, paragraph 1(f)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/fifth-schedule
+              excerpt: "is entitled to a personal relief which is equivalent to the cost of the training af not more than four hundred currency points"
+    versions:
+      - effective_from: '2019-12-30'
+        formula: |-
+          if has_undergone_skills_update_training: min(max(0, skills_update_training_cost), training_relief_cap) else: 0
+  - name: resident_individual_personal_reliefs
+    kind: derived
+    entity: Person
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: Section 51 of Act 896 (deduct the Fifth Schedule personal reliefs in arriving at chargeable income of a resident individual)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/51
+              excerpt: "deduct the personal rehefs specified in the Fifth Schedule"
+    versions:
+      - effective_from: '2019-12-30'
+        formula: |-
+          dependant_spouse_or_children_personal_relief + disability_personal_relief + old_age_personal_relief + child_education_personal_relief + aged_dependant_relative_personal_relief + training_personal_relief

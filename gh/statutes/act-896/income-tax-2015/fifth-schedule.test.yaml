@@ -1,0 +1,299 @@
+# Companion fixtures for the Act 896 Fifth Schedule personal reliefs as
+# amended by the Income Tax (Amendment) Act, 2019 (Act 1007), section 2.
+# Expected values are computed by hand from the verbatim substituted
+# amounts in the cited corpus provisions, then verified digit-by-digit
+# through the engine. Fixture provenance is manual (orchestrator-computed)
+# per the interim convention in axiom-encode#1060: the codex/gpt-5.5
+# backend produces the rule; companion fixtures are written and attested
+# independently with shown arithmetic.
+#
+# Amounts in force for 2026 (Act 1007 s.2 substitutions into Fifth Schedule
+# paragraph 1, in currency points; s.133: "currency point" means one Cedi):
+#   (a) dependant spouse or at least two dependant children   GH¢1,200
+#   (b) disability relief                 25% of assessable business/
+#                                         employment income (unamended)
+#   (c) sixty years of age and above                          GH¢1,500
+#   (d) child education, per child or ward (maximum three)    GH¢600
+#   (e) aged dependant relative, 60+ (maximum two)            GH¢1,000
+#   (f) professional/technical/vocational training cost, cap  GH¢2,000
+# Validation year: 2026. No later amendment touches the Fifth Schedule:
+# checked against Act 1017 (s.94), Act 1066 (Sixth Schedule), Act 1071
+# (First/Second/Sixth), Act 1094 (sections + First/Fourth), Act 1111
+# (First Schedule paragraph 1) and the Income Tax (Amendment) Act, 2025 —
+# whose Assembly Press print reads Act 1134 (the Act 1111 fixture comment's
+# "Act 1129" followed published tax alerts; the print number governs) —
+# which amends ss. 6/85/115/119 and First Schedule paragraph 8 only.
+
+- name: no_qualifying_conditions_all_reliefs_zero
+  # No relief condition is met, so every relief is zero and the section 51
+  # deduction total is zero.
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.has_dependant_spouse: false
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.dependant_child_count: 0
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.has_disability: false
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.assessable_business_or_employment_income: 0
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.age: 40
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.sponsored_children_in_education_count: 0
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.aged_dependant_relative_count: 0
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.has_undergone_skills_update_training: false
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.skills_update_training_cost: 0
+  output:
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#dependant_spouse_or_children_personal_relief: 0
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#disability_personal_relief: 0
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#old_age_personal_relief: 0
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#child_education_personal_relief: 0
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#aged_dependant_relative_personal_relief: 0
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#training_personal_relief: 0
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#resident_individual_personal_reliefs: 0
+
+- name: dependant_spouse_alone_grants_marriage_relief
+  # Paragraph 1(a): dependant spouse (no children) -> GH¢1,200.
+  # Total = 1,200.
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.has_dependant_spouse: true
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.dependant_child_count: 0
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.has_disability: false
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.assessable_business_or_employment_income: 0
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.age: 40
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.sponsored_children_in_education_count: 0
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.aged_dependant_relative_count: 0
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.has_undergone_skills_update_training: false
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.skills_update_training_cost: 0
+  output:
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#dependant_spouse_or_children_personal_relief: 1200
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#resident_individual_personal_reliefs: 1200
+
+- name: two_dependant_children_without_spouse_grant_marriage_relief
+  # Paragraph 1(a) boundary: exactly two dependant children ("at least two
+  # dependant children") with no spouse -> 2 >= 2, relief GH¢1,200.
+  # Total = 1,200.
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.has_dependant_spouse: false
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.dependant_child_count: 2
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.has_disability: false
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.assessable_business_or_employment_income: 0
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.age: 40
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.sponsored_children_in_education_count: 0
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.aged_dependant_relative_count: 0
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.has_undergone_skills_update_training: false
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.skills_update_training_cost: 0
+  output:
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#dependant_spouse_or_children_personal_relief: 1200
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#resident_individual_personal_reliefs: 1200
+
+- name: single_dependant_child_without_spouse_no_marriage_relief
+  # Paragraph 1(a) negative branch: one dependant child (1 < 2) and no
+  # spouse -> no relief. Total = 0.
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.has_dependant_spouse: false
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.dependant_child_count: 1
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.has_disability: false
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.assessable_business_or_employment_income: 0
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.age: 40
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.sponsored_children_in_education_count: 0
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.aged_dependant_relative_count: 0
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.has_undergone_skills_update_training: false
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.skills_update_training_cost: 0
+  output:
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#dependant_spouse_or_children_personal_relief: 0
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#resident_individual_personal_reliefs: 0
+
+- name: disability_relief_is_quarter_of_business_employment_income
+  # Paragraph 1(b): 25% of assessable business/employment income.
+  # 48,000 x 0.25 = 12,000. Total = 12,000.
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.has_dependant_spouse: false
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.dependant_child_count: 0
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.has_disability: true
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.assessable_business_or_employment_income: 48000
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.age: 40
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.sponsored_children_in_education_count: 0
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.aged_dependant_relative_count: 0
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.has_undergone_skills_update_training: false
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.skills_update_training_cost: 0
+  output:
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#disability_personal_relief: 12000
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#resident_individual_personal_reliefs: 12000
+
+- name: old_age_relief_at_sixty_boundary
+  # Paragraph 1(c) boundary: "sixty years of age and above" is inclusive,
+  # so age 60 qualifies -> GH¢1,500. Total = 1,500.
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.has_dependant_spouse: false
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.dependant_child_count: 0
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.has_disability: false
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.assessable_business_or_employment_income: 0
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.age: 60
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.sponsored_children_in_education_count: 0
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.aged_dependant_relative_count: 0
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.has_undergone_skills_update_training: false
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.skills_update_training_cost: 0
+  output:
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#old_age_personal_relief: 1500
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#resident_individual_personal_reliefs: 1500
+
+- name: age_fifty_nine_below_old_age_threshold
+  # Paragraph 1(c) negative branch: age 59 < 60 -> no old-age relief.
+  # Total = 0.
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.has_dependant_spouse: false
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.dependant_child_count: 0
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.has_disability: false
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.assessable_business_or_employment_income: 0
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.age: 59
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.sponsored_children_in_education_count: 0
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.aged_dependant_relative_count: 0
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.has_undergone_skills_update_training: false
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.skills_update_training_cost: 0
+  output:
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#old_age_personal_relief: 0
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#resident_individual_personal_reliefs: 0
+
+- name: child_education_relief_capped_at_three_children
+  # Paragraph 1(d): GH¢600 per child or ward, maximum three.
+  # min(5, 3) = 3 ; 3 x 600 = 1,800. Total = 1,800.
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.has_dependant_spouse: false
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.dependant_child_count: 0
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.has_disability: false
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.assessable_business_or_employment_income: 0
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.age: 40
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.sponsored_children_in_education_count: 5
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.aged_dependant_relative_count: 0
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.has_undergone_skills_update_training: false
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.skills_update_training_cost: 0
+  output:
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#child_education_personal_relief: 1800
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#resident_individual_personal_reliefs: 1800
+
+- name: aged_dependant_relative_relief_capped_at_two
+  # Paragraph 1(e): GH¢1,000 per aged dependant relative, maximum two.
+  # min(3, 2) = 2 ; 2 x 1,000 = 2,000. Total = 2,000.
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.has_dependant_spouse: false
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.dependant_child_count: 0
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.has_disability: false
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.assessable_business_or_employment_income: 0
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.age: 40
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.sponsored_children_in_education_count: 0
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.aged_dependant_relative_count: 3
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.has_undergone_skills_update_training: false
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.skills_update_training_cost: 0
+  output:
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#aged_dependant_relative_personal_relief: 2000
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#resident_individual_personal_reliefs: 2000
+
+- name: training_relief_capped_at_two_thousand
+  # Paragraph 1(f): relief equals training cost capped at GH¢2,000.
+  # min(3,500, 2,000) = 2,000. Total = 2,000.
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.has_dependant_spouse: false
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.dependant_child_count: 0
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.has_disability: false
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.assessable_business_or_employment_income: 0
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.age: 40
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.sponsored_children_in_education_count: 0
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.aged_dependant_relative_count: 0
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.has_undergone_skills_update_training: true
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.skills_update_training_cost: 3500
+  output:
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#training_personal_relief: 2000
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#resident_individual_personal_reliefs: 2000
+
+- name: training_relief_below_cap_equals_cost
+  # Paragraph 1(f): cost below the cap passes through.
+  # min(1,400, 2,000) = 1,400. Total = 1,400.
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.has_dependant_spouse: false
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.dependant_child_count: 0
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.has_disability: false
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.assessable_business_or_employment_income: 0
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.age: 40
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.sponsored_children_in_education_count: 0
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.aged_dependant_relative_count: 0
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.has_undergone_skills_update_training: true
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.skills_update_training_cost: 1400
+  output:
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#training_personal_relief: 1400
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#resident_individual_personal_reliefs: 1400
+
+- name: all_reliefs_combined_sum_under_section_51
+  # Every relief branch at once:
+  #   1(a) spouse                                   = 1,200
+  #   1(b) disability: 40,000 x 0.25                = 10,000
+  #   1(c) age 65 >= 60                             = 1,500
+  #   1(d) education: min(2, 3) = 2 ; 2 x 600       = 1,200
+  #   1(e) aged relative: min(1, 2) = 1 ; 1 x 1,000 = 1,000
+  #   1(f) training: min(2,500, 2,000)              = 2,000
+  # Total = 1,200 + 10,000 + 1,500 + 1,200 + 1,000 + 2,000
+  #       = 11,200 + 1,500 + 1,200 + 1,000 + 2,000
+  #       = 12,700 + 1,200 + 1,000 + 2,000
+  #       = 13,900 + 1,000 + 2,000
+  #       = 14,900 + 2,000
+  #       = 16,900
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.has_dependant_spouse: true
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.dependant_child_count: 2
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.has_disability: true
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.assessable_business_or_employment_income: 40000
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.age: 65
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.sponsored_children_in_education_count: 2
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.aged_dependant_relative_count: 1
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.has_undergone_skills_update_training: true
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#input.skills_update_training_cost: 2500
+  output:
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#dependant_spouse_or_children_personal_relief: 1200
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#disability_personal_relief: 10000
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#old_age_personal_relief: 1500
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#child_education_personal_relief: 1200
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#aged_dependant_relative_personal_relief: 1000
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#training_personal_relief: 2000
+    gh:statutes/act-896/income-tax-2015/fifth-schedule#resident_individual_personal_reliefs: 16900
