@@ -63,10 +63,17 @@ def test_gh_content_buckets_exist() -> None:
 
 
 def test_root_directories_are_allowed() -> None:
+    # The org validate-rulespec workflow checks out sibling toolchain repos
+    # (axiom-encode, axiom-rules-engine, ...) into a `_axiom/` directory and
+    # skips any `_`- or `.`-prefixed directory during shard discovery. Mirror
+    # that: ignore underscore/dot-prefixed dirs so CI's transient checkouts do
+    # not trip the layout gate.
     found = {
         child.name
         for child in ROOT.iterdir()
-        if child.is_dir() and child.name not in IGNORED_DIRS
+        if child.is_dir()
+        and child.name not in IGNORED_DIRS
+        and not child.name.startswith(("_", "."))
     }
     unexpected = found - ALLOWED_ROOT_DIRS
     assert not unexpected, f"unexpected root directories: {unexpected}"
