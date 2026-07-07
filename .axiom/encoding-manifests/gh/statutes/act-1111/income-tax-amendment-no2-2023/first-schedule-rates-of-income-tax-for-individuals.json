@@ -2,24 +2,24 @@
   "applied_files": [
     {
       "path": "gh/statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals.test.yaml",
-      "sha256": "a1312c750193ae75d4ea72a770a039a4fe5135399c43aacdf9a876bb641dd002"
+      "sha256": "5a903aa2dc47f08d3f83ec2dca10ad62c50e83cd71659dfcc8563d6bf19b19ab"
     }
   ],
   "axiom_encode_git": {
-    "commit": "f67d59767fe978f12589b2ee0b3df4f8fb01dc3c",
+    "commit": "a8176307f87afb28fed2f609bb424b185f854677",
     "dirty_tracked": false,
     "root": "/Users/maxghenis/TheAxiomFoundation/axiom-encode",
-    "version": "0.2.1174",
-    "version_commit": "f67d59767fe978f12589b2ee0b3df4f8fb01dc3c"
+    "version": "0.2.1183",
+    "version_commit": "a8176307f87afb28fed2f609bb424b185f854677"
   },
-  "axiom_encode_version": "0.2.1174",
+  "axiom_encode_version": "0.2.1183",
   "backend": "manual",
   "citation": "gh:statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals",
   "context_manifest_file": null,
   "context_manifest_sha256": null,
-  "generated_at": "2026-07-06T17:35:50.399038+00:00",
-  "generated_output_file": "/var/folders/9l/_wztzgbx7mgc7l1r0416cy7m0000gn/T/tmptk6hv5d0/sign-applied-files/gh/statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals.yaml",
-  "generated_output_root": "/var/folders/9l/_wztzgbx7mgc7l1r0416cy7m0000gn/T/tmptk6hv5d0",
+  "generated_at": "2026-07-07T00:49:28.599075+00:00",
+  "generated_output_file": "/var/folders/9l/_wztzgbx7mgc7l1r0416cy7m0000gn/T/tmpnwoydhv8/sign-applied-files/gh/statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals.yaml",
+  "generated_output_root": "/var/folders/9l/_wztzgbx7mgc7l1r0416cy7m0000gn/T/tmpnwoydhv8",
   "generated_output_sha256": "6247b82b1e1c45b51da71b965f2fb31b6dd6d63be15ab9efd93ddeab5099f23a",
   "generation_prompt_sha256": null,
   "model": "",
@@ -29,7 +29,16 @@
   "signature": {
     "algorithm": "hmac-sha256",
     "key_id": "axiom-encode-apply-v1",
-    "value": "02d1a1d88b5c72b1fd4928011992916fab944c0a0c70238b1503d28c71b90dcb"
+    "value": "93dcd03aafd386f4f252aa50c99bf1a93aea7a6f76acc73789547df11d302537"
+  },
+  "supersedes": {
+    "backend": "manual",
+    "generated_at": "2026-07-06T17:35:50.399038+00:00",
+    "generation_prompt_sha256": null,
+    "manifest_sha256": "71b5166936cef6fedb293327398a7dae1f095b015d3583f9912b9873e9bba4ad",
+    "prior_signature": "02d1a1d88b5c72b1fd4928011992916fab944c0a0c70238b1503d28c71b90dcb",
+    "run_id": null,
+    "tool": "axiom-encode sign-applied-files"
   },
   "tool": "axiom-encode sign-applied-files",
   "trace_file": null,
