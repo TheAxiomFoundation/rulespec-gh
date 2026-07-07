@@ -5,6 +5,7 @@ allowed_root_directories:
   - bulk
   - data
   - gh
+  - programs
   - tests
 allowed_root_files:
   - .gitignore
@@ -47,6 +48,10 @@ path_rules:
       - ".yaml"
     allow_filenames:
       - ".gitkeep"
+  - patterns:
+      - "programs/**"
+    allow_extensions:
+      - ".yaml"
   - patterns:
       - "tests/**"
     allow_extensions:

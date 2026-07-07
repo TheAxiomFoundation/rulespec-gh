@@ -1,0 +1,25 @@
+# Ghana resident-individual income tax -- 2026 year of assessment
+#
+# Composes the flagship gross-to-tax calculation (listing gate 1, #5):
+# the Act 766 s.3(1) employee SSNIT contribution, the s.112(2)
+# deductible-contribution treatment, supplied Act 896 Fifth Schedule
+# personal reliefs, and the Act 1111 First Schedule rate bands,
+# assembled by the composed pilot-worker pipeline module into chargeable
+# income, income tax and disposable income for the single-employee
+# surface. Household transfers (LEAP, school feeding) and consumption
+# taxes are separate program surfaces.
+
+program: gh/income-tax
+period: '2026'
+
+outputs:
+  - pilot_worker_chargeable_income
+  - pilot_worker_income_tax
+  - pilot_worker_disposable_income
+
+scope:
+  gh:
+    - gh/statutes/composed/pilot-worker-disposable-income-pipeline
+    - gh/statutes/act-766/national-pensions-2008/section-3-contributions-to-the-scheme
+    - gh/statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals
+    - gh/statutes/act-896/income-tax-2015/fifth-schedule
