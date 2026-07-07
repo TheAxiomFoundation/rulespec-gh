@@ -1,0 +1,545 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: gh/statute/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty
+  deferred_outputs:
+    - output: gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#waters_and_non_alcoholic_beverages_excise_amount
+      reason: The waters rows (tariff no. 1(a)(i)-(iii)) of the scanned print carry OCR-garbled rate text, so their amounts cannot be grounded verbatim; deferred until a cleaner print of the Act 1108 schedule is captured.
+    - output: gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#distilled_spirits_excise_amount
+      reason: The distilled/rectified spirits limb (tariff no. 6(a)) and the denatured limb are OCR-garbled in the scanned print; the blended/compounded limb (verbatim-clean, 50 per centum) is encoded instead, and this limb is deferred until a cleaner print is captured.
+  summary: |-
+    The Excise Duty (Amendment) (No. 2) Act, 2023 (Act 1108, assent and
+    gazette 29 December 2023) substitutes the whole First Schedule of the
+    Excise Duty Act, 2014 (Act 878) — the complete ad-valorem and specific
+    excise table in force for 2024 through 2026 (no later Excise Duty
+    (Amendment) Act exists). Encoded rows, on the ex-factory price unless
+    stated: fruit juices 20 per centum; other non-alcoholic drinks 17.5 per
+    centum; malt drink banded by percentage use of local raw material (20 /
+    12.5 / 10 per centum); beer and stout other than indigenous beer banded
+    the same way (47.5 / 32.5 / 10 per centum); wines including sparkling
+    wine 45 per centum; blended or compounded spirits 50 per centum;
+    "Akpeteshie" 20 per centum; cigarettes 50 per centum plus a specific
+    duty of 28 pesewas per stick; negrohead and snuff GH¢280 per
+    kilogramme; electronic cigarette liquids 50 per centum plus 50 pesewas
+    per millilitre; plastic and plastic products 5 per centum. The waters
+    rows and the distilled/denatured spirits limbs are deferred
+    (OCR-garbled rate text in the scanned print).
+rules:
+  - name: fruit_juice_rate
+    kind: parameter
+    dtype: Rate
+    source: Act 1108 First Schedule, tariff no. 1(d)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty
+              excerpt: "Fruit juices, including grape and |20 per centum of the"
+    versions:
+      - effective_from: '2023-12-29'
+        formula: |-
+          0.20
+  - name: other_non_alcoholic_drinks_rate
+    kind: parameter
+    dtype: Rate
+    source: Act 1108 First Schedule, tariff no. 1(a)(v)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty
+              excerpt: "17.5 per centum of the"
+    versions:
+      - effective_from: '2023-12-29'
+        formula: |-
+          0.175
+  - name: malt_drink_low_local_content_rate
+    kind: parameter
+    dtype: Rate
+    source: Act 1108 First Schedule, tariff no. 2(a)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty
+              excerpt: "Less than 50 per centum of local 20 per cent of the"
+    versions:
+      - effective_from: '2023-12-29'
+        formula: |-
+          0.20
+  - name: malt_drink_mid_local_content_rate
+    kind: parameter
+    dtype: Rate
+    source: Act 1108 First Schedule, tariff no. 2(b)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty
+              excerpt: "12.5 per centum of the"
+    versions:
+      - effective_from: '2023-12-29'
+        formula: |-
+          0.125
+  - name: malt_drink_high_local_content_rate
+    kind: parameter
+    dtype: Rate
+    source: Act 1108 First Schedule, tariff no. 2(c)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty
+              excerpt: "Above 70 per centum of local raw |10 per centum of the"
+    versions:
+      - effective_from: '2023-12-29'
+        formula: |-
+          0.10
+  - name: beer_low_local_content_rate
+    kind: parameter
+    dtype: Rate
+    source: Act 1108 First Schedule, tariff no. 3(a)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty
+              excerpt: "47.5 per centum of the"
+    versions:
+      - effective_from: '2023-12-29'
+        formula: |-
+          0.475
+  - name: beer_mid_local_content_rate
+    kind: parameter
+    dtype: Rate
+    source: Act 1108 First Schedule, tariff no. 3(b)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty
+              excerpt: "32.5 per centum of the"
+    versions:
+      - effective_from: '2023-12-29'
+        formula: |-
+          0.325
+  - name: beer_high_local_content_rate
+    kind: parameter
+    dtype: Rate
+    source: Act 1108 First Schedule, tariff no. 3(c)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty
+              excerpt: "Above 70 per centum of local raw 10 per centum of the"
+    versions:
+      - effective_from: '2023-12-29'
+        formula: |-
+          0.10
+  - name: wine_rate
+    kind: parameter
+    dtype: Rate
+    source: Act 1108 First Schedule, wines row
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty
+              excerpt: "Wines, including sparkling wine 45 per centum of the"
+    versions:
+      - effective_from: '2023-12-29'
+        formula: |-
+          0.45
+  - name: blended_spirits_rate
+    kind: parameter
+    dtype: Rate
+    source: Act 1108 First Schedule, tariff no. 6(b)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty
+              excerpt: "(b) Blended or compounded 50 per centum of the"
+    versions:
+      - effective_from: '2023-12-29'
+        formula: |-
+          0.50
+  - name: akpeteshie_rate
+    kind: parameter
+    dtype: Rate
+    source: Act 1108 First Schedule, tariff no. 6 (Akpeteshie limb)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty
+              excerpt: "“Akpeteshie” 20 per centum of the"
+    versions:
+      - effective_from: '2023-12-29'
+        formula: |-
+          0.20
+  - name: cigarette_ad_valorem_rate
+    kind: parameter
+    dtype: Rate
+    source: Act 1108 First Schedule, cigarettes row (ad valorem limb)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty
+              excerpt: "(a) Cigarette 50 per centum of the"
+    versions:
+      - effective_from: '2023-12-29'
+        formula: |-
+          0.50
+  - name: cigarette_specific_duty_per_stick
+    kind: parameter
+    dtype: Money
+    unit: GHp
+    source: Act 1108 First Schedule, cigarettes row (specific duty)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty
+              excerpt: "specific duty of 28 pesewas per stick"
+    versions:
+      - effective_from: '2023-12-29'
+        formula: |-
+          28
+  - name: snuff_and_negrohead_duty_per_kilogramme
+    kind: parameter
+    dtype: Money
+    unit: GHS
+    source: Act 1108 First Schedule, negrohead and snuff rows
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty
+              excerpt: "GH¢280 per kilogramme"
+    versions:
+      - effective_from: '2023-12-29'
+        formula: |-
+          280
+  - name: eliquid_ad_valorem_rate
+    kind: parameter
+    dtype: Rate
+    source: Act 1108 First Schedule, electronic cigarette liquids row (ad valorem limb)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty
+              excerpt: "(e) Electronic cigarette liquids falling |50 per centum of the"
+    versions:
+      - effective_from: '2023-12-29'
+        formula: |-
+          0.50
+  - name: eliquid_specific_duty_per_millilitre
+    kind: parameter
+    dtype: Money
+    unit: GHp
+    source: Act 1108 First Schedule, electronic cigarette liquids row (specific duty)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty
+              excerpt: "specific duty of 50"
+    versions:
+      - effective_from: '2023-12-29'
+        formula: |-
+          50
+  - name: plastics_rate
+    kind: parameter
+    dtype: Rate
+    source: Act 1108 First Schedule, plastics row
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty
+              excerpt: "Plastic and plastic products listed|5 per centum of the"
+    versions:
+      - effective_from: '2023-12-29'
+        formula: |-
+          0.05
+  - name: local_raw_material_low_band_threshold
+    kind: parameter
+    dtype: Rate
+    source: Act 1108 First Schedule, tariff nos. 2-3 band boundary (less than 50 per centum)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty
+              excerpt: "Less than 50 per centum of local"
+    versions:
+      - effective_from: '2023-12-29'
+        formula: |-
+          0.50
+  - name: local_raw_material_high_band_threshold
+    kind: parameter
+    dtype: Rate
+    source: Act 1108 First Schedule, tariff nos. 2-3 band boundary (50 to 70 per centum)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty
+              excerpt: "50 per centum to 70 per centum"
+    versions:
+      - effective_from: '2023-12-29'
+        formula: |-
+          0.70
+  - name: malt_drink_excise_amount
+    kind: derived
+    entity: Person
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: Act 1108 First Schedule, tariff no. 2 (banded by local raw material share)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty
+              excerpt: "Malt drink: Percentage use of local raw material"
+    versions:
+      - effective_from: '2023-12-29'
+        formula: |-
+          if malt_drink_local_raw_material_share < local_raw_material_low_band_threshold: malt_drink_low_local_content_rate * max(0, malt_drink_ex_factory_value) else: if malt_drink_local_raw_material_share <= local_raw_material_high_band_threshold: malt_drink_mid_local_content_rate * max(0, malt_drink_ex_factory_value) else: malt_drink_high_local_content_rate * max(0, malt_drink_ex_factory_value)
+  - name: beer_excise_amount
+    kind: derived
+    entity: Person
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: Act 1108 First Schedule, tariff no. 3 (banded by local raw material share)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty
+              excerpt: "Beer, stout other than indigenous beer: Percentage use of local raw material"
+    versions:
+      - effective_from: '2023-12-29'
+        formula: |-
+          if beer_local_raw_material_share < local_raw_material_low_band_threshold: beer_low_local_content_rate * max(0, beer_ex_factory_value) else: if beer_local_raw_material_share <= local_raw_material_high_band_threshold: beer_mid_local_content_rate * max(0, beer_ex_factory_value) else: beer_high_local_content_rate * max(0, beer_ex_factory_value)
+  - name: wine_excise_amount
+    kind: derived
+    entity: Person
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: Act 1108 First Schedule, wines row
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty
+              excerpt: "Wines, including sparkling wine 45 per centum of the"
+    versions:
+      - effective_from: '2023-12-29'
+        formula: |-
+          wine_rate * max(0, wine_ex_factory_value)
+  - name: blended_spirits_excise_amount
+    kind: derived
+    entity: Person
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: Act 1108 First Schedule, tariff no. 6(b)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty
+              excerpt: "(b) Blended or compounded 50 per centum of the"
+    versions:
+      - effective_from: '2023-12-29'
+        formula: |-
+          blended_spirits_rate * max(0, blended_spirits_ex_factory_value)
+  - name: akpeteshie_excise_amount
+    kind: derived
+    entity: Person
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: Act 1108 First Schedule, tariff no. 6 (Akpeteshie limb)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty
+              excerpt: "“Akpeteshie” 20 per centum of the"
+    versions:
+      - effective_from: '2023-12-29'
+        formula: |-
+          akpeteshie_rate * max(0, akpeteshie_ex_factory_value)
+  - name: fruit_juice_excise_amount
+    kind: derived
+    entity: Person
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: Act 1108 First Schedule, tariff no. 1(d)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty
+              excerpt: "Fruit juices, including grape and |20 per centum of the"
+    versions:
+      - effective_from: '2023-12-29'
+        formula: |-
+          fruit_juice_rate * max(0, fruit_juice_ex_factory_value)
+  - name: other_non_alcoholic_drinks_excise_amount
+    kind: derived
+    entity: Person
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: Act 1108 First Schedule, tariff no. 1(a)(v)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty
+              excerpt: "17.5 per centum of the"
+    versions:
+      - effective_from: '2023-12-29'
+        formula: |-
+          other_non_alcoholic_drinks_rate * max(0, other_non_alcoholic_drinks_ex_factory_value)
+  - name: cigarette_excise_amount_ghp
+    kind: derived
+    entity: Person
+    dtype: Money
+    unit: GHp
+    period: Year
+    source: Act 1108 First Schedule, cigarettes row (ad valorem in pesewas plus specific per stick)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty
+              excerpt: "50 per centum of the ex-factory price and a specific duty of 28 pesewas per stick"
+    versions:
+      - effective_from: '2023-12-29'
+        formula: |-
+          cigarette_ad_valorem_rate * max(0, cigarette_ex_factory_value_ghp) + cigarette_specific_duty_per_stick * max(0, cigarette_sticks)
+  - name: snuff_and_negrohead_excise_amount
+    kind: derived
+    entity: Person
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: Act 1108 First Schedule, negrohead and snuff rows
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty
+              excerpt: "GH¢280 per kilogramme"
+    versions:
+      - effective_from: '2023-12-29'
+        formula: |-
+          snuff_and_negrohead_duty_per_kilogramme * max(0, snuff_and_negrohead_kilogrammes)
+  - name: eliquid_excise_amount_ghp
+    kind: derived
+    entity: Person
+    dtype: Money
+    unit: GHp
+    period: Year
+    source: Act 1108 First Schedule, electronic cigarette liquids row
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty
+              excerpt: "specific duty of 50"
+    versions:
+      - effective_from: '2023-12-29'
+        formula: |-
+          eliquid_ad_valorem_rate * max(0, eliquid_ex_factory_value_ghp) + eliquid_specific_duty_per_millilitre * max(0, eliquid_millilitres)
+  - name: plastics_excise_amount
+    kind: derived
+    entity: Person
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: Act 1108 First Schedule, plastics row
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty
+              excerpt: "Plastic and plastic products listed|5 per centum of the"
+    versions:
+      - effective_from: '2023-12-29'
+        formula: |-
+          plastics_rate * max(0, plastics_ex_factory_value)

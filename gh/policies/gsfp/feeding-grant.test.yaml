@@ -1,0 +1,40 @@
+# Companion fixtures for the Ghana School Feeding Programme grant module.
+# Expected values computed by hand from the 2025 Budget Statement
+# paragraph 381 rate ("per meal per child per day from GH¢1.50 to
+# GH¢2.00"), verified digit-by-digit through the engine. Fixtures per
+# axiom-encode#1060. Validation year: 2026 (rate carried; GHAMOD applies
+# the same GH¢2.00 per day).
+
+- name: public_pupil_fed_190_days
+  # 2.00 x 190 school days = 380.
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:policies/gsfp/feeding-grant#input.is_public_basic_school_pupil: true
+    gh:policies/gsfp/feeding-grant#input.school_days_fed: 190
+  output:
+    gh:policies/gsfp/feeding-grant#school_feeding_value_per_year: 380
+
+- name: non_public_pupil_not_covered
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:policies/gsfp/feeding-grant#input.is_public_basic_school_pupil: false
+    gh:policies/gsfp/feeding-grant#input.school_days_fed: 190
+  output:
+    gh:policies/gsfp/feeding-grant#school_feeding_value_per_year: 0
+
+- name: zero_days_zero_value
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:policies/gsfp/feeding-grant#input.is_public_basic_school_pupil: true
+    gh:policies/gsfp/feeding-grant#input.school_days_fed: 0
+  output:
+    gh:policies/gsfp/feeding-grant#school_feeding_value_per_year: 0
