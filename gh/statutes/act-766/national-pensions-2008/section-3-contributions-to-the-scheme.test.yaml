@@ -1,0 +1,103 @@
+# Companion fixtures for National Pensions Act, 2008 (Act 766), section 3
+# (Contributions to the Scheme). Expected values are computed by hand from the
+# verbatim contribution rates in the cited corpus provision, then verified
+# digit-by-digit through the engine. Fixture provenance is manual
+# (orchestrator-computed) per the interim convention in axiom-encode#1060: the
+# module is hand-encoded and the companion fixtures are written and attested
+# independently with shown arithmetic.
+#
+# Act 766 section 3 rates on the worker's salary (qualifying employment income):
+#   s.3(1) employee (worker) contribution        5.5%   (0.055)
+#   s.3(2) employer contribution                 13%     (0.13)
+#   s.3(3) total contribution                    18.5%   (0.185) = 5.5% + 13%
+#   s.3(3)(a) first-tier remittance              13.5%   (0.135)
+#   s.3(3)(b) second-tier remittance             5%      (0.05)
+#   first tier + second tier = 13.5% + 5% = 18.5% = total contribution
+# Validation year: 2026. The National Pensions (Amendment) Act, 2014 (Act 883)
+# amended Act 766 without altering the section 3 rates, so 5.5% / 13% / 18.5%
+# are the rates in force for 2026 (matching GHAMOD tscee_s and tscer_s).
+# Section 3(4)'s 18.5%-of-minimum-wage floor is not encoded (it turns on the
+# national daily minimum wage set by a separate instrument, and GHAMOD also
+# omits it), so the fixtures exercise the flat-rate application only.
+
+- name: zero_salary_yields_no_contributions
+  # No qualifying employment income, so every contribution and remittance is
+  # zero (exercises the max(0, ...) floor at the origin).
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/act-766/national-pensions-2008/section-3-contributions-to-the-scheme#input.qualifying_employment_income: 0
+  output:
+    gh:statutes/act-766/national-pensions-2008/section-3-contributions-to-the-scheme#employee_social_security_contribution: 0
+    gh:statutes/act-766/national-pensions-2008/section-3-contributions-to-the-scheme#employer_social_security_contribution: 0
+    gh:statutes/act-766/national-pensions-2008/section-3-contributions-to-the-scheme#total_social_security_contribution: 0
+    gh:statutes/act-766/national-pensions-2008/section-3-contributions-to-the-scheme#first_tier_remittance: 0
+    gh:statutes/act-766/national-pensions-2008/section-3-contributions-to-the-scheme#second_tier_remittance: 0
+
+- name: salary_10000_statutory_rate_split
+  # Qualifying employment income GH¢10,000.
+  #   employee   0.055  x 10,000 = 550
+  #   employer   0.13   x 10,000 = 1,300
+  #   total      0.185  x 10,000 = 1,850   (= 550 + 1,300)
+  #   first tier 0.135  x 10,000 = 1,350
+  #   second tier 0.05  x 10,000 = 500     (1,350 + 500 = 1,850 = total)
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/act-766/national-pensions-2008/section-3-contributions-to-the-scheme#input.qualifying_employment_income: 10000
+  output:
+    gh:statutes/act-766/national-pensions-2008/section-3-contributions-to-the-scheme#employee_social_security_contribution: 550
+    gh:statutes/act-766/national-pensions-2008/section-3-contributions-to-the-scheme#employer_social_security_contribution: 1300
+    gh:statutes/act-766/national-pensions-2008/section-3-contributions-to-the-scheme#total_social_security_contribution: 1850
+    gh:statutes/act-766/national-pensions-2008/section-3-contributions-to-the-scheme#first_tier_remittance: 1350
+    gh:statutes/act-766/national-pensions-2008/section-3-contributions-to-the-scheme#second_tier_remittance: 500
+
+- name: salary_60000_full_contribution_and_remittance_split
+  # Qualifying employment income GH¢60,000.
+  #   employee    0.055  x 60,000 = 3,300
+  #   employer    0.13   x 60,000 = 7,800
+  #   total       0.185  x 60,000 = 11,100   (= 3,300 + 7,800)
+  #   first tier  0.135  x 60,000 = 8,100
+  #   second tier 0.05   x 60,000 = 3,000    (8,100 + 3,000 = 11,100 = total)
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/act-766/national-pensions-2008/section-3-contributions-to-the-scheme#input.qualifying_employment_income: 60000
+  output:
+    gh:statutes/act-766/national-pensions-2008/section-3-contributions-to-the-scheme#employee_social_security_contribution: 3300
+    gh:statutes/act-766/national-pensions-2008/section-3-contributions-to-the-scheme#employer_social_security_contribution: 7800
+    gh:statutes/act-766/national-pensions-2008/section-3-contributions-to-the-scheme#total_social_security_contribution: 11100
+    gh:statutes/act-766/national-pensions-2008/section-3-contributions-to-the-scheme#first_tier_remittance: 8100
+    gh:statutes/act-766/national-pensions-2008/section-3-contributions-to-the-scheme#second_tier_remittance: 3000
+
+- name: pwc_published_rate_split_external_anchor
+  # Listing-gate-2 external evidence. PwC Worldwide Tax Summaries — Ghana
+  # (Individual: Other taxes; retrieved 2026-07-07) independently states the
+  # SSNIT split: "the employee is required to contribute 5.5% while the
+  # employer contributes 13%. 13.5% and 5% of the total contribution of 18.5%
+  # is contributed to the first-tier and second-tier schemes, respectively."
+  # Those are exactly the Act 766 section 3 rates encoded here. Applied to a
+  # GH¢1,000/month basic salary (GH¢12,000/year):
+  #   employee    0.055  x 12,000 = 660
+  #   employer    0.13   x 12,000 = 1,560
+  #   total       0.185  x 12,000 = 2,220   (= 660 + 1,560)
+  #   first tier  0.135  x 12,000 = 1,620
+  #   second tier 0.05   x 12,000 = 600     (1,620 + 600 = 2,220 = total)
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/act-766/national-pensions-2008/section-3-contributions-to-the-scheme#input.qualifying_employment_income: 12000
+  output:
+    gh:statutes/act-766/national-pensions-2008/section-3-contributions-to-the-scheme#employee_social_security_contribution: 660
+    gh:statutes/act-766/national-pensions-2008/section-3-contributions-to-the-scheme#employer_social_security_contribution: 1560
+    gh:statutes/act-766/national-pensions-2008/section-3-contributions-to-the-scheme#total_social_security_contribution: 2220
+    gh:statutes/act-766/national-pensions-2008/section-3-contributions-to-the-scheme#first_tier_remittance: 1620
+    gh:statutes/act-766/national-pensions-2008/section-3-contributions-to-the-scheme#second_tier_remittance: 600
