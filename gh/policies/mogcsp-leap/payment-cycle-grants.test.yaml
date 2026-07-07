@@ -1,0 +1,78 @@
+# Companion fixtures for the LEAP payment-cycle grants module. Expected
+# values computed by hand from the verbatim bi-monthly amounts in the
+# MoGCSP 97th-cycle announcement (June 2025 indexation), verified
+# digit-by-digit through the engine. Fixtures per axiom-encode#1060
+# (codex run 5288e19b declined pending the upstream-source check; the
+# installed module declares official_parameter_source with the
+# Appropriation Act, 2025 (Act 1126) as the checked higher authority).
+#
+# Bi-monthly grant by eligible members: 1 -> 320; 2 -> 380; 3 -> 440;
+# 4+ -> 530 (GH₵ per two-month cycle; six cycles per year — annualisation
+# happens on the comparison side). GHAMOD GH_2025 codes these as MONTHLY
+# (2x divergence, rulespec-gh#10). Validation year: 2026.
+
+- name: one_member_household_grant
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:policies/mogcsp-leap/payment-cycle-grants#input.household_is_leap_beneficiary: true
+    gh:policies/mogcsp-leap/payment-cycle-grants#input.eligible_member_count: 1
+  output:
+    gh:policies/mogcsp-leap/payment-cycle-grants#leap_grant_per_cycle: 320
+
+- name: banded_grants_two_three_four_plus
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:policies/mogcsp-leap/payment-cycle-grants#input.household_is_leap_beneficiary: true
+    gh:policies/mogcsp-leap/payment-cycle-grants#input.eligible_member_count: 4
+  output:
+    gh:policies/mogcsp-leap/payment-cycle-grants#leap_grant_per_cycle: 530
+
+- name: three_member_household_grant
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:policies/mogcsp-leap/payment-cycle-grants#input.household_is_leap_beneficiary: true
+    gh:policies/mogcsp-leap/payment-cycle-grants#input.eligible_member_count: 3
+  output:
+    gh:policies/mogcsp-leap/payment-cycle-grants#leap_grant_per_cycle: 440
+
+- name: two_member_household_grant
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:policies/mogcsp-leap/payment-cycle-grants#input.household_is_leap_beneficiary: true
+    gh:policies/mogcsp-leap/payment-cycle-grants#input.eligible_member_count: 2
+  output:
+    gh:policies/mogcsp-leap/payment-cycle-grants#leap_grant_per_cycle: 380
+
+- name: six_member_household_uses_top_band
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:policies/mogcsp-leap/payment-cycle-grants#input.household_is_leap_beneficiary: true
+    gh:policies/mogcsp-leap/payment-cycle-grants#input.eligible_member_count: 6
+  output:
+    gh:policies/mogcsp-leap/payment-cycle-grants#leap_grant_per_cycle: 530
+
+- name: non_beneficiary_gets_nothing
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:policies/mogcsp-leap/payment-cycle-grants#input.household_is_leap_beneficiary: false
+    gh:policies/mogcsp-leap/payment-cycle-grants#input.eligible_member_count: 3
+  output:
+    gh:policies/mogcsp-leap/payment-cycle-grants#leap_grant_per_cycle: 0

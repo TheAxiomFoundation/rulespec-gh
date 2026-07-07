@@ -1,0 +1,61 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_paths:
+      - gh/policy/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386
+      - gh/statute/act-1126/appropriation-2025/section-1-authorisation-of-expenditure
+    upstream_source_check:
+      status: official_parameter_source
+      checked_paths:
+        - gh/statute/act-1126/appropriation-2025/section-1-authorisation-of-expenditure
+        - gh/policy/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386
+      rationale: >-
+        The Ghana School Feeding Programme's per-child feeding grant is
+        administratively set (no statute fixes it); the 2025 Budget
+        Statement paragraph 381 is the controlling published source for
+        the GH¢2.00 per meal per child per day rate in force from 2025.
+  summary: |-
+    The Ghana School Feeding Programme's feeding cost per meal per child
+    per day was raised from GH¢1.50 to GH¢2.00 in the 2025 Budget
+    (paragraph 381) and remains the rate in force. One meal per public
+    basic-school pupil per school day. GHAMOD GH_2025 applies the same
+    GH¢2.00 per day.
+rules:
+  - name: feeding_grant_per_child_per_day
+    kind: parameter
+    dtype: Money
+    unit: GHS
+    source: 2025 Budget Statement, paragraph 381 (Ghana School Feeding Programme)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/policy/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386
+              excerpt: "the feeding cost per meal per child per day from GH¢1.50 to GH¢2.00"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          2.00
+  - name: school_feeding_value_per_year
+    kind: derived
+    entity: Person
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: 2025 Budget Statement, paragraph 381 (one meal per child per school day)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/policy/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386
+              excerpt: "per meal per child per day"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          if is_public_basic_school_pupil: feeding_grant_per_child_per_day * max(0, school_days_fed) else: 0

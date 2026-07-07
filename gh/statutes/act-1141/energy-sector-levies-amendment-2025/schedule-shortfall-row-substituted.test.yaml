@@ -1,0 +1,63 @@
+# Companion fixtures for the Energy Sector Levies (Amendment) Act, 2025
+# (Act 1141) module — the fuel-levy rows in force for 2026 (with the Road
+# Fund and Energy Fund rows from Act 1145 and the kerosene limb from the
+# Act 1135 Schedule). Expected values computed by hand from the verbatim
+# GHp rates in the cited corpus provisions (codex/gpt-5.5 run 8444915a;
+# fixtures per axiom-encode#1060). All Money values are in GHp (pesewas),
+# the schedule's own unit.
+#
+# Per-litre rows (2026): petrol shortfall 195 + Road Fund 48 + Energy
+# Fund 1 = 244 GHp/l; diesel 193 + 48 + 1 = 242 GHp/l. LPG shortfall
+# 73 GHp/kg; kerosene Energy Fund 1 GHp/kg.
+# Validation year: 2026.
+
+- name: petrol_and_diesel_levies_per_litre_totals
+  # petrol: 195 + 48 + 1 = 244; diesel: 193 + 48 + 1 = 242.
+  # 100 litres each: petrol 244 x 100 = 24,400 GHp; diesel 242 x 100 =
+  # 24,200 GHp.
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/act-1141/energy-sector-levies-amendment-2025/schedule-shortfall-row-substituted#input.petrol_litres: 100
+    gh:statutes/act-1141/energy-sector-levies-amendment-2025/schedule-shortfall-row-substituted#input.diesel_litres: 100
+    gh:statutes/act-1141/energy-sector-levies-amendment-2025/schedule-shortfall-row-substituted#input.lpg_kilogrammes: 0
+    gh:statutes/act-1141/energy-sector-levies-amendment-2025/schedule-shortfall-row-substituted#input.kerosene_kilogrammes: 0
+  output:
+    gh:statutes/act-1141/energy-sector-levies-amendment-2025/schedule-shortfall-row-substituted#petrol_fuel_levies_per_litre: 244
+    gh:statutes/act-1141/energy-sector-levies-amendment-2025/schedule-shortfall-row-substituted#diesel_fuel_levies_per_litre: 242
+    gh:statutes/act-1141/energy-sector-levies-amendment-2025/schedule-shortfall-row-substituted#petrol_fuel_levies_amount: 24400
+    gh:statutes/act-1141/energy-sector-levies-amendment-2025/schedule-shortfall-row-substituted#diesel_fuel_levies_amount: 24200
+
+- name: lpg_and_kerosene_per_kilogramme_levies
+  # LPG shortfall: 73 x 10 kg = 730 GHp. Kerosene Energy Fund: 1 x 10 kg
+  # = 10 GHp.
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/act-1141/energy-sector-levies-amendment-2025/schedule-shortfall-row-substituted#input.petrol_litres: 0
+    gh:statutes/act-1141/energy-sector-levies-amendment-2025/schedule-shortfall-row-substituted#input.diesel_litres: 0
+    gh:statutes/act-1141/energy-sector-levies-amendment-2025/schedule-shortfall-row-substituted#input.lpg_kilogrammes: 10
+    gh:statutes/act-1141/energy-sector-levies-amendment-2025/schedule-shortfall-row-substituted#input.kerosene_kilogrammes: 10
+  output:
+    gh:statutes/act-1141/energy-sector-levies-amendment-2025/schedule-shortfall-row-substituted#lpg_shortfall_levy_amount: 730
+    gh:statutes/act-1141/energy-sector-levies-amendment-2025/schedule-shortfall-row-substituted#kerosene_energy_fund_levy_amount: 10
+
+- name: no_fuel_no_levies
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/act-1141/energy-sector-levies-amendment-2025/schedule-shortfall-row-substituted#input.petrol_litres: 0
+    gh:statutes/act-1141/energy-sector-levies-amendment-2025/schedule-shortfall-row-substituted#input.diesel_litres: 0
+    gh:statutes/act-1141/energy-sector-levies-amendment-2025/schedule-shortfall-row-substituted#input.lpg_kilogrammes: 0
+    gh:statutes/act-1141/energy-sector-levies-amendment-2025/schedule-shortfall-row-substituted#input.kerosene_kilogrammes: 0
+  output:
+    gh:statutes/act-1141/energy-sector-levies-amendment-2025/schedule-shortfall-row-substituted#petrol_fuel_levies_amount: 0
+    gh:statutes/act-1141/energy-sector-levies-amendment-2025/schedule-shortfall-row-substituted#diesel_fuel_levies_amount: 0
+    gh:statutes/act-1141/energy-sector-levies-amendment-2025/schedule-shortfall-row-substituted#lpg_shortfall_levy_amount: 0
+    gh:statutes/act-1141/energy-sector-levies-amendment-2025/schedule-shortfall-row-substituted#kerosene_energy_fund_levy_amount: 0

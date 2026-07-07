@@ -1,0 +1,104 @@
+# Companion fixtures for the Excise Duty (Amendment) (No. 2) Act, 2023
+# (Act 1108) module — the substituted Act 878 First Schedule in force for
+# 2024-2026. Expected values computed by hand from the verbatim rates in
+# the cited corpus provision (codex/gpt-5.5 run cd3f205c produced the
+# generation; the installed module is an orchestrator rebuild on the
+# verbatim-clean rows — see the provenance issue; fixtures per
+# axiom-encode#1060).
+#
+# Ad-valorem rows are on the ex-factory price. Local-raw-material bands
+# for malt drink (20/12.5/10 per centum) and beer (47.5/32.5/10 per
+# centum): "less than 50" is strict, so a 50 per centum share falls in the
+# 50-to-70 band. Cigarette and e-liquid amounts are in GHp (pesewas), the
+# unit of their specific-duty limbs. Validation year: 2026.
+
+- name: beer_bands_by_local_raw_material_share
+  # 40% local -> 47.5% x 1,000 = 475; boundary 50% -> 32.5% x 1,000 = 325.
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#input.beer_local_raw_material_share: 0.40
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#input.beer_ex_factory_value: 1000
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#input.malt_drink_local_raw_material_share: 0.50
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#input.malt_drink_ex_factory_value: 1000
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#input.wine_ex_factory_value: 0
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#input.blended_spirits_ex_factory_value: 0
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#input.akpeteshie_ex_factory_value: 0
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#input.fruit_juice_ex_factory_value: 0
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#input.other_non_alcoholic_drinks_ex_factory_value: 0
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#input.cigarette_ex_factory_value_ghp: 0
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#input.cigarette_sticks: 0
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#input.snuff_and_negrohead_kilogrammes: 0
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#input.eliquid_ex_factory_value_ghp: 0
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#input.eliquid_millilitres: 0
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#input.plastics_ex_factory_value: 0
+  output:
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#beer_excise_amount: 475
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#malt_drink_excise_amount: 125
+
+- name: high_local_content_band_and_wine_spirits
+  # Beer 80% local -> 10% x 1,000 = 100. Malt 75% -> 10% x 2,000 = 200.
+  # Wine 45% x 2,000 = 900. Blended spirits 50% x 1,000 = 500.
+  # Akpeteshie 20% x 500 = 100.
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#input.beer_local_raw_material_share: 0.80
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#input.beer_ex_factory_value: 1000
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#input.malt_drink_local_raw_material_share: 0.75
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#input.malt_drink_ex_factory_value: 2000
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#input.wine_ex_factory_value: 2000
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#input.blended_spirits_ex_factory_value: 1000
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#input.akpeteshie_ex_factory_value: 500
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#input.fruit_juice_ex_factory_value: 0
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#input.other_non_alcoholic_drinks_ex_factory_value: 0
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#input.cigarette_ex_factory_value_ghp: 0
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#input.cigarette_sticks: 0
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#input.snuff_and_negrohead_kilogrammes: 0
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#input.eliquid_ex_factory_value_ghp: 0
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#input.eliquid_millilitres: 0
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#input.plastics_ex_factory_value: 0
+  output:
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#beer_excise_amount: 100
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#malt_drink_excise_amount: 200
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#wine_excise_amount: 900
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#blended_spirits_excise_amount: 500
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#akpeteshie_excise_amount: 100
+
+- name: tobacco_eliquid_plastics_and_soft_drinks
+  # Cigarettes (GHp): 0.50 x 100,000 + 28 x 400 sticks = 50,000 + 11,200 =
+  # 61,200 GHp. Snuff/negrohead: 280 x 2 kg = 560 GHS. E-liquid (GHp):
+  # 0.50 x 10,000 + 50 x 100 ml = 5,000 + 5,000 = 10,000 GHp.
+  # Plastics: 5% x 10,000 = 500. Juices: 20% x 1,000 = 200.
+  # Other non-alcoholic drinks: 17.5% x 2,000 = 350.
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#input.beer_local_raw_material_share: 0
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#input.beer_ex_factory_value: 0
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#input.malt_drink_local_raw_material_share: 0
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#input.malt_drink_ex_factory_value: 0
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#input.wine_ex_factory_value: 0
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#input.blended_spirits_ex_factory_value: 0
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#input.akpeteshie_ex_factory_value: 0
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#input.fruit_juice_ex_factory_value: 1000
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#input.other_non_alcoholic_drinks_ex_factory_value: 2000
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#input.cigarette_ex_factory_value_ghp: 100000
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#input.cigarette_sticks: 400
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#input.snuff_and_negrohead_kilogrammes: 2
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#input.eliquid_ex_factory_value_ghp: 10000
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#input.eliquid_millilitres: 100
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#input.plastics_ex_factory_value: 10000
+  output:
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#cigarette_excise_amount_ghp: 61200
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#snuff_and_negrohead_excise_amount: 560
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#eliquid_excise_amount_ghp: 10000
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#plastics_excise_amount: 500
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#fruit_juice_excise_amount: 200
+    gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#other_non_alcoholic_drinks_excise_amount: 350

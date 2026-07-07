@@ -1,0 +1,27 @@
+# Companion fixtures for the Free SHS fee-free structure module. The
+# per-student subsidy value output is deferred (no official public
+# per-student amount exists; GHAMOD's amounts have no located official
+# basis — rulespec-gh#10); the structural judgment is exercised here.
+# Fixtures per axiom-encode#1060. Validation year: 2026.
+
+- name: placed_public_shs_student_is_fee_free
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:policies/free-shs/fee-free-structure#input.is_public_senior_high_school_student: true
+    gh:policies/free-shs/fee-free-structure#input.is_placed_student: true
+  output:
+    gh:policies/free-shs/fee-free-structure#attends_fee_free_public_shs: holds
+
+- name: private_school_student_not_covered
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:policies/free-shs/fee-free-structure#input.is_public_senior_high_school_student: false
+    gh:policies/free-shs/fee-free-structure#input.is_placed_student: true
+  output:
+    gh:policies/free-shs/fee-free-structure#attends_fee_free_public_shs: not_holds

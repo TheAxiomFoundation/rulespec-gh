@@ -1,0 +1,188 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_paths:
+      - gh/policy/mogcsp-leap/payment-cycle-97-2025/block-1
+      - gh/policy/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386
+      - gh/statute/act-1126/appropriation-2025/section-1-authorisation-of-expenditure
+    upstream_source_check:
+      status: official_parameter_source
+      checked_paths:
+        - gh/statute/act-1126/appropriation-2025/section-1-authorisation-of-expenditure
+        - gh/policy/mogcsp-leap/payment-cycle-97-2025/block-1
+        - gh/policy/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386
+      rationale: >-
+        LEAP grant amounts are administratively set by the Ministry of
+        Gender, Children and Social Protection — no Ghana statute fixes
+        them; the Appropriation Act, 2025 (Act 1126, checked) authorises
+        the expenditure without setting household amounts — the Ministry's 97th-payment-cycle announcement is the
+        controlling published source for the bi-monthly amounts in force
+        from the June 2025 inflation indexation, and the 2025 Budget
+        Statement paragraph 386 (inflation indexation of benefits;
+        expansion to 400,000 households; allocation raised to GH¢953.5m)
+        corroborates the programme parameters.
+  summary: |-
+    The Livelihood Empowerment Against Poverty (LEAP) cash grant is paid
+    bi-monthly per household, banded by the number of eligible members:
+    GH₵320 (one), GH₵380 (two), GH₵440 (three) and GH₵530 (four or more)
+    per two-month cycle, the amounts in force from the June 2025
+    inflation indexation (the 97th cycle paid these plus 96th-cycle
+    arrears). Eligible members are extremely poor households' orphans and
+    vulnerable children, persons with severe disability without productive
+    capacity, elderly persons, and pregnant women/infants per the
+    programme's design. GHAMOD GH_2025 applies the same four amounts as
+    MONTHLY figures — a two-times divergence recorded in rulespec-gh#10.
+rules:
+  - name: leap_grant_per_cycle_one_member
+    kind: parameter
+    dtype: Money
+    unit: GHS
+    source: MoGCSP 97th LEAP payment cycle announcement (June 2025 indexation)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/policy/mogcsp-leap/payment-cycle-97-2025/block-1
+              excerpt: "One-member household: GH₵320"
+    versions:
+      - effective_from: '2025-06-30'
+        formula: |-
+          320
+  - name: leap_grant_per_cycle_two_members
+    kind: parameter
+    dtype: Money
+    unit: GHS
+    source: MoGCSP 97th LEAP payment cycle announcement
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/policy/mogcsp-leap/payment-cycle-97-2025/block-1
+              excerpt: "Two-member household: GH₵380"
+    versions:
+      - effective_from: '2025-06-30'
+        formula: |-
+          380
+  - name: leap_grant_per_cycle_three_members
+    kind: parameter
+    dtype: Money
+    unit: GHS
+    source: MoGCSP 97th LEAP payment cycle announcement
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/policy/mogcsp-leap/payment-cycle-97-2025/block-1
+              excerpt: "Three-member household: GH₵440"
+    versions:
+      - effective_from: '2025-06-30'
+        formula: |-
+          440
+  - name: leap_grant_per_cycle_four_or_more_members
+    kind: parameter
+    dtype: Money
+    unit: GHS
+    source: MoGCSP 97th LEAP payment cycle announcement
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/policy/mogcsp-leap/payment-cycle-97-2025/block-1
+              excerpt: "Four or more-member household: GH₵530"
+    versions:
+      - effective_from: '2025-06-30'
+        formula: |-
+          530
+  - name: leap_band_two_member_minimum
+    kind: parameter
+    dtype: Count
+    source: MoGCSP 97th LEAP payment cycle announcement (two-member band)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/policy/mogcsp-leap/payment-cycle-97-2025/block-1
+              excerpt: "Two-member household"
+    versions:
+      - effective_from: '2025-06-30'
+        formula: |-
+          2
+  - name: leap_band_three_member_minimum
+    kind: parameter
+    dtype: Count
+    source: MoGCSP 97th LEAP payment cycle announcement (three-member band)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/policy/mogcsp-leap/payment-cycle-97-2025/block-1
+              excerpt: "Three-member household"
+    versions:
+      - effective_from: '2025-06-30'
+        formula: |-
+          3
+  - name: leap_band_four_member_minimum
+    kind: parameter
+    dtype: Count
+    source: MoGCSP 97th LEAP payment cycle announcement (four-or-more band)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/policy/mogcsp-leap/payment-cycle-97-2025/block-1
+              excerpt: "Four or more-member household"
+    versions:
+      - effective_from: '2025-06-30'
+        formula: |-
+          4
+  - name: leap_band_one_member_minimum
+    kind: parameter
+    dtype: Count
+    source: MoGCSP 97th LEAP payment cycle announcement (one-member band)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/policy/mogcsp-leap/payment-cycle-97-2025/block-1
+              excerpt: "One-member household"
+    versions:
+      - effective_from: '2025-06-30'
+        formula: |-
+          1
+  - name: leap_grant_per_cycle
+    kind: derived
+    entity: Person
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: MoGCSP 97th LEAP payment cycle announcement (banded by eligible members; bi-monthly cycle)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/policy/mogcsp-leap/payment-cycle-97-2025/block-1
+              excerpt: "The grant amount for the 97th cycle"
+    versions:
+      - effective_from: '2025-06-30'
+        formula: |-
+          if not household_is_leap_beneficiary or eligible_member_count < leap_band_one_member_minimum: 0 else: if eligible_member_count < leap_band_two_member_minimum: leap_grant_per_cycle_one_member else: if eligible_member_count < leap_band_three_member_minimum: leap_grant_per_cycle_two_members else: if eligible_member_count < leap_band_four_member_minimum: leap_grant_per_cycle_three_members else: leap_grant_per_cycle_four_or_more_members

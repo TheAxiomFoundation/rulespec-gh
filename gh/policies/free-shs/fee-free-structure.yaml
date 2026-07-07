@@ -1,0 +1,48 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_paths:
+      - gh/policy/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386
+      - gh/statute/act-1126/appropriation-2025/section-1-authorisation-of-expenditure
+    upstream_source_check:
+      status: official_parameter_source
+      checked_paths:
+        - gh/statute/act-1126/appropriation-2025/section-1-authorisation-of-expenditure
+        - gh/policy/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386
+      rationale: >-
+        The Free SHS programme is administratively operated; the 2025
+        Budget Statement paragraphs 376-379 (GETFund uncapping "for the
+        full funding of the Free Senior High School education") are the
+        controlling published statement of the fee-free structure. No
+        official public per-student subsidy schedule exists.
+  deferred_outputs:
+    - output: gh:policies/free-shs/fee-free-structure#free_shs_subsidy_value_per_year
+      reason: No official public per-student Free SHS subsidy amount exists (searched the Ministry of Education, the Free SHS Secretariat and the 2025/2026 Budget Statements and appendices on 2026-07-07; moe.gov.gh serves a self-signed certificate). GHAMOD GH_2025's per-year amounts (1,002.47 residential / 648.47 day) have no located official basis — recorded in rulespec-gh#10. The output is deferred until an official per-student schedule is published or captured.
+  summary: |-
+    Free Senior High School education in Ghana is fee-free for placed
+    students in public senior high schools, fully funded through the
+    uncapped Ghana Education Trust Fund (2025 Budget Statement paragraphs
+    376-379). The per-student subsidy value output is deferred: no
+    official public per-student amount exists, and GHAMOD GH_2025's
+    amounts have no located official basis.
+rules:
+  - name: attends_fee_free_public_shs
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: 2025 Budget Statement, paragraphs 376-379 (Free SHS full funding)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: gh/policy/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386
+              excerpt: "the full funding of the Free Senior High School education"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          is_public_senior_high_school_student and is_placed_student

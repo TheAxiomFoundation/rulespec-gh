@@ -1,0 +1,42 @@
+{
+  "applied_files": [
+    {
+      "path": "gh/policies/gsfp/feeding-grant.test.yaml",
+      "sha256": "4fc9f6bb7048b0fbf40172d454de8882d25fe631d56bb1da8ca80a8dd5f27a36"
+    },
+    {
+      "path": "gh/policies/gsfp/feeding-grant.yaml",
+      "sha256": "8498ffebdd8c5e654f28ed65923bf3d8aabbdd276efbedc42b533d50d0c99de5"
+    }
+  ],
+  "axiom_encode_git": {
+    "commit": "d7551b04a7bba8b7600e80485b4e0f05ee4238bd",
+    "dirty_tracked": false,
+    "root": "/Users/maxghenis/TheAxiomFoundation/axiom-encode",
+    "version": "0.2.1189",
+    "version_commit": "d7551b04a7bba8b7600e80485b4e0f05ee4238bd"
+  },
+  "axiom_encode_version": "0.2.1189",
+  "backend": "manual",
+  "citation": "gh:policies/gsfp/feeding-grant",
+  "context_manifest_file": null,
+  "context_manifest_sha256": null,
+  "generated_at": "2026-07-07T22:04:21.977489+00:00",
+  "generated_output_file": "/var/folders/9l/_wztzgbx7mgc7l1r0416cy7m0000gn/T/tmpdthjau1_/sign-applied-files/gh/policies/gsfp/feeding-grant.yaml",
+  "generated_output_root": "/var/folders/9l/_wztzgbx7mgc7l1r0416cy7m0000gn/T/tmpdthjau1_",
+  "generated_output_sha256": "8498ffebdd8c5e654f28ed65923bf3d8aabbdd276efbedc42b533d50d0c99de5",
+  "generation_prompt_sha256": null,
+  "manual_exception": "#22",
+  "model": "",
+  "run_id": null,
+  "runner": "manual-attestation",
+  "schema_version": "axiom-encode/applied-rulespec/v1",
+  "signature": {
+    "algorithm": "hmac-sha256",
+    "key_id": "axiom-encode-apply-v1",
+    "value": "ec85d3929fb14c08aa1cbd18cbfe12b7d14b67fc840726b7c85a874a57b6fe13"
+  },
+  "tool": "axiom-encode sign-applied-files",
+  "trace_file": null,
+  "trace_sha256": null
+}
