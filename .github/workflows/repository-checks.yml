@@ -13,3 +13,5 @@ jobs:
     with:
       validate-roots: auto
       run-generated-guard: false
+      # Composed-pilot programs/ guarding, as piloted in rulespec-uk (encode#1053).
+      guard-programs-root: true
