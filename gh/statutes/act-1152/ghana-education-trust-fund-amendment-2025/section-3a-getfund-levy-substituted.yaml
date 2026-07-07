@@ -1,0 +1,65 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: gh/statute/act-1152/ghana-education-trust-fund-amendment-2025/section-3a-getfund-levy-substituted
+  summary: |-
+    Section 3A imposes a Ghana Education Trust Fund Levy on supplies of goods or services made in the country other than exempt goods or services, and on imports of goods or services other than exempt imports. The Levy rate is two and a half per cent, is paid when the goods or services are supplied or imported, and, except as otherwise provided in the Act, is charged on taxable supplies made by taxable persons in the course of taxable activity.
+rules:
+  - name: getfund_levy_rate
+    kind: parameter
+    dtype: Rate
+    source: Act 1152, substituted section 3A(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-1152/ghana-education-trust-fund-amendment-2025/section-3a-getfund-levy-substituted
+              excerpt: "The rate of the Levy is two and a half per cent."
+    versions:
+      - effective_from: '2025-12-24'
+        formula: |-
+          0.025
+
+  - name: getfund_levy_imposed
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Act 1152, substituted section 3A(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: gh/statute/act-1152/ghana-education-trust-fund-amendment-2025/section-3a-getfund-levy-substituted
+              excerpt: "supply of goods or services made in the country other than exempt goods or services"
+    versions:
+      - effective_from: '2025-12-24'
+        formula: |-
+          (supply_of_goods_or_services_made_in_country and not exempt_goods_or_services)
+          or (import_of_goods_or_services and not exempt_imports)
+
+  - name: getfund_levy_amount
+    kind: derived
+    entity: Person
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: Act 1152, substituted section 3A(1)-(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-1152/ghana-education-trust-fund-amendment-2025/section-3a-getfund-levy-substituted
+              excerpt: "The rate of the Levy is two and a half per cent"
+    versions:
+      - effective_from: '2025-12-24'
+        formula: |-
+          if getfund_levy_imposed: taxable_value_of_goods_or_services * getfund_levy_rate else: 0

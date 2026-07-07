@@ -1,0 +1,44 @@
+# Companion fixtures for the National Health Insurance (Amendment) Act,
+# 2025 (Act 1156) — the substituted section 47 NHIL. Expected values
+# computed by hand from the verbatim rate in the cited corpus provision
+# (codex/gpt-5.5 generation; fixtures per axiom-encode#1060).
+#
+# Substituted s.47: levy on non-exempt domestic supplies and non-exempt
+# imports; "The rate of the Levy is two and a half per cent." (s.47(5)
+# allocates twenty per cent of the revenue to the Ghana Medical Trust
+# Fund — a national revenue split, documented in the module summary and
+# out of household-modeling scope.)
+# Assent + gazette 24 December 2025; the 2.5% rate is unchanged from the
+# prior Act 852 s.47, so GHAMOD GH_2025 comparisons carry.
+# Validation year: 2026.
+
+- name: domestic_supply_levied_at_2_5_percent
+  # Non-exempt supplies worth GH¢60,000: 0.025 x 60,000 = 1,500.
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/act-1156/national-health-insurance-amendment-2025/section-47-nhil-substituted#input.supply_of_goods_or_services_made_in_country: true
+    gh:statutes/act-1156/national-health-insurance-amendment-2025/section-47-nhil-substituted#input.exempt_goods_or_services: false
+    gh:statutes/act-1156/national-health-insurance-amendment-2025/section-47-nhil-substituted#input.import_of_goods_or_services: false
+    gh:statutes/act-1156/national-health-insurance-amendment-2025/section-47-nhil-substituted#input.exempt_import: false
+    gh:statutes/act-1156/national-health-insurance-amendment-2025/section-47-nhil-substituted#input.levy_chargeable_value: 60000
+  output:
+    gh:statutes/act-1156/national-health-insurance-amendment-2025/section-47-nhil-substituted#national_health_insurance_levy_applies_to_supply_or_import: holds
+    gh:statutes/act-1156/national-health-insurance-amendment-2025/section-47-nhil-substituted#national_health_insurance_levy_amount: 1500
+
+- name: exempt_import_not_levied
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/act-1156/national-health-insurance-amendment-2025/section-47-nhil-substituted#input.supply_of_goods_or_services_made_in_country: false
+    gh:statutes/act-1156/national-health-insurance-amendment-2025/section-47-nhil-substituted#input.exempt_goods_or_services: false
+    gh:statutes/act-1156/national-health-insurance-amendment-2025/section-47-nhil-substituted#input.import_of_goods_or_services: true
+    gh:statutes/act-1156/national-health-insurance-amendment-2025/section-47-nhil-substituted#input.exempt_import: true
+    gh:statutes/act-1156/national-health-insurance-amendment-2025/section-47-nhil-substituted#input.levy_chargeable_value: 60000
+  output:
+    gh:statutes/act-1156/national-health-insurance-amendment-2025/section-47-nhil-substituted#national_health_insurance_levy_applies_to_supply_or_import: not_holds
+    gh:statutes/act-1156/national-health-insurance-amendment-2025/section-47-nhil-substituted#national_health_insurance_levy_amount: 0

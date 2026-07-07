@@ -1,0 +1,66 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: gh/statute/act-1156/national-health-insurance-amendment-2025/section-47-nhil-substituted
+  summary: |-
+    Section 47 is substituted to impose a National Health Insurance Levy on supplies of goods or services made in the country, other than exempt goods or services, and imports of goods or services, other than exempt imports. The Levy rate is two and a half per cent, is paid when goods or services are supplied or imported, is charged on taxable supplies made by taxable persons in the course of taxable activity except as otherwise provided in the Act, and Parliament shall allocate twenty per cent of Levy revenue to the Ghana Medical Trust Fund.
+rules:
+  - name: national_health_insurance_levy_rate
+    kind: parameter
+    dtype: Rate
+    source: Act 1156, section 1 substituting Act 852 section 47(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-1156/national-health-insurance-amendment-2025/section-47-nhil-substituted
+              excerpt: "The rate of the Levy is two and a half per cent."
+    versions:
+      - effective_from: '2025-12-24'
+        formula: |-
+          0.025
+
+  - name: national_health_insurance_levy_applies_to_supply_or_import
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Act 1156, section 1 substituting Act 852 section 47(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: gh/statute/act-1156/national-health-insurance-amendment-2025/section-47-nhil-substituted
+              excerpt: "supply of goods or services made in the country, other than exempt goods or services"
+    versions:
+      - effective_from: '2025-12-24'
+        formula: |-
+          (supply_of_goods_or_services_made_in_country and not exempt_goods_or_services)
+          or (import_of_goods_or_services and not exempt_import)
+
+  - name: national_health_insurance_levy_amount
+    kind: derived
+    entity: Person
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: Act 1156, section 1 substituting Act 852 section 47(2), 47(3), and 47(4)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-1156/national-health-insurance-amendment-2025/section-47-nhil-substituted
+              excerpt: "The rate of the Levy is two and a half per cent"
+    versions:
+      - effective_from: '2025-12-24'
+        formula: |-
+          if national_health_insurance_levy_applies_to_supply_or_import: national_health_insurance_levy_rate * levy_chargeable_value else: 0
+

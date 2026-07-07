@@ -1,0 +1,49 @@
+# Companion fixtures for the Value Added Tax Act, 2025 (Act 1151) section 3
+# (rate of the Tax). Expected values are computed by hand from the verbatim
+# rate in the cited corpus provision, then verified digit-by-digit through
+# the engine. Fixture provenance is manual (orchestrator-computed) per the
+# interim convention in axiom-encode#1060 (codex/gpt-5.5 run 9e098653).
+#
+# Section 3: "the rate of the Tax is fifteen per cent and is calculated on
+# the value of the taxable supply of the goods or services; or import."
+# Section 75 commences the Act on 1 January 2026 (it replaces the Act 870
+# chain; the fifteen per cent rate is unchanged across the boundary).
+# Validation year: 2026 (the Act's first year).
+
+- name: standard_rated_supply_taxed_at_15_percent
+  # Taxable supplies worth GH¢60,000: 0.15 x 60,000 = 9,000.
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/act-1151/value-added-tax-2025/section-3-rate-of-the-tax#input.taxable_supply_of_goods_or_services: true
+    gh:statutes/act-1151/value-added-tax-2025/section-3-rate-of-the-tax#input.import: false
+    gh:statutes/act-1151/value-added-tax-2025/section-3-rate-of-the-tax#input.taxable_supply_or_import_value: 60000
+  output:
+    gh:statutes/act-1151/value-added-tax-2025/section-3-rate-of-the-tax#value_added_tax_amount: 9000
+
+- name: import_taxed_at_15_percent
+  # Imports worth GH¢10,000: 0.15 x 10,000 = 1,500.
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/act-1151/value-added-tax-2025/section-3-rate-of-the-tax#input.taxable_supply_of_goods_or_services: false
+    gh:statutes/act-1151/value-added-tax-2025/section-3-rate-of-the-tax#input.import: true
+    gh:statutes/act-1151/value-added-tax-2025/section-3-rate-of-the-tax#input.taxable_supply_or_import_value: 10000
+  output:
+    gh:statutes/act-1151/value-added-tax-2025/section-3-rate-of-the-tax#value_added_tax_amount: 1500
+
+- name: no_taxable_supply_or_import_no_tax
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/act-1151/value-added-tax-2025/section-3-rate-of-the-tax#input.taxable_supply_of_goods_or_services: false
+    gh:statutes/act-1151/value-added-tax-2025/section-3-rate-of-the-tax#input.import: false
+    gh:statutes/act-1151/value-added-tax-2025/section-3-rate-of-the-tax#input.taxable_supply_or_import_value: 60000
+  output:
+    gh:statutes/act-1151/value-added-tax-2025/section-3-rate-of-the-tax#value_added_tax_amount: 0

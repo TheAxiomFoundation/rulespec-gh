@@ -1,0 +1,54 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_paths:
+      - gh/statute/act-1151/value-added-tax-2025/section-3-rate-of-the-tax
+      - gh/statute/act-1151/value-added-tax-2025/section-75-commencement
+  summary: |-
+    The Value Added Tax Act, 2025 (Act 1151) replaces the Value Added Tax
+    Act, 2013 (Act 870) chain from 1 January 2026 (section 75). Section 3
+    keeps the rate of the Tax at fifteen per cent, calculated on the value
+    of the taxable supply of goods or services or of the import. The rate
+    is unchanged across the reform boundary (fifteen per cent under the
+    prior chain since 2023), so GHAMOD GH_2025 comparisons on the standard
+    rate carry across; the December 2025 reform's changes are the CHRL
+    repeal (Act 1150) and levy restructuring (Acts 1152/1156), not this
+    rate.
+rules:
+- name: value_added_tax_rate
+  kind: parameter
+  dtype: Rate
+  source: Value Added Tax Act 2025, section 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: gh/statute/act-1151/value-added-tax-2025/section-3-rate-of-the-tax
+          excerpt: fifteen per cent
+  versions:
+  - effective_from: '2026-01-01'
+    formula: '0.15'
+- name: value_added_tax_amount
+  kind: derived
+  entity: Person
+  dtype: Money
+  unit: GHS
+  period: Year
+  source: Value Added Tax Act 2025, section 3
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: gh/statute/act-1151/value-added-tax-2025/section-3-rate-of-the-tax
+          excerpt: calculated on the value of the (a) taxable supply of the goods
+            or services; or (6) import
+  versions:
+  - effective_from: '2026-01-01'
+    formula: 'if taxable_supply_of_goods_or_services or import: value_added_tax_rate
+      * taxable_supply_or_import_value else: 0'

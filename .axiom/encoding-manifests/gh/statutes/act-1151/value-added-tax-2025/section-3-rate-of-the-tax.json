@@ -1,0 +1,42 @@
+{
+  "applied_files": [
+    {
+      "path": "gh/statutes/act-1151/value-added-tax-2025/section-3-rate-of-the-tax.test.yaml",
+      "sha256": "660dc2b582e98f27c625740f71f13c5d42e034ef6d12668cdc303cfe8dcf6080"
+    },
+    {
+      "path": "gh/statutes/act-1151/value-added-tax-2025/section-3-rate-of-the-tax.yaml",
+      "sha256": "2cfe98f7107e6ed7498f226c88351a494b53b6eeff009ba9f2fae25da6c43336"
+    }
+  ],
+  "axiom_encode_git": {
+    "commit": "a13ffa374e6dd70ce0fa35fbef5a5fc6cc341ac9",
+    "dirty_tracked": false,
+    "root": "/Users/maxghenis/TheAxiomFoundation/axiom-encode",
+    "version": "0.2.1187",
+    "version_commit": "a13ffa374e6dd70ce0fa35fbef5a5fc6cc341ac9"
+  },
+  "axiom_encode_version": "0.2.1187",
+  "backend": "manual",
+  "citation": "gh:statutes/act-1151/value-added-tax-2025/section-3-rate-of-the-tax",
+  "context_manifest_file": null,
+  "context_manifest_sha256": null,
+  "generated_at": "2026-07-07T18:01:40.422008+00:00",
+  "generated_output_file": "/var/folders/9l/_wztzgbx7mgc7l1r0416cy7m0000gn/T/tmp3wjdwek5/sign-applied-files/gh/statutes/act-1151/value-added-tax-2025/section-3-rate-of-the-tax.yaml",
+  "generated_output_root": "/var/folders/9l/_wztzgbx7mgc7l1r0416cy7m0000gn/T/tmp3wjdwek5",
+  "generated_output_sha256": "2cfe98f7107e6ed7498f226c88351a494b53b6eeff009ba9f2fae25da6c43336",
+  "generation_prompt_sha256": null,
+  "manual_exception": "#20",
+  "model": "",
+  "run_id": null,
+  "runner": "manual-attestation",
+  "schema_version": "axiom-encode/applied-rulespec/v1",
+  "signature": {
+    "algorithm": "hmac-sha256",
+    "key_id": "axiom-encode-apply-v1",
+    "value": "2988d13fdcc42fa05e5b41def07b35faff51d07b024facc9e165fb2c5356dc24"
+  },
+  "tool": "axiom-encode sign-applied-files",
+  "trace_file": null,
+  "trace_sha256": null
+}
