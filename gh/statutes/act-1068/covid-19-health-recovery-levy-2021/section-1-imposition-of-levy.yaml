@@ -3,9 +3,19 @@ module:
   proof_validation:
     required: true
   source_verification:
-    corpus_citation_path: gh/statute/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy
+    corpus_citation_paths:
+      - gh/statute/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy
+      - gh/statute/act-1150/covid-19-health-recovery-levy-repeal-2025/section-1-act-1068-repealed
   summary: |-
-    There is imposed a COVID-19 Health Recovery Levy on supplies made in the country, other than exempt goods or services, and on imports other than exempt imports. The Levy rate is One per cent and is calculated on the value of the taxable supply or imports.
+    There is imposed a COVID-19 Health Recovery Levy on supplies made in the
+    country, other than exempt goods or services, and on imports other than
+    exempt imports. The Levy rate is One per cent and is calculated on the
+    value of the taxable supply or imports. The COVID-19 Health Recovery
+    Levy (Repeal) Act, 2025 (Act 1150, assent and gazette 10 December 2025)
+    repeals Act 1068 with savings for pre-repeal rights and liabilities, so
+    the levy's live window is 2021-03-31 to 2025-12-09 and the rate is nil
+    from 2025-12-10 (encoded as a repeal version). GHAMOD GH_2025 correctly
+    includes the levy for its 2025 policy year.
 rules:
   - name: covid_health_recovery_levy_rate
     kind: parameter
@@ -19,10 +29,18 @@ rules:
             source:
               corpus_citation_path: gh/statute/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy
               excerpt: "the rate of the Levy is One per cent"
+          - path: versions[1].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-1150/covid-19-health-recovery-levy-repeal-2025/section-1-act-1068-repealed
+              excerpt: "The COVID-19 Health Recovery Levy Act, 2021 (Act 1068) is repealed"
     versions:
       - effective_from: '2021-03-31'
         formula: |-
           0.01
+      - effective_from: '2025-12-10'
+        formula: |-
+          0
 
   - name: covid_health_recovery_levy_applies_to_transaction
     kind: derived
