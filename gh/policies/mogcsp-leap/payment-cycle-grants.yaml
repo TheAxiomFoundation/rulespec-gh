@@ -4,14 +4,14 @@ module:
     required: true
   source_verification:
     corpus_citation_paths:
-      - gh/policy/mogcsp-leap/payment-cycle-97-2025/block-1
+      - gh/policy/mogcsp-leap/payment-cycle-97-2025/payment-cycle-announcement
       - gh/policy/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386
       - gh/statute/act-1126/appropriation-2025/section-1-authorisation-of-expenditure
     upstream_source_check:
       status: official_parameter_source
       checked_paths:
         - gh/statute/act-1126/appropriation-2025/section-1-authorisation-of-expenditure
-        - gh/policy/mogcsp-leap/payment-cycle-97-2025/block-1
+        - gh/policy/mogcsp-leap/payment-cycle-97-2025/payment-cycle-announcement
         - gh/policy/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386
       rationale: >-
         LEAP grant amounts are administratively set by the Ministry of
@@ -46,7 +46,7 @@ rules:
           - path: versions[0].formula
             kind: amount
             source:
-              corpus_citation_path: gh/policy/mogcsp-leap/payment-cycle-97-2025/block-1
+              corpus_citation_path: gh/policy/mogcsp-leap/payment-cycle-97-2025/payment-cycle-announcement
               excerpt: "One-member household: GH₵320"
     versions:
       - effective_from: '2025-06-30'
@@ -63,7 +63,7 @@ rules:
           - path: versions[0].formula
             kind: amount
             source:
-              corpus_citation_path: gh/policy/mogcsp-leap/payment-cycle-97-2025/block-1
+              corpus_citation_path: gh/policy/mogcsp-leap/payment-cycle-97-2025/payment-cycle-announcement
               excerpt: "Two-member household: GH₵380"
     versions:
       - effective_from: '2025-06-30'
@@ -80,7 +80,7 @@ rules:
           - path: versions[0].formula
             kind: amount
             source:
-              corpus_citation_path: gh/policy/mogcsp-leap/payment-cycle-97-2025/block-1
+              corpus_citation_path: gh/policy/mogcsp-leap/payment-cycle-97-2025/payment-cycle-announcement
               excerpt: "Three-member household: GH₵440"
     versions:
       - effective_from: '2025-06-30'
@@ -97,7 +97,7 @@ rules:
           - path: versions[0].formula
             kind: amount
             source:
-              corpus_citation_path: gh/policy/mogcsp-leap/payment-cycle-97-2025/block-1
+              corpus_citation_path: gh/policy/mogcsp-leap/payment-cycle-97-2025/payment-cycle-announcement
               excerpt: "Four or more-member household: GH₵530"
     versions:
       - effective_from: '2025-06-30'
@@ -113,7 +113,7 @@ rules:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: gh/policy/mogcsp-leap/payment-cycle-97-2025/block-1
+              corpus_citation_path: gh/policy/mogcsp-leap/payment-cycle-97-2025/payment-cycle-announcement
               excerpt: "Two-member household"
     versions:
       - effective_from: '2025-06-30'
@@ -129,7 +129,7 @@ rules:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: gh/policy/mogcsp-leap/payment-cycle-97-2025/block-1
+              corpus_citation_path: gh/policy/mogcsp-leap/payment-cycle-97-2025/payment-cycle-announcement
               excerpt: "Three-member household"
     versions:
       - effective_from: '2025-06-30'
@@ -145,7 +145,7 @@ rules:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: gh/policy/mogcsp-leap/payment-cycle-97-2025/block-1
+              corpus_citation_path: gh/policy/mogcsp-leap/payment-cycle-97-2025/payment-cycle-announcement
               excerpt: "Four or more-member household"
     versions:
       - effective_from: '2025-06-30'
@@ -161,7 +161,7 @@ rules:
           - path: versions[0].formula
             kind: parameter
             source:
-              corpus_citation_path: gh/policy/mogcsp-leap/payment-cycle-97-2025/block-1
+              corpus_citation_path: gh/policy/mogcsp-leap/payment-cycle-97-2025/payment-cycle-announcement
               excerpt: "One-member household"
     versions:
       - effective_from: '2025-06-30'
@@ -180,7 +180,7 @@ rules:
           - path: versions[0].formula
             kind: formula
             source:
-              corpus_citation_path: gh/policy/mogcsp-leap/payment-cycle-97-2025/block-1
+              corpus_citation_path: gh/policy/mogcsp-leap/payment-cycle-97-2025/payment-cycle-announcement
               excerpt: "The grant amount for the 97th cycle"
     versions:
       - effective_from: '2025-06-30'

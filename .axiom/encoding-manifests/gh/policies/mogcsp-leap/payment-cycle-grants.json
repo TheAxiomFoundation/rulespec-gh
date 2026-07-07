@@ -1,12 +1,8 @@
 {
   "applied_files": [
     {
-      "path": "gh/policies/mogcsp-leap/payment-cycle-grants.test.yaml",
-      "sha256": "7f4f1c7f0cea3276efa09cefdf6f74c899e814571386d75143e1c9e8ea483664"
-    },
-    {
       "path": "gh/policies/mogcsp-leap/payment-cycle-grants.yaml",
-      "sha256": "34d8be8baf49fcdfa8dfb905d3f0bebe3774e06586f14c3b0b507e28245c0e6c"
+      "sha256": "85365f9b12741e5db5377e630deb14ab0cb9e183aefe19327fc1aad9c2aabbe4"
     }
   ],
   "axiom_encode_git": {
@@ -21,10 +17,10 @@
   "citation": "gh:policies/mogcsp-leap/payment-cycle-grants",
   "context_manifest_file": null,
   "context_manifest_sha256": null,
-  "generated_at": "2026-07-07T22:04:21.977885+00:00",
-  "generated_output_file": "/var/folders/9l/_wztzgbx7mgc7l1r0416cy7m0000gn/T/tmpdthjau1_/sign-applied-files/gh/policies/mogcsp-leap/payment-cycle-grants.yaml",
-  "generated_output_root": "/var/folders/9l/_wztzgbx7mgc7l1r0416cy7m0000gn/T/tmpdthjau1_",
-  "generated_output_sha256": "34d8be8baf49fcdfa8dfb905d3f0bebe3774e06586f14c3b0b507e28245c0e6c",
+  "generated_at": "2026-07-07T22:32:00.521639+00:00",
+  "generated_output_file": "/var/folders/9l/_wztzgbx7mgc7l1r0416cy7m0000gn/T/tmpfeuibrij/sign-applied-files/gh/policies/mogcsp-leap/payment-cycle-grants.yaml",
+  "generated_output_root": "/var/folders/9l/_wztzgbx7mgc7l1r0416cy7m0000gn/T/tmpfeuibrij",
+  "generated_output_sha256": "85365f9b12741e5db5377e630deb14ab0cb9e183aefe19327fc1aad9c2aabbe4",
   "generation_prompt_sha256": null,
   "manual_exception": "#22",
   "model": "",
@@ -34,7 +30,16 @@
   "signature": {
     "algorithm": "hmac-sha256",
     "key_id": "axiom-encode-apply-v1",
-    "value": "63e2a563e63f3c2b91f60b007eeabfb7d134c55711584af3eda83c49c854513c"
+    "value": "701526cac1bed8f75f76aa33345b8b8dc70dea6b9c169f1624a87b99eca912ce"
+  },
+  "supersedes": {
+    "backend": "manual",
+    "generated_at": "2026-07-07T22:04:21.977885+00:00",
+    "generation_prompt_sha256": null,
+    "manifest_sha256": "0715e01793445d28ff1b9c2dd231784d99aa2801995d08ffa139dfacda444ba0",
+    "prior_signature": "63e2a563e63f3c2b91f60b007eeabfb7d134c55711584af3eda83c49c854513c",
+    "run_id": null,
+    "tool": "axiom-encode sign-applied-files"
   },
   "tool": "axiom-encode sign-applied-files",
   "trace_file": null,
