@@ -1,0 +1,42 @@
+{
+  "applied_files": [
+    {
+      "path": "gh/statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy.test.yaml",
+      "sha256": "31faaa428d03164ced8a6d7445d3a54ec4b7f43e5d0960f4529895339849aea9"
+    },
+    {
+      "path": "gh/statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy.yaml",
+      "sha256": "ffb2e21058085499365c6094d04290dafe621c54969352018f7d12ec2bf85719"
+    }
+  ],
+  "axiom_encode_git": {
+    "commit": "a13ffa374e6dd70ce0fa35fbef5a5fc6cc341ac9",
+    "dirty_tracked": false,
+    "root": "/Users/maxghenis/TheAxiomFoundation/axiom-encode",
+    "version": "0.2.1187",
+    "version_commit": "a13ffa374e6dd70ce0fa35fbef5a5fc6cc341ac9"
+  },
+  "axiom_encode_version": "0.2.1187",
+  "backend": "manual",
+  "citation": "gh:statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy",
+  "context_manifest_file": null,
+  "context_manifest_sha256": null,
+  "generated_at": "2026-07-07T17:35:03.916783+00:00",
+  "generated_output_file": "/var/folders/9l/_wztzgbx7mgc7l1r0416cy7m0000gn/T/tmpxahw7u0o/sign-applied-files/gh/statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy.yaml",
+  "generated_output_root": "/var/folders/9l/_wztzgbx7mgc7l1r0416cy7m0000gn/T/tmpxahw7u0o",
+  "generated_output_sha256": "ffb2e21058085499365c6094d04290dafe621c54969352018f7d12ec2bf85719",
+  "generation_prompt_sha256": null,
+  "manual_exception": "#17",
+  "model": "",
+  "run_id": null,
+  "runner": "manual-attestation",
+  "schema_version": "axiom-encode/applied-rulespec/v1",
+  "signature": {
+    "algorithm": "hmac-sha256",
+    "key_id": "axiom-encode-apply-v1",
+    "value": "e96739bbf87120674b3ec0520e7cde3d38685ac04ef1619bc793353c441a0407"
+  },
+  "tool": "axiom-encode sign-applied-files",
+  "trace_file": null,
+  "trace_sha256": null
+}
