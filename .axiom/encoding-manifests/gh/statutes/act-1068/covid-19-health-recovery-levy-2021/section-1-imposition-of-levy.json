@@ -2,11 +2,11 @@
   "applied_files": [
     {
       "path": "gh/statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy.test.yaml",
-      "sha256": "31faaa428d03164ced8a6d7445d3a54ec4b7f43e5d0960f4529895339849aea9"
+      "sha256": "91b596a2cc847c54b097ea59bc2d9429eebe4b12641d56d9a367f1b275c7cc96"
     },
     {
       "path": "gh/statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy.yaml",
-      "sha256": "ffb2e21058085499365c6094d04290dafe621c54969352018f7d12ec2bf85719"
+      "sha256": "e5ad3b3cb35606486ae7ecdd5dc2e8502b629e69fbd9ae4695ace0f8ae0cc578"
     }
   ],
   "axiom_encode_git": {
@@ -21,10 +21,10 @@
   "citation": "gh:statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy",
   "context_manifest_file": null,
   "context_manifest_sha256": null,
-  "generated_at": "2026-07-07T17:35:03.916783+00:00",
-  "generated_output_file": "/var/folders/9l/_wztzgbx7mgc7l1r0416cy7m0000gn/T/tmpxahw7u0o/sign-applied-files/gh/statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy.yaml",
-  "generated_output_root": "/var/folders/9l/_wztzgbx7mgc7l1r0416cy7m0000gn/T/tmpxahw7u0o",
-  "generated_output_sha256": "ffb2e21058085499365c6094d04290dafe621c54969352018f7d12ec2bf85719",
+  "generated_at": "2026-07-07T17:55:16.571959+00:00",
+  "generated_output_file": "/var/folders/9l/_wztzgbx7mgc7l1r0416cy7m0000gn/T/tmp1yr_24oq/sign-applied-files/gh/statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy.yaml",
+  "generated_output_root": "/var/folders/9l/_wztzgbx7mgc7l1r0416cy7m0000gn/T/tmp1yr_24oq",
+  "generated_output_sha256": "e5ad3b3cb35606486ae7ecdd5dc2e8502b629e69fbd9ae4695ace0f8ae0cc578",
   "generation_prompt_sha256": null,
   "manual_exception": "#17",
   "model": "",
@@ -34,7 +34,16 @@
   "signature": {
     "algorithm": "hmac-sha256",
     "key_id": "axiom-encode-apply-v1",
-    "value": "e96739bbf87120674b3ec0520e7cde3d38685ac04ef1619bc793353c441a0407"
+    "value": "86e404b8c813aee513cbd23dcf5fc4e6f173e614f2d9911037c49e036e2c3857"
+  },
+  "supersedes": {
+    "backend": "manual",
+    "generated_at": "2026-07-07T17:35:03.916783+00:00",
+    "generation_prompt_sha256": null,
+    "manifest_sha256": "13bf6b20b52906f73095e0e45e3589d7882d9609fd19cbc5d2a79ca7d24b899e",
+    "prior_signature": "e96739bbf87120674b3ec0520e7cde3d38685ac04ef1619bc793353c441a0407",
+    "run_id": null,
+    "tool": "axiom-encode sign-applied-files"
   },
   "tool": "axiom-encode sign-applied-files",
   "trace_file": null,
