@@ -1,0 +1,35 @@
+version: 1
+defaults:
+  backend: openai
+  model: gpt-5.5
+# rulespec-gh bulk-encode worklist (jurisdiction `gh`).
+#
+# Each `citation` is a corpus citation_path the encoder resolves. Every entry
+# was verified to exist BEFORE listing (never invent country numbers): its exact
+# citation_path returns provision text in BOTH the toolchain-pinned axiom-corpus
+# ref (.axiom/toolchain.toml -> axiom_corpus_ref 5edfd598…, the source the bulk
+# workflow's `axiom-encode encode` reads first) AND the published Supabase
+# `current_provisions` view.
+#
+# GH CORPUS IS THIN: the Ghana slices already merged encode Act 896 (Income Tax
+# Act 2015: s51, s133, Fifth Schedule), the Act 1007 relief amendments, and the
+# Act 1111 individual rate schedule — i.e. essentially the whole ingested clean
+# corpus is already in gh/statutes/. The one substantive un-encoded provision is
+# the Act 1134 (2025) amendment, which the task flags as the candidate. It is an
+# amendment act (touches Act 896 ss 6/85/115/119 + First Schedule para 8), so it
+# is more cross-referential than an ideal atomic target; listed as the sole
+# pilot entry. VOLUME STAYS MINIMAL until more Ghana law is ingested and the
+# path-scoped CI build lands (org runners are currently saturated; a parallel
+# worker is fixing that).
+entries:
+- citation: gh/statute/act-1134/income-tax-amendment-2025/withholding-and-first-schedule-paragraph-8
+  repo: rulespec-gh
+  batch: A
+  status: pending
+  heading: Income Tax (Amendment) Act 2025 (Act 1134) — remove lottery/unprocessed-gold withholding
+  class: mechanics
+  note: Removes the withholding on lottery winnings and on the purchase of
+    unprocessed gold, amending Act 896 (ss 6, 85, 115, 119 and First Schedule
+    paragraph 8). Verified present in the pinned corpus ref and Supabase
+    current_provisions. Amendment-style provision — the encoder self-import
+    guard (encode#1058) is the risk to watch.

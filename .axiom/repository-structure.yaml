@@ -2,6 +2,7 @@ version: 1
 allowed_root_directories:
   - .axiom
   - .github
+  - bulk
   - data
   - gh
   - tests
@@ -11,6 +12,7 @@ allowed_root_files:
   - README.md
   - known-missing-money-atoms.yaml
   - known-validation-gaps.yaml
+  - oracle-coverage-pending.yaml
   - variables.toml
 path_rules:
   - patterns:
@@ -26,6 +28,12 @@ path_rules:
       - ".yml"
       - ".yaml"
       - ".md"
+  - patterns:
+      - "bulk/**"
+    allow_extensions:
+      - ".md"
+      - ".py"
+      - ".yaml"
   - patterns:
       - "data/**"
     allow_extensions:
