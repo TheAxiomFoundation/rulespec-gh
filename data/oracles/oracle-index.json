@@ -9,10 +9,10 @@
       "id": "ghamod",
       "name": "GHAMOD",
       "url": "https://www.wider.unu.edu/project/ghamod-tax-benefit-microsimulation-model-ghana",
-      "local_path": null,
+      "local_path": "~/.axiom/oracles/southmod/bundle/SOUTHMOD_A4.0 (licensed, non-redistributable; never committed)",
       "commit": null,
-      "model": null,
-      "dataset": null,
+      "model": "SOUTHMOD_A4.0",
+      "dataset": "gh_2013_a8.txt, gh_2017_a8.txt (GLSS-based input microdata shipped in the bundle)",
       "role": "Intended household-level tax-benefit comparison oracle for Ghana. GHAMOD is the SOUTHMOD tax-benefit microsimulation model for Ghana (UNU-WIDER, in collaboration with the University of Ghana, the Ghana Statistical Service, and the Ministry of Finance / GRA). Built on the EUROMOD platform.",
       "coverage": [
         "personal_income_tax",
@@ -21,12 +21,14 @@
         "cash_transfers",
         "household_disposable_income"
       ],
-      "authority": "pending_bundle_clearance",
+      "authority": "bundle_in_hand_wiring_pending",
       "availability_check": {
-        "checked_at": "2026-07-06",
-        "status": "not_yet_attached",
-        "blocker": "GHAMOD model-and-data bundle (model .xml plus SOUTHMOD/GHAMOD input microdata) is distributed by UNU-WIDER under a licensed-access programme. The bundle must clear UNU-WIDER SOUTHMOD access/licensing terms for use as a pinned comparison surface before it can be wired here. Until then, oracle parity tests are deferred and this repo encodes source-first from Act 896 and GRA/LEAP documentation."
-      }
+        "checked_at": "2026-07-07",
+        "status": "bundle_in_hand_wiring_pending",
+        "detail": "UNU-WIDER approved the SOUTHMOD access request on 2026-07-07 and the model bundle (SOUTHMOD A4.0, sha256 above) with Ghana input datasets and DRDs is held locally under the Adhesion Agreement (personal links; non-redistributable; the bundle and datasets must never be committed or shared). GHAMOD runs on the EUROMOD engine; oracle wiring (per-case parity suites against GH_2024/GH_2025 systems for the encoded rate schedule and reliefs, then registry reclassification from not_comparable) is the next lane milestone. Until wired, gh: outputs remain classified not_comparable and parity tests stay deferred."
+      },
+      "bundle_sha256": "741855bd23cf4c4a0a61a80def06a078fd3f0551a452b5853a2e46c7e2486a5f",
+      "systems": "GH_2013 through GH_2025 (13 policy years; Act 1111 rate schedule in GH_2024/GH_2025, Act 1007 reliefs from GH_2020)"
     }
   ]
 }
