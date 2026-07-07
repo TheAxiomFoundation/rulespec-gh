@@ -1,0 +1,106 @@
+# Companion fixtures for the COVID-19 Health Recovery Levy Act, 2021
+# (Act 1068) section 1. Expected values are computed by hand from the
+# verbatim rate in the cited corpus provision, then verified digit-by-digit
+# through the engine. Fixture provenance is manual (orchestrator-computed)
+# per the interim convention in axiom-encode#1060: the codex/gpt-5.5
+# backend produced the rule module (run ffdb755c, in-run CI ✓); companion
+# fixtures are written and attested independently with shown arithmetic.
+#
+# Section 1(4): "the rate of the Levy is One per cent and is calculated on
+# the value of the taxable supply of the goods or services or on the value
+# of the imports." Section 1(1): imposed on non-exempt domestic supplies
+# and non-exempt imports. Section 1(3): a person who charges the VAT flat
+# rate also charges the Levy.
+# Validation year: 2026 (rate unchanged since commencement).
+
+- name: domestic_supply_levied_at_1_percent
+  # Non-exempt domestic supplies worth GH¢60,000 over the year:
+  #   0.01 x 60,000 = 600.
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy#input.supply_of_goods_or_services_made_in_country: true
+    gh:statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy#input.supply_is_exempt_goods_or_services: false
+    gh:statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy#input.import_of_goods_or_services: false
+    gh:statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy#input.import_is_exempt_import: false
+    gh:statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy#input.taxable_supply_or_import_value: 60000
+    gh:statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy#input.person_charges_value_added_tax_flat_rate: false
+    gh:statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy#input.person_makes_supply_of_goods_or_services: true
+  output:
+    gh:statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy#covid_health_recovery_levy_applies_to_transaction: holds
+    gh:statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy#covid_health_recovery_levy_amount: 600
+
+- name: exempt_supply_is_not_levied
+  # Exempt goods or services (First Schedule to the VAT Act) -> no Levy.
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy#input.supply_of_goods_or_services_made_in_country: true
+    gh:statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy#input.supply_is_exempt_goods_or_services: true
+    gh:statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy#input.import_of_goods_or_services: false
+    gh:statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy#input.import_is_exempt_import: false
+    gh:statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy#input.taxable_supply_or_import_value: 60000
+    gh:statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy#input.person_charges_value_added_tax_flat_rate: false
+    gh:statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy#input.person_makes_supply_of_goods_or_services: true
+  output:
+    gh:statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy#covid_health_recovery_levy_applies_to_transaction: not_holds
+    gh:statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy#covid_health_recovery_levy_amount: 0
+
+- name: nonexempt_import_levied_at_1_percent
+  # Non-exempt imports worth GH¢10,000: 0.01 x 10,000 = 100.
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy#input.supply_of_goods_or_services_made_in_country: false
+    gh:statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy#input.supply_is_exempt_goods_or_services: false
+    gh:statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy#input.import_of_goods_or_services: true
+    gh:statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy#input.import_is_exempt_import: false
+    gh:statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy#input.taxable_supply_or_import_value: 10000
+    gh:statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy#input.person_charges_value_added_tax_flat_rate: false
+    gh:statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy#input.person_makes_supply_of_goods_or_services: false
+  output:
+    gh:statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy#covid_health_recovery_levy_applies_to_transaction: holds
+    gh:statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy#covid_health_recovery_levy_amount: 100
+
+- name: no_supply_or_import_no_levy
+  # No taxable activity -> nothing to levy.
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy#input.supply_of_goods_or_services_made_in_country: false
+    gh:statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy#input.supply_is_exempt_goods_or_services: false
+    gh:statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy#input.import_of_goods_or_services: false
+    gh:statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy#input.import_is_exempt_import: false
+    gh:statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy#input.taxable_supply_or_import_value: 60000
+    gh:statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy#input.person_charges_value_added_tax_flat_rate: false
+    gh:statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy#input.person_makes_supply_of_goods_or_services: false
+  output:
+    gh:statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy#covid_health_recovery_levy_applies_to_transaction: not_holds
+    gh:statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy#covid_health_recovery_levy_amount: 0
+
+- name: vat_flat_rate_person_also_charges_the_levy
+  # Section 1(3): a person who charges the VAT flat rate charges the Levy
+  # on the supply of goods or services.
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy#input.supply_of_goods_or_services_made_in_country: true
+    gh:statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy#input.supply_is_exempt_goods_or_services: false
+    gh:statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy#input.import_of_goods_or_services: false
+    gh:statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy#input.import_is_exempt_import: false
+    gh:statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy#input.taxable_supply_or_import_value: 30000
+    gh:statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy#input.person_charges_value_added_tax_flat_rate: true
+    gh:statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy#input.person_makes_supply_of_goods_or_services: true
+  output:
+    gh:statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy#vat_flat_rate_person_charges_covid_health_recovery_levy: holds
+    gh:statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy#covid_health_recovery_levy_amount: 300

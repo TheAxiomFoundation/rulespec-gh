@@ -1,0 +1,85 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: gh/statute/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy
+  summary: |-
+    There is imposed a COVID-19 Health Recovery Levy on supplies made in the country, other than exempt goods or services, and on imports other than exempt imports. The Levy rate is One per cent and is calculated on the value of the taxable supply or imports.
+rules:
+  - name: covid_health_recovery_levy_rate
+    kind: parameter
+    dtype: Rate
+    source: Act 1068 section 1(4)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy
+              excerpt: "the rate of the Levy is One per cent"
+    versions:
+      - effective_from: '2021-03-31'
+        formula: |-
+          0.01
+
+  - name: covid_health_recovery_levy_applies_to_transaction
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Act 1068 section 1(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: gh/statute/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy
+              excerpt: "supply of goods or services made in the country other than exempt goods or services"
+    versions:
+      - effective_from: '2021-03-31'
+        formula: |-
+          (supply_of_goods_or_services_made_in_country and not supply_is_exempt_goods_or_services)
+          or (import_of_goods_or_services and not import_is_exempt_import)
+
+  - name: covid_health_recovery_levy_amount
+    kind: derived
+    entity: Person
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: Act 1068 section 1(4)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy
+              excerpt: "calculated on the value of the taxable supply of the goods or services or on the value of the imports"
+    versions:
+      - effective_from: '2021-03-31'
+        formula: |-
+          if covid_health_recovery_levy_applies_to_transaction: taxable_supply_or_import_value * covid_health_recovery_levy_rate else: 0
+
+  - name: vat_flat_rate_person_charges_covid_health_recovery_levy
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Act 1068 section 1(3)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: gh/statute/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy
+              excerpt: "A person who charges the Value Added Tax flat rate shall also charge the Levy on the supply of goods or services"
+    versions:
+      - effective_from: '2021-03-31'
+        formula: |-
+          person_charges_value_added_tax_flat_rate
+          and person_makes_supply_of_goods_or_services
