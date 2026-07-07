@@ -55,6 +55,35 @@
       "agency_surface": "MoGCSP / LEAP Management Secretariat.",
       "status": "planned",
       "first_encoding_batch": false
+    },
+    {
+      "id": "chargeable-income-chain",
+      "namespace": "gh",
+      "bucket": "statutes",
+      "primary_source": "Income Tax Act 2015 (Act 896), sections 1-8 and Fourth Schedule: assessable income from employment, business and investment; benefits-in-kind quantification; the section 2 chain from assessable to chargeable income that connects the Fifth Schedule reliefs to the First Schedule rates.",
+      "agency_surface": "GRA employment-income and benefits-in-kind guidance.",
+      "status": "planned",
+      "first_encoding_batch": false,
+      "note": "Listing gate 1: required for the composed gross-to-tax program."
+    },
+    {
+      "id": "ssnit-contributions",
+      "namespace": "gh",
+      "bucket": "statutes",
+      "primary_source": "National Pensions Act 2008 (Act 766): three-tier scheme; 5.5% worker and 13% employer contributions, tier allocations and the SSNIT basic scheme. The Act is available from the Parliament of Ghana repository.",
+      "agency_surface": "SSNIT and NPRA contribution guidance.",
+      "status": "planned",
+      "first_encoding_batch": false
+    },
+    {
+      "id": "vat-and-consumption-levies",
+      "namespace": "gh",
+      "bucket": "statutes",
+      "primary_source": "Value Added Tax Act 2013 (Act 870) as amended (including Acts 1082 and 1107), National Health Insurance Levy, GETFund levy and COVID-19 Health Recovery Levy Acts.",
+      "agency_surface": "GRA VAT rate and levy guidance.",
+      "status": "planned",
+      "first_encoding_batch": false,
+      "note": "Consumption incidence; separable from the household income core. GHAMOD models indirect taxes, so this completes oracle comparability."
     }
   ]
 }
