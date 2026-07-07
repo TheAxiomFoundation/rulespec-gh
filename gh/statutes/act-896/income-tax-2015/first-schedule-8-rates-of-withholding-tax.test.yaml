@@ -1,0 +1,110 @@
+# Companion fixtures for Income Tax Act, 2015 (Act 896) First Schedule
+# paragraph 8 (rates of withholding tax) — the capital/investment-income
+# withholding slice. Expected values are computed by hand from the verbatim
+# rate rows in the cited corpus provision, then verified digit-by-digit
+# through the engine. Fixture provenance is manual (orchestrator-computed)
+# per the interim convention in axiom-encode#1060: the codex/gpt-5.5 backend
+# produced the rule module (run 98f44e04); companion fixtures are written
+# and attested independently with shown arithmetic.
+#
+# Paragraph 8(1)(b) rows exercised (never amended 2015-2026; supersession
+# chain closed against all eleven Income Tax (Amendment) Acts — see the
+# corpus manifest and rulespec-gh#10):
+#   (i)   dividends                                    8%   (0.08)
+#   (ii)  interest paid to individuals                 1%   (0.01)
+#         (narrowed by Act 907 s.7(1)(p)/(q): bank and Government-of-Ghana
+#         bond interest to individuals is exempt; the input is the
+#         non-exempt residue)
+#   (iv)  rent to an individual, residential property  8%   (0.08)
+#   (v)   rent to an individual, non-residential      15%   (0.15)
+# Dividends and resident-individual rent are FINAL withholding payments
+# (Act 896 s.119(1)(a)-(b)).
+# Validation year: 2026 (rates unchanged since commencement).
+
+- name: no_payments_yield_no_withholding
+  # All inputs zero, so every withholding amount is zero (exercises the
+  # max(0, ...) floor at the origin).
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/act-896/income-tax-2015/first-schedule-8-rates-of-withholding-tax#input.dividends_from_resident_companies: 0
+    gh:statutes/act-896/income-tax-2015/first-schedule-8-rates-of-withholding-tax#input.non_exempt_interest_paid_to_individual: 0
+    gh:statutes/act-896/income-tax-2015/first-schedule-8-rates-of-withholding-tax#input.residential_rent_received: 0
+    gh:statutes/act-896/income-tax-2015/first-schedule-8-rates-of-withholding-tax#input.nonresidential_rent_received: 0
+  output:
+    gh:statutes/act-896/income-tax-2015/first-schedule-8-rates-of-withholding-tax#dividend_final_withholding: 0
+    gh:statutes/act-896/income-tax-2015/first-schedule-8-rates-of-withholding-tax#interest_paid_to_individual_withholding: 0
+    gh:statutes/act-896/income-tax-2015/first-schedule-8-rates-of-withholding-tax#individual_residential_rent_final_withholding: 0
+    gh:statutes/act-896/income-tax-2015/first-schedule-8-rates-of-withholding-tax#individual_nonresidential_rent_final_withholding: 0
+
+- name: residential_rent_withheld_at_8_percent
+  # GH¢12,000 annual residential rent to an individual:
+  #   0.08 x 12,000 = 960 (final, s.119(1)(b)).
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/act-896/income-tax-2015/first-schedule-8-rates-of-withholding-tax#input.dividends_from_resident_companies: 0
+    gh:statutes/act-896/income-tax-2015/first-schedule-8-rates-of-withholding-tax#input.non_exempt_interest_paid_to_individual: 0
+    gh:statutes/act-896/income-tax-2015/first-schedule-8-rates-of-withholding-tax#input.residential_rent_received: 12000
+    gh:statutes/act-896/income-tax-2015/first-schedule-8-rates-of-withholding-tax#input.nonresidential_rent_received: 0
+  output:
+    gh:statutes/act-896/income-tax-2015/first-schedule-8-rates-of-withholding-tax#individual_residential_rent_final_withholding: 960
+
+- name: nonresidential_rent_withheld_at_15_percent
+  # GH¢20,000 annual non-residential rent to an individual:
+  #   0.15 x 20,000 = 3,000.
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/act-896/income-tax-2015/first-schedule-8-rates-of-withholding-tax#input.dividends_from_resident_companies: 0
+    gh:statutes/act-896/income-tax-2015/first-schedule-8-rates-of-withholding-tax#input.non_exempt_interest_paid_to_individual: 0
+    gh:statutes/act-896/income-tax-2015/first-schedule-8-rates-of-withholding-tax#input.residential_rent_received: 0
+    gh:statutes/act-896/income-tax-2015/first-schedule-8-rates-of-withholding-tax#input.nonresidential_rent_received: 20000
+  output:
+    gh:statutes/act-896/income-tax-2015/first-schedule-8-rates-of-withholding-tax#individual_nonresidential_rent_final_withholding: 3000
+
+- name: dividends_and_residual_interest_withheld
+  # GH¢5,000 dividends from resident companies: 0.08 x 5,000 = 400 (final,
+  # s.119(1)(a)). GH¢10,000 non-exempt interest paid to an individual:
+  #   0.01 x 10,000 = 100 (Act 907 exempts bank and GoG-bond interest, so
+  # the input is the residue outside those categories).
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/act-896/income-tax-2015/first-schedule-8-rates-of-withholding-tax#input.dividends_from_resident_companies: 5000
+    gh:statutes/act-896/income-tax-2015/first-schedule-8-rates-of-withholding-tax#input.non_exempt_interest_paid_to_individual: 10000
+    gh:statutes/act-896/income-tax-2015/first-schedule-8-rates-of-withholding-tax#input.residential_rent_received: 0
+    gh:statutes/act-896/income-tax-2015/first-schedule-8-rates-of-withholding-tax#input.nonresidential_rent_received: 0
+  output:
+    gh:statutes/act-896/income-tax-2015/first-schedule-8-rates-of-withholding-tax#dividend_final_withholding: 400
+    gh:statutes/act-896/income-tax-2015/first-schedule-8-rates-of-withholding-tax#interest_paid_to_individual_withholding: 100
+
+- name: gra_published_rent_rates_external_anchor
+  # Listing-gate-2 external evidence. GRA "Rent Income Tax" page
+  # (gra.gov.gh/domestic-tax/tax-types/rent-income-tax/, retrieved
+  # 2026-07-07): "There are two rates for Rent Income Tax: 8% for
+  # residential premises 15% for commercial and non-residential premises"
+  # — exactly the paragraph 8(1)(b)(iv)-(v) rates encoded here. Applied to
+  # GH¢24,000 of each:
+  #   residential     0.08 x 24,000 = 1,920
+  #   non-residential 0.15 x 24,000 = 3,600
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/act-896/income-tax-2015/first-schedule-8-rates-of-withholding-tax#input.dividends_from_resident_companies: 0
+    gh:statutes/act-896/income-tax-2015/first-schedule-8-rates-of-withholding-tax#input.non_exempt_interest_paid_to_individual: 0
+    gh:statutes/act-896/income-tax-2015/first-schedule-8-rates-of-withholding-tax#input.residential_rent_received: 24000
+    gh:statutes/act-896/income-tax-2015/first-schedule-8-rates-of-withholding-tax#input.nonresidential_rent_received: 24000
+  output:
+    gh:statutes/act-896/income-tax-2015/first-schedule-8-rates-of-withholding-tax#individual_residential_rent_final_withholding: 1920
+    gh:statutes/act-896/income-tax-2015/first-schedule-8-rates-of-withholding-tax#individual_nonresidential_rent_final_withholding: 3600

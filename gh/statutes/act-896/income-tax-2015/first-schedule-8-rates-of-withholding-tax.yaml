@@ -1,0 +1,252 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_paths:
+      - gh/statute/act-896/income-tax-2015/first-schedule-8-rates-of-withholding-tax
+      - gh/statute/act-896/income-tax-2015/section-119-final-withholding-payments
+      - gh/statute/act-896/income-tax-2015/section-115-withholding-from-investment-returns
+      - gh/statute/act-1134/income-tax-amendment-2025/withholding-and-first-schedule-paragraph-8/document-1
+      - gh/statute/act-907/income-tax-amendment-2016/section-7-exempt-interest-inserted
+  summary: |-
+    First Schedule paragraph 8(1)(b) sets the rates of tax withheld from
+    payments to which section 115 applies (as substituted by Act 1134 s.3:
+    dividends, interest, natural resource payments, rent, royalties and
+    realisation consideration): dividends eight percent; interest paid to
+    individuals one percent (narrowed by Act 907 s.1, which inserts section
+    7(1)(p)/(q) exempting interest paid to an individual by a resident
+    financial institution or on Government of Ghana bonds and unit-trust/
+    mutual-fund distributions); any other interest eight percent; rent paid
+    to an individual at eight percent (residential) or fifteen percent
+    (non-residential), final under section 119(1)(b); rent paid to a person
+    other than an individual at the same rates; and natural resource
+    payments and royalties fifteen percent. Dividends paid by a resident
+    company are final under section 119(1)(a). The lottery row was deleted
+    (Act 956; a 10% row re-added by Act 1094 was deleted again by Act 1134,
+    which also removed winnings from section 115(1)). None of the encoded
+    rows was amended between 2015 and the 2026 year of assessment (chain
+    closed against all eleven Income Tax (Amendment) Acts). Paragraph
+    8(1)(a) (section 114 rates), 8(1)(c) (section 116 rates) and paragraphs
+    8(2)-(3) are outside this slice's scope, as are the Act 1094 realisation
+    rows (xi)-(xii).
+rules:
+  - name: dividend_withholding_rate
+    kind: parameter
+    dtype: Rate
+    source: First Schedule paragraph 8(1)(b)(i)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/first-schedule-8-rates-of-withholding-tax
+              excerpt: "in the case of dividends, eight percent"
+    versions:
+      - effective_from: '2016-01-01'
+        formula: |-
+          0.08
+  - name: interest_paid_to_individual_withholding_rate
+    kind: parameter
+    dtype: Rate
+    source: First Schedule paragraph 8(1)(b)(ii)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/first-schedule-8-rates-of-withholding-tax
+              excerpt: "interest paid to individuals, one percent"
+    versions:
+      - effective_from: '2016-01-01'
+        formula: |-
+          0.01
+  - name: other_interest_withholding_rate
+    kind: parameter
+    dtype: Rate
+    source: First Schedule paragraph 8(1)(b)(iii)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/first-schedule-8-rates-of-withholding-tax
+              excerpt: "in the case of any other interest, eight percent"
+    versions:
+      - effective_from: '2016-01-01'
+        formula: |-
+          0.08
+  - name: individual_residential_rent_withholding_rate
+    kind: parameter
+    dtype: Rate
+    source: First Schedule paragraph 8(1)(b)(iv)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/first-schedule-8-rates-of-withholding-tax
+              excerpt: "rent paid to an individual for residential property, eight percent"
+    versions:
+      - effective_from: '2016-01-01'
+        formula: |-
+          0.08
+  - name: individual_nonresidential_rent_withholding_rate
+    kind: parameter
+    dtype: Rate
+    source: First Schedule paragraph 8(1)(b)(v)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/first-schedule-8-rates-of-withholding-tax
+              excerpt: "rent paid to an individual for non- residential property, fifteen percent"
+    versions:
+      - effective_from: '2016-01-01'
+        formula: |-
+          0.15
+  - name: nonindividual_residential_rent_withholding_rate
+    kind: parameter
+    dtype: Rate
+    source: First Schedule paragraph 8(1)(b)(vi)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/first-schedule-8-rates-of-withholding-tax
+              excerpt: "rent paid to a person other than an individual for residential property, eight percent"
+    versions:
+      - effective_from: '2016-01-01'
+        formula: |-
+          0.08
+  - name: nonindividual_nonresidential_rent_withholding_rate
+    kind: parameter
+    dtype: Rate
+    source: First Schedule paragraph 8(1)(b)(vii)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/first-schedule-8-rates-of-withholding-tax
+              excerpt: "rent paid to a person other than an individual for non-residential property, fifteen percent"
+    versions:
+      - effective_from: '2016-01-01'
+        formula: |-
+          0.15
+  - name: natural_resource_payment_and_royalty_withholding_rate
+    kind: parameter
+    dtype: Rate
+    source: First Schedule paragraph 8(1)(b)(ix)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/first-schedule-8-rates-of-withholding-tax
+              excerpt: "natural resource payments and royalties, fifteen percent"
+    versions:
+      - effective_from: '2016-01-01'
+        formula: |-
+          0.15
+  - name: dividend_final_withholding
+    kind: derived
+    entity: Person
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: First Schedule paragraph 8(1)(b)(i); Act 896 s.115(1) as substituted by Act 1134 s.3; s.119(1)(a)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/first-schedule-8-rates-of-withholding-tax
+              excerpt: "in the case of dividends, eight percent"
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/section-119-final-withholding-payments
+              excerpt: "dividends paid by a resident company"
+    versions:
+      - effective_from: '2016-01-01'
+        formula: |-
+          dividend_withholding_rate * max(0, dividends_from_resident_companies)
+  - name: interest_paid_to_individual_withholding
+    kind: derived
+    entity: Person
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: First Schedule paragraph 8(1)(b)(ii); Act 907 s.1 (s.7(1)(p)/(q) exemptions narrow the base)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/first-schedule-8-rates-of-withholding-tax
+              excerpt: "interest paid to individuals, one percent"
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-907/income-tax-amendment-2016/section-7-exempt-interest-inserted
+              excerpt: "interest paid to an individual (i) by a resident financial institution; or (ii) on bonds issued by the Government of Ghana"
+    versions:
+      - effective_from: '2016-02-18'
+        formula: |-
+          interest_paid_to_individual_withholding_rate * max(0, non_exempt_interest_paid_to_individual)
+  - name: individual_residential_rent_final_withholding
+    kind: derived
+    entity: Person
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: First Schedule paragraph 8(1)(b)(iv); Act 896 s.119(1)(b)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/first-schedule-8-rates-of-withholding-tax
+              excerpt: "rent paid to an individual for residential property, eight percent"
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/section-119-final-withholding-payments
+              excerpt: "rent paid to a resident individual under a lease of land or a building"
+    versions:
+      - effective_from: '2016-01-01'
+        formula: |-
+          individual_residential_rent_withholding_rate * max(0, residential_rent_received)
+  - name: individual_nonresidential_rent_final_withholding
+    kind: derived
+    entity: Person
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: First Schedule paragraph 8(1)(b)(v); Act 896 s.119(1)(b)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/first-schedule-8-rates-of-withholding-tax
+              excerpt: "rent paid to an individual for non- residential property, fifteen percent"
+    versions:
+      - effective_from: '2016-01-01'
+        formula: |-
+          individual_nonresidential_rent_withholding_rate * max(0, nonresidential_rent_received)
