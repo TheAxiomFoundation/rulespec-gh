@@ -2,9 +2,9 @@
 # validate-rulespec workflow). Bump deliberately — PRs that change this
 # file trigger full-repository revalidation.
 [toolchain]
-axiom_encode_version = "0.2.1174"
-axiom_encode_ref = "f67d59767fe978f12589b2ee0b3df4f8fb01dc3c"
+axiom_encode_version = "0.2.1186"
+axiom_encode_ref = "69193c3d8188be42ad7c563371eca9200fc8ac08"
 axiom_rules_engine_ref = "10b7f0c1de2b68142bbdcf0519a2380f997bbaf9"
-axiom_corpus_ref = "5edfd598bc8ae0ac9c9030847da97dc477026f23"
+axiom_corpus_ref = "37b925e3798932b393307e1b742a24490f80faf5"
 # Canonical-targets checkout for cross-repo validation (rulespec-us main).
 rulespec_us_ref = "09960abf54c265201e62a6d6df9e266851b0fb6e"

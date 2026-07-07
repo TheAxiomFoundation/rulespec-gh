@@ -1,0 +1,51 @@
+{
+  "applied_files": [
+    {
+      "path": "gh/statutes/act-766/national-pensions-2008/section-3-contributions-to-the-scheme.test.yaml",
+      "sha256": "2b4be4663b1815d9a75901b186379fca820e68e87b5a5733c105337bcfbc5d08"
+    },
+    {
+      "path": "gh/statutes/act-766/national-pensions-2008/section-3-contributions-to-the-scheme.yaml",
+      "sha256": "f409f7278f8d63767edd864f8a4d9ed54083e9608df88beda797a53483bbf42a"
+    }
+  ],
+  "axiom_encode_git": {
+    "commit": "69193c3d8188be42ad7c563371eca9200fc8ac08",
+    "dirty_tracked": false,
+    "root": "/Users/maxghenis/TheAxiomFoundation/axiom-encode",
+    "version": "0.2.1186",
+    "version_commit": "69193c3d8188be42ad7c563371eca9200fc8ac08"
+  },
+  "axiom_encode_version": "0.2.1186",
+  "backend": "manual",
+  "citation": "gh:statutes/act-766/national-pensions-2008/section-3-contributions-to-the-scheme",
+  "context_manifest_file": null,
+  "context_manifest_sha256": null,
+  "generated_at": "2026-07-07T15:26:09.350251+00:00",
+  "generated_output_file": "/var/folders/9l/_wztzgbx7mgc7l1r0416cy7m0000gn/T/tmpctbh81wf/sign-applied-files/gh/statutes/act-766/national-pensions-2008/section-3-contributions-to-the-scheme.yaml",
+  "generated_output_root": "/var/folders/9l/_wztzgbx7mgc7l1r0416cy7m0000gn/T/tmpctbh81wf",
+  "generated_output_sha256": "f409f7278f8d63767edd864f8a4d9ed54083e9608df88beda797a53483bbf42a",
+  "generation_prompt_sha256": null,
+  "manual_exception": "#12",
+  "model": "",
+  "run_id": null,
+  "runner": "manual-attestation",
+  "schema_version": "axiom-encode/applied-rulespec/v1",
+  "signature": {
+    "algorithm": "hmac-sha256",
+    "key_id": "axiom-encode-apply-v1",
+    "value": "c6c4d128280502f9a6f6a66d094ccf55c1893c322a5a747589e6b1ab6208b441"
+  },
+  "supersedes": {
+    "backend": "manual",
+    "generated_at": "2026-07-07T15:23:37.752685+00:00",
+    "generation_prompt_sha256": null,
+    "manifest_sha256": "690d4a69db8067cbdc0e0cbc5ea4f3a9c33afd51036c9bae425dfc3e91e2ffc7",
+    "prior_signature": "4ac945e383dc177e86240ee0877089925d50fc322c595ec7bc17912561f277cf",
+    "run_id": null,
+    "tool": "axiom-encode sign-applied-files"
+  },
+  "tool": "axiom-encode sign-applied-files",
+  "trace_file": null,
+  "trace_sha256": null
+}

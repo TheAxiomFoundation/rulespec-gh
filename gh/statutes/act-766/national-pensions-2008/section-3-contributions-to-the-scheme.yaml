@@ -1,0 +1,205 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: gh/statute/act-766/national-pensions-2008/section-3-contributions-to-the-scheme
+  summary: |-
+    National Pensions Act, 2008 (Act 766), section 3 sets the mandatory
+    social-security contribution rates on a worker's salary. Section 3(1):
+    the employer deducts "a worker's contribution of an amount equal to five
+    and half per centum of the worker's salary". Section 3(2): the employer
+    pays "an employer's contribution of an amount equal to thirteen per centum
+    of the worker's salary". Section 3(3): "Out of the total contribution of
+    eighteen and a half per centum" the employer remits "thirteen and half per
+    centum to the first tier mandatory basic national social security scheme"
+    and "five per centum to the second tier mandatory occupational pension
+    scheme". The National Pensions (Amendment) Act, 2014 (Act 883) amended Act
+    766 without changing these section 3 rates, so 5.5% and 13% (total 18.5%)
+    remain the rates in force for the 2026 year of assessment, matching the
+    GHAMOD outputs tscee_s (employee) and tscer_s (employer). Section 3(4)'s
+    minimum-contribution floor — 18.5% of the approved monthly equivalent of
+    the national daily minimum wage — turns on the national daily minimum wage
+    fixed under a separate instrument (not Act 766) and is not encoded here;
+    GHAMOD likewise applies the flat rates without the floor.
+rules:
+  - name: employee_contribution_rate
+    kind: parameter
+    dtype: Rate
+    period: Year
+    source: National Pensions Act 2008 (Act 766), section 3(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-766/national-pensions-2008/section-3-contributions-to-the-scheme
+              excerpt: "a worker's contribution of an amount equal to five and half per centum of the worker's salary"
+    versions:
+      - effective_from: '2008-12-12'
+        formula: |-
+          0.055
+  - name: employer_contribution_rate
+    kind: parameter
+    dtype: Rate
+    period: Year
+    source: National Pensions Act 2008 (Act 766), section 3(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-766/national-pensions-2008/section-3-contributions-to-the-scheme
+              excerpt: "an employer's contribution of an amount equal to thirteen per centum of the worker's salary"
+    versions:
+      - effective_from: '2008-12-12'
+        formula: |-
+          0.13
+  - name: total_contribution_rate
+    kind: parameter
+    dtype: Rate
+    period: Year
+    source: National Pensions Act 2008 (Act 766), section 3(3)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-766/national-pensions-2008/section-3-contributions-to-the-scheme
+              excerpt: "the total contribution of eighteen and a half per centum"
+    versions:
+      - effective_from: '2008-12-12'
+        formula: |-
+          0.185
+  - name: first_tier_remittance_rate
+    kind: parameter
+    dtype: Rate
+    period: Year
+    source: National Pensions Act 2008 (Act 766), section 3(3)(a)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-766/national-pensions-2008/section-3-contributions-to-the-scheme
+              excerpt: "thirteen and half per centum to the first tier mandatory basic national social security scheme"
+    versions:
+      - effective_from: '2008-12-12'
+        formula: |-
+          0.135
+  - name: second_tier_remittance_rate
+    kind: parameter
+    dtype: Rate
+    period: Year
+    source: National Pensions Act 2008 (Act 766), section 3(3)(b)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-766/national-pensions-2008/section-3-contributions-to-the-scheme
+              excerpt: "five per centum to the second tier mandatory occupational pension scheme"
+    versions:
+      - effective_from: '2008-12-12'
+        formula: |-
+          0.05
+  - name: employee_social_security_contribution
+    kind: derived
+    entity: Person
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: National Pensions Act 2008 (Act 766), section 3(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-766/national-pensions-2008/section-3-contributions-to-the-scheme
+              excerpt: "a worker's contribution of an amount equal to five and half per centum of the worker's salary"
+    versions:
+      - effective_from: '2008-12-12'
+        formula: |-
+          employee_contribution_rate * max(0, qualifying_employment_income)
+  - name: employer_social_security_contribution
+    kind: derived
+    entity: Person
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: National Pensions Act 2008 (Act 766), section 3(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-766/national-pensions-2008/section-3-contributions-to-the-scheme
+              excerpt: "an employer's contribution of an amount equal to thirteen per centum of the worker's salary"
+    versions:
+      - effective_from: '2008-12-12'
+        formula: |-
+          employer_contribution_rate * max(0, qualifying_employment_income)
+  - name: total_social_security_contribution
+    kind: derived
+    entity: Person
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: National Pensions Act 2008 (Act 766), section 3(3)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-766/national-pensions-2008/section-3-contributions-to-the-scheme
+              excerpt: "Out of the total contribution of eighteen and a half per centum"
+    versions:
+      - effective_from: '2008-12-12'
+        formula: |-
+          total_contribution_rate * max(0, qualifying_employment_income)
+  - name: first_tier_remittance
+    kind: derived
+    entity: Person
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: National Pensions Act 2008 (Act 766), section 3(3)(a)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-766/national-pensions-2008/section-3-contributions-to-the-scheme
+              excerpt: "thirteen and half per centum to the first tier mandatory basic national social security scheme"
+    versions:
+      - effective_from: '2008-12-12'
+        formula: |-
+          first_tier_remittance_rate * max(0, qualifying_employment_income)
+  - name: second_tier_remittance
+    kind: derived
+    entity: Person
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: National Pensions Act 2008 (Act 766), section 3(3)(b)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-766/national-pensions-2008/section-3-contributions-to-the-scheme
+              excerpt: "five per centum to the second tier mandatory occupational pension scheme"
+    versions:
+      - effective_from: '2008-12-12'
+        formula: |-
+          second_tier_remittance_rate * max(0, qualifying_employment_income)
