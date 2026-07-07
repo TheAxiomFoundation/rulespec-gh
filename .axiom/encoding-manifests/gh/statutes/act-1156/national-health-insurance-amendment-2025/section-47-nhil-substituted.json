@@ -1,0 +1,42 @@
+{
+  "applied_files": [
+    {
+      "path": "gh/statutes/act-1156/national-health-insurance-amendment-2025/section-47-nhil-substituted.test.yaml",
+      "sha256": "5661215b8dcf0248fe3160a97cb615c8b35b22d99066d4cbfd6113fe1f466ab3"
+    },
+    {
+      "path": "gh/statutes/act-1156/national-health-insurance-amendment-2025/section-47-nhil-substituted.yaml",
+      "sha256": "651b497336006343e9908478d5b1b9b9adb160cb9b1ec37305229455130a2eb2"
+    }
+  ],
+  "axiom_encode_git": {
+    "commit": "a13ffa374e6dd70ce0fa35fbef5a5fc6cc341ac9",
+    "dirty_tracked": false,
+    "root": "/Users/maxghenis/TheAxiomFoundation/axiom-encode",
+    "version": "0.2.1187",
+    "version_commit": "a13ffa374e6dd70ce0fa35fbef5a5fc6cc341ac9"
+  },
+  "axiom_encode_version": "0.2.1187",
+  "backend": "manual",
+  "citation": "gh:statutes/act-1156/national-health-insurance-amendment-2025/section-47-nhil-substituted",
+  "context_manifest_file": null,
+  "context_manifest_sha256": null,
+  "generated_at": "2026-07-07T18:01:40.425373+00:00",
+  "generated_output_file": "/var/folders/9l/_wztzgbx7mgc7l1r0416cy7m0000gn/T/tmp3wjdwek5/sign-applied-files/gh/statutes/act-1156/national-health-insurance-amendment-2025/section-47-nhil-substituted.yaml",
+  "generated_output_root": "/var/folders/9l/_wztzgbx7mgc7l1r0416cy7m0000gn/T/tmp3wjdwek5",
+  "generated_output_sha256": "651b497336006343e9908478d5b1b9b9adb160cb9b1ec37305229455130a2eb2",
+  "generation_prompt_sha256": null,
+  "manual_exception": "#20",
+  "model": "",
+  "run_id": null,
+  "runner": "manual-attestation",
+  "schema_version": "axiom-encode/applied-rulespec/v1",
+  "signature": {
+    "algorithm": "hmac-sha256",
+    "key_id": "axiom-encode-apply-v1",
+    "value": "7aca12b799d648388cc58572c703a13af6fcfa27a810a8c4688628539e7d6db5"
+  },
+  "tool": "axiom-encode sign-applied-files",
+  "trace_file": null,
+  "trace_sha256": null
+}
