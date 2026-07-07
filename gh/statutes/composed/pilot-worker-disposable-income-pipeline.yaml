@@ -1,0 +1,156 @@
+format: rulespec/v1
+imports:
+  - gh:statutes/act-766/national-pensions-2008/section-3-contributions-to-the-scheme#employee_social_security_contribution
+  - gh:statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals#first_band_upper_bound
+  - gh:statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals#second_band_upper_bound
+  - gh:statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals#third_band_upper_bound
+  - gh:statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals#fourth_band_upper_bound
+  - gh:statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals#fifth_band_upper_bound
+  - gh:statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals#sixth_band_upper_bound
+  - gh:statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals#second_band_size
+  - gh:statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals#third_band_size
+  - gh:statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals#fourth_band_size
+  - gh:statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals#fifth_band_size
+  - gh:statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals#sixth_band_size
+  - gh:statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals#resident_individual_income_tax_rate
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_paths:
+      - gh/statute/act-766/national-pensions-2008/section-112-tax-reliefs
+      - gh/statute/act-766/national-pensions-2008/section-3-contributions-to-the-scheme
+      - gh/statute/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals
+      - gh/statute/act-896/income-tax-2015/fifth-schedule
+    upstream_source_check:
+      status: composed_from_grounded_modules
+      checked_paths:
+        - gh/statute/act-766/national-pensions-2008/section-112-tax-reliefs
+        - gh/statute/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals
+      rationale: >-
+        Every band bound, band size and rate this pipeline uses is imported
+        from the already-grounded Act 1111 First Schedule module, and the
+        employee contribution itself is the imported Act 766 section 3(1)
+        derivation. The pipeline adds one new grounded parameter — the
+        Act 766 section 112(2) deductible-contribution ceiling (sixteen and
+        one half per centum of a contributor's income) — and otherwise only
+        wires the grounded stages together for the single-employee oracle
+        slice.
+  summary: |-
+    Composed single-employee disposable-income pipeline for the GHAMOD
+    oracle slice at the 2026 year of assessment (listing gate 1,
+    rulespec-gh#5). It wires: the imported mandatory 5.5% employee SSNIT
+    contribution on qualifying employment income (Act 766 s.3(1)); the
+    Act 766 s.112(2) deduction of that contribution from the income-tax
+    base (contributions not exceeding sixteen and one half per centum of a
+    contributor's income are treated as deductible income for the
+    contributor); supplied Fifth Schedule personal reliefs (default nil
+    for the single ordinary employee, section 51 of Act 896); the imported
+    Act 1111 First Schedule band parameters applied to the resulting
+    chargeable income; and disposable income = qualifying employment
+    income plus supplied benefits less income tax less the employee
+    contribution — mirroring GHAMOD's ils_dispy = ils_origy + ils_ben -
+    ils_tax - ils_sicee identity. GHAMOD GH_2025 applies the rate schedule
+    to GROSS employment income (probed: il_tintb3 = yem), omitting the
+    s.112(2) deduction — finding #13 in rulespec-gh#10: at 60,000 gross
+    the statutory liability is 9,357 against GHAMOD's 10,182 (an 825
+    overtax, growing with the marginal rate).
+rules:
+  - name: pilot_worker_ssnit_deductible_ceiling_rate
+    kind: parameter
+    dtype: Rate
+    period: Year
+    source: National Pensions Act 2008 (Act 766), section 112(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-766/national-pensions-2008/section-112-tax-reliefs
+              excerpt: "Contributions not exceeding sixteen and one half per centum of a contributor's monthly income"
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          0.165
+  - name: pilot_worker_deductible_ssnit_contribution
+    kind: derived
+    entity: Person
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: National Pensions Act 2008 (Act 766), section 112(2), deductible mandatory contribution for the worker-only oracle slice
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-766/national-pensions-2008/section-112-tax-reliefs
+              excerpt: "deductible income, for the purpose of income tax for the contributor"
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          min(employee_social_security_contribution, pilot_worker_ssnit_deductible_ceiling_rate * max(0, qualifying_employment_income))
+  - name: pilot_worker_chargeable_income
+    kind: derived
+    entity: Person
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: Act 766 s.112(2) deduction and supplied Act 896 Fifth Schedule personal reliefs applied to qualifying employment income
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-766/national-pensions-2008/section-112-tax-reliefs
+              excerpt: "deductible income, for the purpose of income tax"
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/fifth-schedule
+              excerpt: "personal reliefs referred to in section 51"
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          max(0, qualifying_employment_income - pilot_worker_deductible_ssnit_contribution - max(0, personal_reliefs_claimed))
+  - name: pilot_worker_income_tax
+    kind: derived
+    entity: Person
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: First Schedule to Act 896, paragraph 1(1), as substituted by Act 1111, on the composed chargeable income
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals
+              excerpt: "the chargeable income of a resident individual for a year of assessment is taxed at the following rates"
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          if pilot_worker_chargeable_income <= first_band_upper_bound: 0 else: if pilot_worker_chargeable_income <= second_band_upper_bound: (pilot_worker_chargeable_income - first_band_upper_bound) * resident_individual_income_tax_rate[1] else: if pilot_worker_chargeable_income <= third_band_upper_bound: (second_band_size * resident_individual_income_tax_rate[1]) + ((pilot_worker_chargeable_income - second_band_upper_bound) * resident_individual_income_tax_rate[2]) else: if pilot_worker_chargeable_income <= fourth_band_upper_bound: (second_band_size * resident_individual_income_tax_rate[1]) + (third_band_size * resident_individual_income_tax_rate[2]) + ((pilot_worker_chargeable_income - third_band_upper_bound) * resident_individual_income_tax_rate[3]) else: if pilot_worker_chargeable_income <= fifth_band_upper_bound: (second_band_size * resident_individual_income_tax_rate[1]) + (third_band_size * resident_individual_income_tax_rate[2]) + (fourth_band_size * resident_individual_income_tax_rate[3]) + ((pilot_worker_chargeable_income - fourth_band_upper_bound) * resident_individual_income_tax_rate[4]) else: if pilot_worker_chargeable_income <= sixth_band_upper_bound: (second_band_size * resident_individual_income_tax_rate[1]) + (third_band_size * resident_individual_income_tax_rate[2]) + (fourth_band_size * resident_individual_income_tax_rate[3]) + (fifth_band_size * resident_individual_income_tax_rate[4]) + ((pilot_worker_chargeable_income - fifth_band_upper_bound) * resident_individual_income_tax_rate[5]) else: (second_band_size * resident_individual_income_tax_rate[1]) + (third_band_size * resident_individual_income_tax_rate[2]) + (fourth_band_size * resident_individual_income_tax_rate[3]) + (fifth_band_size * resident_individual_income_tax_rate[4]) + (sixth_band_size * resident_individual_income_tax_rate[5]) + ((pilot_worker_chargeable_income - sixth_band_upper_bound) * resident_individual_income_tax_rate[6])
+  - name: pilot_worker_disposable_income
+    kind: derived
+    entity: Person
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: Composed identity — qualifying employment income plus supplied benefits less income tax less the imported Act 766 s.3(1) employee contribution (GHAMOD ils_dispy mirror)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-766/national-pensions-2008/section-3-contributions-to-the-scheme
+              excerpt: "a worker's contribution"
+    versions:
+      - effective_from: '2026-01-01'
+        formula: |-
+          qualifying_employment_income + max(0, benefits_received) - pilot_worker_income_tax - employee_social_security_contribution

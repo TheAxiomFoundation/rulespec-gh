@@ -1,0 +1,88 @@
+# Companion fixtures for the composed single-employee disposable-income
+# pipeline (listing gate 1, rulespec-gh#5). Expected values are computed by
+# hand from the imported Act 1111 band table (First 5,880 nil; next 1,320 at
+# 5%; next 1,560 at 10%; next 38,000 at 17.5%; next 192,000 at 25%), the
+# imported Act 766 s.3(1) employee rate (5.5%) and the s.112(2) deductible
+# ceiling (16.5%), then verified digit-by-digit through the engine. Fixture
+# provenance is manual (orchestrator-computed) per the interim convention in
+# axiom-encode#1060.
+#
+# GHAMOD GH_2025 comparison (finding #13 in rulespec-gh#10): GHAMOD taxes
+# GROSS employment income (il_tintb3 = yem), omitting the s.112(2) SSNIT
+# deduction, so at 60,000 gross it returns tax 10,182 and disposable income
+# 46,518 where the statutory chain gives 9,357 and 47,343.
+
+- name: gross_60000_single_worker_no_reliefs
+  # Contribution: 60,000 x 0.055                    = 3,300
+  # Ceiling:      60,000 x 0.165                    = 9,900 (not binding)
+  # Chargeable:   60,000 - 3,300 - 0                = 56,700
+  # Tax: 1,320x0.05 + 1,560x0.10 + 38,000x0.175
+  #      + (56,700 - 46,760) x 0.25
+  #    = 66 + 156 + 6,650 + 2,485                   = 9,357
+  # Disposable:   60,000 + 0 - 9,357 - 3,300        = 47,343
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/composed/pilot-worker-disposable-income-pipeline#input.qualifying_employment_income: 60000
+    gh:statutes/composed/pilot-worker-disposable-income-pipeline#input.personal_reliefs_claimed: 0
+    gh:statutes/composed/pilot-worker-disposable-income-pipeline#input.benefits_received: 0
+  output:
+    gh:statutes/composed/pilot-worker-disposable-income-pipeline#pilot_worker_deductible_ssnit_contribution: 3300
+    gh:statutes/composed/pilot-worker-disposable-income-pipeline#pilot_worker_chargeable_income: 56700
+    gh:statutes/composed/pilot-worker-disposable-income-pipeline#pilot_worker_income_tax: 9357
+    gh:statutes/composed/pilot-worker-disposable-income-pipeline#pilot_worker_disposable_income: 47343
+
+- name: gross_60000_with_reliefs_and_benefits
+  # Contribution: 60,000 x 0.055                    = 3,300
+  # Chargeable:   60,000 - 3,300 - 1,200            = 55,500
+  # Tax: 66 + 156 + 6,650 + (55,500 - 46,760)x0.25
+  #    = 6,872 + 2,185                              = 9,057
+  # Disposable:   60,000 + 500 - 9,057 - 3,300      = 48,143
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/composed/pilot-worker-disposable-income-pipeline#input.qualifying_employment_income: 60000
+    gh:statutes/composed/pilot-worker-disposable-income-pipeline#input.personal_reliefs_claimed: 1200
+    gh:statutes/composed/pilot-worker-disposable-income-pipeline#input.benefits_received: 500
+  output:
+    gh:statutes/composed/pilot-worker-disposable-income-pipeline#pilot_worker_chargeable_income: 55500
+    gh:statutes/composed/pilot-worker-disposable-income-pipeline#pilot_worker_income_tax: 9057
+    gh:statutes/composed/pilot-worker-disposable-income-pipeline#pilot_worker_disposable_income: 48143
+
+- name: gross_6000_stays_in_nil_band
+  # Contribution: 6,000 x 0.055                     = 330
+  # Chargeable:   6,000 - 330 - 0                   = 5,670 <= 5,880 (nil band)
+  # Tax:                                            = 0
+  # Disposable:   6,000 + 0 - 0 - 330               = 5,670
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/composed/pilot-worker-disposable-income-pipeline#input.qualifying_employment_income: 6000
+    gh:statutes/composed/pilot-worker-disposable-income-pipeline#input.personal_reliefs_claimed: 0
+    gh:statutes/composed/pilot-worker-disposable-income-pipeline#input.benefits_received: 0
+  output:
+    gh:statutes/composed/pilot-worker-disposable-income-pipeline#pilot_worker_income_tax: 0
+    gh:statutes/composed/pilot-worker-disposable-income-pipeline#pilot_worker_disposable_income: 5670
+
+- name: zero_income_all_zero
+  # No income: contribution, chargeable income, tax and disposable income
+  # are all zero (exercises the max(0, ...) floors end to end).
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/composed/pilot-worker-disposable-income-pipeline#input.qualifying_employment_income: 0
+    gh:statutes/composed/pilot-worker-disposable-income-pipeline#input.personal_reliefs_claimed: 0
+    gh:statutes/composed/pilot-worker-disposable-income-pipeline#input.benefits_received: 0
+  output:
+    gh:statutes/composed/pilot-worker-disposable-income-pipeline#pilot_worker_deductible_ssnit_contribution: 0
+    gh:statutes/composed/pilot-worker-disposable-income-pipeline#pilot_worker_chargeable_income: 0
+    gh:statutes/composed/pilot-worker-disposable-income-pipeline#pilot_worker_income_tax: 0
+    gh:statutes/composed/pilot-worker-disposable-income-pipeline#pilot_worker_disposable_income: 0
