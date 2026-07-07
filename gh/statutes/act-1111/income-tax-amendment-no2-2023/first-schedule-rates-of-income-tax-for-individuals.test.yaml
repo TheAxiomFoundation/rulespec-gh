@@ -123,3 +123,33 @@
   output:
     gh:statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals#resident_individual_income_tax_band: 5
     gh:statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals#resident_individual_income_tax: 164744
+
+- name: gra_paye_annual_table_cumulative_tax_at_46760
+  # External worked figure (listing gate 2): the GRA PAYE annual band table
+  # (gra.gov.gh, effective 1 January 2024; retrieved 2026-07-06) publishes
+  # cumulative tax 6,872 at cumulative chargeable income 46,760:
+  #   66 (5% band) + 156 (10% band) + 6,650 (17.5% band) = 6,872.
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals#input.chargeable_income: 46760
+  output:
+    gh:statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals#resident_individual_income_tax: 6872
+
+- name: gra_paye_annual_table_cumulative_tax_at_238760
+  # External worked figure (listing gate 2): the same GRA table publishes
+  # cumulative tax 54,872 at cumulative chargeable income 238,760:
+  #   66 + 156 + 6,650 + 48,000 (25% band) = 54,872.
+  # Together with the existing 605,000 boundary case (cumulative tax
+  # 164,744, also published by GRA), every cumulative boundary in the GRA
+  # annual table is reproduced exactly.
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals#input.chargeable_income: 238760
+  output:
+    gh:statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals#resident_individual_income_tax: 54872

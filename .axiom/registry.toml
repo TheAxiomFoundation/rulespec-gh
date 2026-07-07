@@ -4,6 +4,7 @@
 # builder all read this marker and skip experimental repos; corpus
 # provisions stay visible under their own release-scopes gating. Absent
 # file or key = "public". Parsed line-wise - keep the simple
-# key = "value" form. Flip to "public" when the lane is ready to list.
+# key = "value" form. Flip to "public" when the listing gates in
+# README.md ("Listing gates") hold.
 [registry]
 app_visibility = "experimental"
