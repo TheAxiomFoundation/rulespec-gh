@@ -1,0 +1,95 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: gh/statute/act-1007/income-tax-amendment-2019/fifth-schedule-personal-reliefs
+  summary: |-
+    Act 1007 substitutes the Fifth Schedule personal-relief amounts with
+    1,200, 1,500, 600, 1,000, and 2,000 currency points respectively.
+rules:
+  - name: act1007_dependant_spouse_or_children_relief_amount
+    kind: parameter
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: Act 1007 section 2(a)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1007/income-tax-amendment-2019/fifth-schedule-personal-reliefs
+              excerpt: "“two hundred currency points” in subparagraph (a) of paragraph | of “one thousand two hundred currency points”"
+    versions:
+      - effective_from: '2019-12-30'
+        formula: '1200'
+  - name: act1007_old_age_relief_amount
+    kind: parameter
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: Act 1007 section 2(b)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1007/income-tax-amendment-2019/fifth-schedule-personal-reliefs
+              excerpt: "“two hundred currency points” in subparagraph (c) of paragraph | of “one thousand five hundred currency points”"
+    versions:
+      - effective_from: '2019-12-30'
+        formula: '1500'
+  - name: act1007_child_education_relief_amount_per_child
+    kind: parameter
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: Act 1007 section 2(c)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1007/income-tax-amendment-2019/fifth-schedule-personal-reliefs
+              excerpt: "“two hundred currency points” in subparagraph (d) of paragraph | of “six hundred currency points”"
+    versions:
+      - effective_from: '2019-12-30'
+        formula: '600'
+  - name: act1007_aged_dependant_relative_relief_amount
+    kind: parameter
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: Act 1007 section 2(d)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1007/income-tax-amendment-2019/fifth-schedule-personal-reliefs
+              excerpt: "“one hundred currency points” in subparagraph (e) of paragraph 1 of “one thousand currency points”"
+    versions:
+      - effective_from: '2019-12-30'
+        formula: '1000'
+  - name: act1007_training_relief_cap
+    kind: parameter
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: Act 1007 section 2(e)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1007/income-tax-amendment-2019/fifth-schedule-personal-reliefs
+              excerpt: "“four hundred currency points”; in subparagraph () of paragraph | of “two thousand currency points.”"
+    versions:
+      - effective_from: '2019-12-30'
+        formula: '2000'

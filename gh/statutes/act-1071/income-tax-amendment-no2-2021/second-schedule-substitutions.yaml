@@ -3,10 +3,7 @@ module:
   proof_validation:
     required: true
   source_verification:
-    corpus_citation_paths:
-      - gh/statute/act-1071/income-tax-amendment-no2-2021/second-schedule-substitutions
-      - gh/statute/act-902/income-tax-amendment-2015/second-schedule-substitutions
-      - gh/statute/act-896/income-tax-2015/second-schedule
+    corpus_citation_path: gh/statute/act-1071/income-tax-amendment-no2-2021/second-schedule-substitutions
   summary: |-
     Substitutes paragraph 2(1)(c)(i) so the qualifying limb is an annual turnover of not more than twenty thousand Ghana Cedis computed as a three-year average (the substituted text carries no VAT-registration phrase, unlike the base 2015 limb); substitutes paragraph 5 so turnover-based presumptive tax is three per cent where turnover is more than twenty thousand Ghana Cedis but does not exceed five hundred thousand Ghana Cedis; substitutes paragraph 6(1)(b) so modified cash basis applies where turnover does not exceed five hundred thousand Ghana Cedis.
 rules:

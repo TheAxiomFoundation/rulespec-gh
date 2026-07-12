@@ -17,25 +17,7 @@ module:
   proof_validation:
     required: true
   source_verification:
-    corpus_citation_paths:
-      - gh/statute/act-766/national-pensions-2008/section-112-tax-reliefs
-      - gh/statute/act-766/national-pensions-2008/section-3-contributions-to-the-scheme
-      - gh/statute/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals
-      - gh/statute/act-896/income-tax-2015/fifth-schedule
-    upstream_source_check:
-      status: composed_from_grounded_modules
-      checked_paths:
-        - gh/statute/act-766/national-pensions-2008/section-112-tax-reliefs
-        - gh/statute/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals
-      rationale: >-
-        Every band bound, band size and rate this pipeline uses is imported
-        from the already-grounded Act 1111 First Schedule module, and the
-        employee contribution itself is the imported Act 766 section 3(1)
-        derivation. The pipeline adds one new grounded parameter — the
-        Act 766 section 112(2) deductible-contribution ceiling (sixteen and
-        one half per centum of a contributor's income) — and otherwise only
-        wires the grounded stages together for the single-employee oracle
-        slice.
+    corpus_citation_path: gh/statute/act-766/national-pensions-2008/section-112-tax-reliefs
   summary: |-
     Composed single-employee disposable-income pipeline for the GHAMOD
     oracle slice at the 2026 year of assessment (listing gate 1,

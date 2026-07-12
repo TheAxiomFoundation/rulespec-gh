@@ -20,7 +20,7 @@ rules:
             kind: formula
             source:
               corpus_citation_path: gh/statute/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals
-              excerpt: "First GH¢5,880; Next GH¢1,320; Next GH¢1,560; Next GH¢38,000; Next GH¢192,000; Next GH¢366,240; Exceeding GH¢600,000"
+              excerpt: "NO.}| CHARGEABLE INCOME RATE OF TAX 1. | First GH¢5,880 Nil 2. | Next GH¢1,320 5 per cent 3. | Next GH¢1,560 10 per cent 4. | Next GH¢38,000 17.5 per cent 5. | Next GH¢192,000 25 per cent 6. | Next GH¢366,240 30 per cent 7. | Exceeding GH¢600,000 35 per cent"
     versions:
       - effective_from: '2023-12-29'
         formula: |-
@@ -146,7 +146,7 @@ rules:
             kind: formula
             source:
               corpus_citation_path: gh/statute/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals
-              excerpt: "First GH¢5,880; Next GH¢1,320"
+              excerpt: "First GH¢5,880 Nil 2. | Next GH¢1,320"
     versions:
       - effective_from: '2023-12-29'
         formula: |-
@@ -164,7 +164,7 @@ rules:
             kind: formula
             source:
               corpus_citation_path: gh/statute/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals
-              excerpt: "First GH¢5,880; Next GH¢1,320; Next GH¢1,560"
+              excerpt: "First GH¢5,880 Nil 2. | Next GH¢1,320 5 per cent 3. | Next GH¢1,560"
     versions:
       - effective_from: '2023-12-29'
         formula: |-
@@ -225,7 +225,7 @@ rules:
             kind: formula
             source:
               corpus_citation_path: gh/statute/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals
-              excerpt: "First GH¢5,880; Next GH¢1,320; Next GH¢1,560; Next GH¢38,000; Next GH¢192,000; Next GH¢366,240"
+              excerpt: "First GH¢5,880 Nil 2. | Next GH¢1,320 5 per cent 3. | Next GH¢1,560 10 per cent 4. | Next GH¢38,000 17.5 per cent 5. | Next GH¢192,000 25 per cent 6. | Next GH¢366,240"
     versions:
       - effective_from: '2023-12-29'
         formula: |-

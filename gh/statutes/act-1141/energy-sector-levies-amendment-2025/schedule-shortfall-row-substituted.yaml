@@ -1,12 +1,13 @@
 format: rulespec/v1
+imports:
+  - gh:statutes/act-1145/energy-sector-levies-amendment-no2-2025/schedule-road-and-energy-fund-rows#act1145_road_fund_levy_rate_per_litre
+  - gh:statutes/act-1145/energy-sector-levies-amendment-no2-2025/schedule-road-and-energy-fund-rows#act1145_energy_fund_levy_rate_per_litre
+  - gh:statutes/act-1145/energy-sector-levies-amendment-no2-2025/schedule-road-and-energy-fund-rows#act1145_kerosene_energy_fund_levy_rate_per_kilogramme
 module:
   proof_validation:
     required: true
   source_verification:
-    corpus_citation_paths:
-      - gh/statute/act-1141/energy-sector-levies-amendment-2025/schedule-shortfall-row-substituted
-      - gh/statute/act-1145/energy-sector-levies-amendment-no2-2025/schedule-road-and-energy-fund-rows
-      - gh/statute/act-1135/energy-sector-levies-2025/schedule-types-of-levies
+    corpus_citation_path: gh/statute/act-1141/energy-sector-levies-amendment-2025/schedule-shortfall-row-substituted
   deferred_outputs:
     - output: gh:statutes/act-1141/energy-sector-levies-amendment-2025/schedule-shortfall-row-substituted#naphtha_fuel_levies_amount
       reason: Naphtha is not a household fuel in the GLSS/GHAMOD consumption surface; the levy amount output is deferred until an industrial-fuel surface is encoded.
@@ -146,7 +147,7 @@ rules:
     versions:
       - effective_from: '2025-07-29'
         formula: |-
-          48
+          act1145_road_fund_levy_rate_per_litre
   - name: energy_fund_levy_rate_per_litre
     kind: parameter
     dtype: Money
@@ -163,7 +164,7 @@ rules:
     versions:
       - effective_from: '2025-07-29'
         formula: |-
-          1
+          act1145_energy_fund_levy_rate_per_litre
   - name: petrol_fuel_levies_per_litre
     kind: derived
     entity: Person
@@ -261,7 +262,7 @@ rules:
     versions:
       - effective_from: '2025-07-29'
         formula: |-
-          1
+          act1145_kerosene_energy_fund_levy_rate_per_kilogramme
   - name: lpg_shortfall_levy_amount
     kind: derived
     entity: Person
