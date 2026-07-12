@@ -1,14 +1,15 @@
 format: rulespec/v1
+imports:
+  - gh:statutes/act-1007/income-tax-amendment-2019/fifth-schedule-personal-reliefs#act1007_dependant_spouse_or_children_relief_amount
+  - gh:statutes/act-1007/income-tax-amendment-2019/fifth-schedule-personal-reliefs#act1007_old_age_relief_amount
+  - gh:statutes/act-1007/income-tax-amendment-2019/fifth-schedule-personal-reliefs#act1007_child_education_relief_amount_per_child
+  - gh:statutes/act-1007/income-tax-amendment-2019/fifth-schedule-personal-reliefs#act1007_aged_dependant_relative_relief_amount
+  - gh:statutes/act-1007/income-tax-amendment-2019/fifth-schedule-personal-reliefs#act1007_training_relief_cap
 module:
   proof_validation:
     required: true
   source_verification:
     corpus_citation_path: gh/statute/act-896/income-tax-2015/fifth-schedule
-    corpus_citation_paths:
-      - gh/statute/act-896/income-tax-2015/fifth-schedule
-      - gh/statute/act-1007/income-tax-amendment-2019/fifth-schedule-personal-reliefs
-      - gh/statute/act-896/income-tax-2015/51
-      - gh/statute/act-896/income-tax-2015/133
   summary: |-
     "In arriving at the chargeable income of a resident individual for a year of assessment under section 2, deduct the personal reliefs specified in the Fifth Schedule" (section 51). The Fifth Schedule grants: a relief for an individual who has a dependant spouse or at least two dependant children; a disability relief of twenty-five percent of the assessable income of that individual from a business or employment; a relief for an individual who is sixty years of age and above; a child-education relief per child or ward up to a maximum of three children or wards; a relief for each of up to two dependant relatives (other than a child or spouse) who are sixty years of age or more; and a relief equivalent to the cost of professional, technical or vocational training up to a cap. The amounts in force from 2020 (and for the 2026 year of assessment) are substituted by section 2 of the Income Tax (Amendment) Act, 2019 (Act 1007): one thousand two hundred; one thousand five hundred; six hundred; one thousand; and two thousand currency points, where a currency point means one Cedi (section 133).
 rules:
@@ -34,7 +35,7 @@ rules:
     versions:
       - effective_from: '2019-12-30'
         formula: |-
-          1200
+          act1007_dependant_spouse_or_children_relief_amount
   - name: dependant_children_minimum_count
     kind: parameter
     dtype: Count
@@ -91,7 +92,7 @@ rules:
     versions:
       - effective_from: '2019-12-30'
         formula: |-
-          1500
+          act1007_old_age_relief_amount
   - name: old_age_relief_minimum_age
     kind: parameter
     dtype: Integer
@@ -131,7 +132,7 @@ rules:
     versions:
       - effective_from: '2019-12-30'
         formula: |-
-          600
+          act1007_child_education_relief_amount_per_child
   - name: child_education_relief_max_children
     kind: parameter
     dtype: Count
@@ -171,7 +172,7 @@ rules:
     versions:
       - effective_from: '2019-12-30'
         formula: |-
-          1000
+          act1007_aged_dependant_relative_relief_amount
   - name: aged_dependant_relative_relief_max_relatives
     kind: parameter
     dtype: Count
@@ -211,7 +212,7 @@ rules:
     versions:
       - effective_from: '2019-12-30'
         formula: |-
-          2000
+          act1007_training_relief_cap
   - name: dependant_spouse_or_children_personal_relief
     kind: derived
     entity: Person

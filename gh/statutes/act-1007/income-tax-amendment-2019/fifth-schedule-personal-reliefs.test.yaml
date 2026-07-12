@@ -1,0 +1,12 @@
+- name: substituted_personal_relief_amounts
+  period:
+    period_kind: tax_year
+    start: '2020-01-01'
+    end: '2020-12-31'
+  input: {}
+  output:
+    gh:statutes/act-1007/income-tax-amendment-2019/fifth-schedule-personal-reliefs#act1007_dependant_spouse_or_children_relief_amount: 1200
+    gh:statutes/act-1007/income-tax-amendment-2019/fifth-schedule-personal-reliefs#act1007_old_age_relief_amount: 1500
+    gh:statutes/act-1007/income-tax-amendment-2019/fifth-schedule-personal-reliefs#act1007_child_education_relief_amount_per_child: 600
+    gh:statutes/act-1007/income-tax-amendment-2019/fifth-schedule-personal-reliefs#act1007_aged_dependant_relative_relief_amount: 1000
+    gh:statutes/act-1007/income-tax-amendment-2019/fifth-schedule-personal-reliefs#act1007_training_relief_cap: 2000

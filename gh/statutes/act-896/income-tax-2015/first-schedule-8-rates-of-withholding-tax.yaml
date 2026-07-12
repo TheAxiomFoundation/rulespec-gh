@@ -3,12 +3,7 @@ module:
   proof_validation:
     required: true
   source_verification:
-    corpus_citation_paths:
-      - gh/statute/act-896/income-tax-2015/first-schedule-8-rates-of-withholding-tax
-      - gh/statute/act-896/income-tax-2015/section-119-final-withholding-payments
-      - gh/statute/act-896/income-tax-2015/section-115-withholding-from-investment-returns
-      - gh/statute/act-1134/income-tax-amendment-2025/withholding-and-first-schedule-paragraph-8/document-1
-      - gh/statute/act-907/income-tax-amendment-2016/section-7-exempt-interest-inserted
+    corpus_citation_path: gh/statute/act-896/income-tax-2015/first-schedule-8-rates-of-withholding-tax
   summary: |-
     First Schedule paragraph 8(1)(b) sets the rates of tax withheld from
     payments to which section 115 applies (as substituted by Act 1134 s.3:

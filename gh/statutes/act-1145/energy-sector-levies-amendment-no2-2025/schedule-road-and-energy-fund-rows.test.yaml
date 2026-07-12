@@ -1,0 +1,10 @@
+- name: substituted_road_and_energy_fund_rates
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input: {}
+  output:
+    gh:statutes/act-1145/energy-sector-levies-amendment-no2-2025/schedule-road-and-energy-fund-rows#act1145_road_fund_levy_rate_per_litre: 48
+    gh:statutes/act-1145/energy-sector-levies-amendment-no2-2025/schedule-road-and-energy-fund-rows#act1145_energy_fund_levy_rate_per_litre: 1
+    gh:statutes/act-1145/energy-sector-levies-amendment-no2-2025/schedule-road-and-energy-fund-rows#act1145_kerosene_energy_fund_levy_rate_per_kilogramme: 1

@@ -3,26 +3,7 @@ module:
   proof_validation:
     required: true
   source_verification:
-    corpus_citation_paths:
-      - gh/policy/mogcsp-leap/payment-cycle-97-2025/payment-cycle-announcement
-      - gh/policy/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386
-      - gh/statute/act-1126/appropriation-2025/section-1-authorisation-of-expenditure
-    upstream_source_check:
-      status: official_parameter_source
-      checked_paths:
-        - gh/statute/act-1126/appropriation-2025/section-1-authorisation-of-expenditure
-        - gh/policy/mogcsp-leap/payment-cycle-97-2025/payment-cycle-announcement
-        - gh/policy/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386
-      rationale: >-
-        LEAP grant amounts are administratively set by the Ministry of
-        Gender, Children and Social Protection — no Ghana statute fixes
-        them; the Appropriation Act, 2025 (Act 1126, checked) authorises
-        the expenditure without setting household amounts — the Ministry's 97th-payment-cycle announcement is the
-        controlling published source for the bi-monthly amounts in force
-        from the June 2025 inflation indexation, and the 2025 Budget
-        Statement paragraph 386 (inflation indexation of benefits;
-        expansion to 400,000 households; allocation raised to GH¢953.5m)
-        corroborates the programme parameters.
+    corpus_citation_path: gh/policy/mogcsp-leap/payment-cycle-97-2025/payment-cycle-announcement
   summary: |-
     The Livelihood Empowerment Against Poverty (LEAP) cash grant is paid
     bi-monthly per household, banded by the number of eligible members:

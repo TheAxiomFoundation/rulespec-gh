@@ -1,0 +1,66 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: gh/statute/act-1145/energy-sector-levies-amendment-no2-2025/schedule-road-and-energy-fund-rows
+  deferred_outputs:
+    - output: gh:statutes/act-1145/energy-sector-levies-amendment-no2-2025/schedule-road-and-energy-fund-rows#road_and_energy_fund_levies_amount
+      reason: The affected fuel-specific combined outputs are encoded by the importing Act 1141 module, which supplies the Shortfall and Debt Repayment Levy rates and consumption inputs.
+      source_values:
+        - gh:statutes/act-1145/energy-sector-levies-amendment-no2-2025/schedule-road-and-energy-fund-rows#act1145_road_fund_levy_rate_per_litre
+        - gh:statutes/act-1145/energy-sector-levies-amendment-no2-2025/schedule-road-and-energy-fund-rows#act1145_energy_fund_levy_rate_per_litre
+        - gh:statutes/act-1145/energy-sector-levies-amendment-no2-2025/schedule-road-and-energy-fund-rows#act1145_kerosene_energy_fund_levy_rate_per_kilogramme
+  summary: |-
+    Act 1145 substitutes the Road Fund Levy row at GHp 48 per litre and the
+    Energy Fund Levy row at GHp 1 per litre, with GH 1 per kilogramme on
+    kerosene.
+rules:
+  - name: act1145_road_fund_levy_rate_per_litre
+    kind: parameter
+    dtype: Money
+    unit: GHp
+    source: Act 1145 Schedule third row substituted (Road Fund Levy)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1145/energy-sector-levies-amendment-no2-2025/schedule-road-and-energy-fund-rows
+              excerpt: "GHp 48 per"
+    versions:
+      - effective_from: '2025-07-29'
+        formula: '48'
+  - name: act1145_energy_fund_levy_rate_per_litre
+    kind: parameter
+    dtype: Money
+    unit: GHp
+    source: Act 1145 Schedule fourth row substituted (Energy Fund Levy)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1145/energy-sector-levies-amendment-no2-2025/schedule-road-and-energy-fund-rows
+              excerpt: "Ghp1 per"
+    versions:
+      - effective_from: '2025-07-29'
+        formula: '1'
+  - name: act1145_kerosene_energy_fund_levy_rate_per_kilogramme
+    kind: parameter
+    dtype: Money
+    unit: GHp
+    source: Act 1145 Schedule fourth row substituted (Energy Fund Levy, kerosene limb)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1145/energy-sector-levies-amendment-no2-2025/schedule-road-and-energy-fund-rows
+              excerpt: "GH 1 per kilogramme on kerosene"
+    versions:
+      - effective_from: '2025-07-29'
+        formula: '1'

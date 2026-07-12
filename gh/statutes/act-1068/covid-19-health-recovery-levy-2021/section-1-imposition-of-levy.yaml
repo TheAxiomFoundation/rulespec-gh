@@ -3,9 +3,7 @@ module:
   proof_validation:
     required: true
   source_verification:
-    corpus_citation_paths:
-      - gh/statute/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy
-      - gh/statute/act-1150/covid-19-health-recovery-levy-repeal-2025/section-1-act-1068-repealed
+    corpus_citation_path: gh/statute/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy
   summary: |-
     There is imposed a COVID-19 Health Recovery Levy on supplies made in the
     country, other than exempt goods or services, and on imports other than
