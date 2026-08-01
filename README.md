@@ -44,7 +44,7 @@ Every policy-bearing monetary value — currency parameters, currency parameter-
 
 ## Listing gates (app visibility)
 
-This lane is marked `app_visibility = "experimental"` in `.axiom/registry.toml`, which keeps its encodings off the axiom-foundation.org app surfaces (encoded search, jurisdiction tiles, navigation encoding badges) while it matures; corpus provisions remain visible under release-scopes gating. Flip the marker to `"public"` in a one-line PR when all four gates hold:
+This lane is marked `app_visibility = "experimental"` in `.axiom/registry.toml`, which keeps its encodings off the axiom.org app surfaces (encoded search, jurisdiction tiles, navigation encoding badges) while it matures; corpus provisions remain visible under release-scopes gating. Flip the marker to `"public"` in a one-line PR when all four gates hold:
 
 1. **Composed end-to-end calculation** — an axiom-programs compose spec chains the modules so the flagship calculation (gross income to individual income-tax liability) runs as one program. For Ghana this also needs the section 2 assessable-to-chargeable chain encoded so the Fifth Schedule reliefs connect to the First Schedule rate module. Status: **open** (tracked in the listing-gates issue).
 2. **Independent numerical validation** — GHAMOD (SOUTHMOD Ghana) parity once the UNU-WIDER bundle clears (requested July 2026), or, until then, independently published worked figures reproduced exactly as companion fixtures citing their sources. Status: **partially met** — the GRA PAYE annual band table's cumulative-tax column (effective 1 January 2024; retrieved 2026-07-06) is reproduced at every published cumulative boundary, including 164,744 at 605,000.
