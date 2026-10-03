@@ -487,9 +487,7 @@ jobs:
             -c user.name="bulk-encode" commit --amend -q \
             -m "Encode $CITATION via bulk dispatcher" \
             -m "" \
-            -m "Produced by axiom-encode encode $CITATION --apply (backend ${{ matrix.item.backend }}, model ${{ matrix.item.model }})." \
-            -m "" \
-            -m "Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>"
+            -m "Produced by axiom-encode encode $CITATION --apply (backend ${{ matrix.item.backend }}, model ${{ matrix.item.model }})."
           git -C "$GITHUB_WORKSPACE" push -f origin "HEAD:$branch"
 
           if [ -z "$pr_state" ]; then
