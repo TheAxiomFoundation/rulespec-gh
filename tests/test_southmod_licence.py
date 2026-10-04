@@ -8,8 +8,8 @@ on synthetic households, and comparison statistics.
 The scan below catches the syntactic forms that model content takes when it
 slips into prose: income-list names and compositions, policy and function
 names, switch and constant syntax, and output variable names that are not
-comparison bindings. It cannot recognise a parameter value or a condition
-written in plain words; review still owns those.
+comparison bindings. It cannot recognise a parameter value, a condition or
+a model input-variable name written in plain words; review still owns those.
 """
 
 from __future__ import annotations
@@ -21,11 +21,11 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
-# Prose-bearing roots. `.github/` holds workflow shell code (its `$var`
-# expansions are not model constants) and `tests/` holds these patterns, so
+# Every UTF-8 file under these roots is scanned, whatever its suffix, so a
+# committed bundle file (EUROMOD parameters are XML) is caught too.
+# `.github/` holds workflow shell code and `tests/` holds these patterns, so
 # neither is scanned; nor are CI's transient `_axiom/` toolchain checkouts.
 SCAN_DIRS = (".axiom", "bulk", "data", "gh", "programs")
-SCAN_SUFFIXES = {".json", ".md", ".py", ".toml", ".txt", ".yaml", ".yml"}
 
 # GHAMOD output variables that axiom-oracles' gh suites compare against
 # (`comparisons/gh-*.yaml`). Keep in step with the `wired` block of
@@ -58,11 +58,14 @@ PATTERNS = {
     "income_list": re.compile(r"\bils?_[a-z][a-z0-9_]*"),
     "policy_name": re.compile(r"\b[a-z][a-z0-9]*(?:_[a-z0-9]+)*_gh\b"),
     "function_name": re.compile(
-        r"\b(?:ArithOp|BenCalc|DefConst|DefIL|DefOutput|DefTU|DefVar|Elig"
-        r"|IlVarOp|SchedCalc|SetDefault|UpdateTU)\b"
+        r"\b(?:ArithOp|BenCalc|ChangeParam|ChangeSwitch|DefConst|DefIL"
+        r"|DefOutput|DefTU|DefVar|DropUnit|Elig|IlVarOp|KeepUnit|SchedCalc"
+        r"|SetDefault|UnitLoop|UpdateTU)\b"
     ),
     "switch": re.compile(r"\bsw\s*=\s*(?:on|off|n/a)\b", re.IGNORECASE),
-    "constant": re.compile(r"\$[a-z][A-Za-z0-9_]*"),
+    # Model constants are mixed or lower case; all-caps names are shell
+    # variables ($HOME, $GITHUB_WORKSPACE).
+    "constant": re.compile(r"\$(?![A-Z][A-Z0-9_]*\b)[A-Za-z][A-Za-z0-9_]*"),
     "period_suffix": re.compile(r"\b\d+(?:\.\d+)?#[ymwqd]\b"),
     "output_variable": re.compile(r"\b[a-z]{2,8}\d{0,2}_s\b"),
 }
@@ -109,13 +112,9 @@ def iter_scanned_files() -> list[Path]:
         for directory in SCAN_DIRS
         if (ROOT / directory).is_dir()
         for path in (ROOT / directory).rglob("*")
-        if path.is_file() and path.suffix in SCAN_SUFFIXES
+        if path.is_file()
     ]
-    files.extend(
-        path
-        for path in ROOT.iterdir()
-        if path.is_file() and path.suffix in SCAN_SUFFIXES
-    )
+    files.extend(path for path in ROOT.iterdir() if path.is_file())
     return sorted(files)
 
 
@@ -163,14 +162,14 @@ def test_bindings_match_oracle_index() -> None:
         for oracle in payload.get("oracles", [])
         if oracle.get("id") == "ghamod" and "wired" in oracle
     ]
-    if not wired:
-        return
+    assert wired, "data/oracles/oracle-index.json lost its GHAMOD wired block"
     names = {name for suite in wired[0]["suites"] for name in suite["ghamod_variables"]}
     assert names == COMPARISON_BINDINGS | {COMPARED_INCOME_LIST}
 
 
-# The detector checks below use made-up tokens of the same shape, so this
-# file names no real model internals.
+# The detector checks below use made-up tokens of the same shape, plus one
+# generic EUROMOD function name and the platform's switch syntax, so this
+# file names no GHAMOD content.
 def categories(text: str) -> Counter[str]:
     return Counter(category for _, category in find_internals(text))
 
@@ -183,7 +182,8 @@ def test_detector_flags_each_form() -> None:
     assert categories("a SchedCalc step") == {"function_name": 1}
     assert categories("it is sw=off here") == {"switch": 1}
     assert categories("uses $zzconstant") == {"constant": 1}
-    assert categories("above 50#y") == {"period_suffix": 1}
+    assert categories("uses $ZzMixedRate and $ZZ_part") == {"constant": 2}
+    assert categories("above 77#q") == {"period_suffix": 1}
     assert categories("output zzz01_s differs") == {"output_variable": 1}
 
 
@@ -191,8 +191,8 @@ def test_detector_allows_bindings_and_ordinary_text() -> None:
     clean = (
         "GHAMOD's tin_s at 60,000 is 10,182 against the statutory 9,357. "
         "Compared output: ils_dispy. Pinned rulespec_gh 4d84b15; see "
-        "rulespec-gh#10. income_tax_s and ${{ secrets.TOKEN }} are not model "
-        "names."
+        "rulespec-gh#10. income_tax_s, ${{ secrets.TOKEN }}, $HOME and "
+        "$GITHUB_WORKSPACE are not model names."
     )
     assert categories(clean) == {}
 

@@ -130,7 +130,7 @@
             "ghamod_variables": [
               "bed_s"
             ],
-            "note": "Regression check, not a rate test: both sides use GHAMOD's every-weekday day count (365 x 5/7), so a rate error and a calendar error cannot be told apart."
+            "note": "Regression check, not a rate test: both sides use the every-weekday day count (365 x 5/7) implied by GHAMOD's observed bed_s (521.43 a year = 2.00 x 260.71 days), so a rate error and a calendar error cannot be told apart."
           },
           {
             "suite": "gh-vat-levies",
