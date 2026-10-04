@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-06",
+  "generated_at": "2026-10-04",
   "jurisdiction": "gh",
   "focus": "Ghana tax-benefit surface: national income tax (PAYE and self-assessment), personal reliefs, social contributions, and cash-transfer / social-protection programmes.",
   "purpose": "Household-level comparison-oracle and supporting-source references for Ghana Axiom coverage. None of these are legal authority.",
@@ -13,7 +13,7 @@
       "commit": null,
       "model": "SOUTHMOD_A4.0",
       "dataset": "gh_2013_a8.txt, gh_2017_a8.txt (GLSS-based input microdata shipped in the bundle)",
-      "role": "Intended household-level tax-benefit comparison oracle for Ghana. GHAMOD is the SOUTHMOD tax-benefit microsimulation model for Ghana (UNU-WIDER, in collaboration with the University of Ghana, the Ghana Statistical Service, and the Ministry of Finance / GRA). Built on the EUROMOD platform.",
+      "role": "Household-level tax-benefit comparison oracle for Ghana, wired through per-case suites in axiom-oracles (see wired). GHAMOD is the SOUTHMOD tax-benefit microsimulation model for Ghana (UNU-WIDER), built on the EUROMOD platform.",
       "coverage": [
         "personal_income_tax",
         "paye",
@@ -25,7 +25,7 @@
       "availability_check": {
         "checked_at": "2026-10-04",
         "status": "wired_per_case_parity",
-        "detail": "UNU-WIDER approved the SOUTHMOD access request on 2026-07-07; the model bundle (SOUTHMOD A4.0, sha256 above) is held locally under the SOUTHMOD_A4.0 Adhesion Agreement (personal links; non-redistributable; never committed or shared). GHAMOD is wired as the Ghana household oracle by nine per-case comparison suites in TheAxiomFoundation/axiom-oracles (comparisons/gh-*.yaml, axiom-oracles#205 to #221), run on system GH_2025 through scripts/run_comparison.py on the licensed machine. They are manual-lane suites (ci: manual) because the agreement bars giving the bundle to shared CI runners. On 2026-10-04, against rulespec-gh 4d84b15 and axiom-rules-engine 6f62c12: 39 cases, 47 comparisons, 46 matched and 1 dispositioned (at 700,000 GHAMOD omits the Act 1111 35% band; the GHAMOD maintainers confirmed this on 2026-07-16 and said the next release fixes it). Oracle-side findings are recorded in axiom-oracles axiom_oracles/data/ghamod_issues.json. The rulespec-gh modules these suites compare carry manual-attestation manifests, so the comparisons should be re-run after any supervised re-encode."
+        "detail": "UNU-WIDER approved the SOUTHMOD access request on 2026-07-07; the model bundle (SOUTHMOD A4.0, sha256 above) is held locally under the SOUTHMOD_A4.0 Adhesion Agreement (personal links; non-redistributable; never committed or shared). GHAMOD is wired as the Ghana household oracle by nine per-case comparison suites in TheAxiomFoundation/axiom-oracles (comparisons/gh-*.yaml, axiom-oracles#205 to #221), run on system GH_2025 through scripts/run_comparison.py on the licensed machine. They are manual-lane suites (ci: manual): clause 4 of the agreement bars giving the bundle or its input data to any third party, so they never run on shared CI runners. On 2026-10-04, against rulespec-gh 4d84b15 and axiom-rules-engine 6f62c12: 39 cases, 47 comparisons, 46 matched and 1 dispositioned (at 700,000 GHAMOD omits the Act 1111 35% band; the GHAMOD maintainers confirmed this on 2026-07-16 and said the next release fixes it). Oracle-side findings are recorded in axiom-oracles axiom_oracles/data/ghamod_issues.json. The rulespec-gh modules these suites compare carry manual-attestation manifests, so the comparisons should be re-run after any supervised re-encode."
       },
       "bundle_sha256": "741855bd23cf4c4a0a61a80def06a078fd3f0551a452b5853a2e46c7e2486a5f",
       "systems": "GH_2013 through GH_2025 (13 policy years; Act 1111 rate schedule in GH_2024/GH_2025, Act 1007 reliefs from GH_2020)",
