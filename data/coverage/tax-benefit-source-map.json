@@ -18,10 +18,6 @@
   ],
   "current_blockers": [
     {
-      "id": "ghamod-oracle-clearance",
-      "description": "GHAMOD (SOUTHMOD Ghana, UNU-WIDER) is the intended household-level oracle but its model-and-data bundle must clear UNU-WIDER SOUTHMOD licensing before it can be pinned as a comparison surface. Parity tests are deferred until then; see data/oracles/oracle-index.json."
-    },
-    {
       "id": "corpus-capture-pending",
       "description": "Captured so far (signed axiom-corpus ingests): Act 1111 First Schedule rate schedule (2026-07-06-gh-income-tax-rate-schedule) and the personal-reliefs provisions \u2014 Act 896 sections 51/133 and Fifth Schedule slices, Act 1007 section 2 amounts, Act 1134 (2026-07-06-gh-income-tax-personal-reliefs). Still pending capture: the current GRA individual/PAYE rate surface and MoGCSP/LEAP programme documentation."
     }

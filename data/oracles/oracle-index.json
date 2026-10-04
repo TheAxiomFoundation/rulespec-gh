@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-06",
+  "generated_at": "2026-10-04",
   "jurisdiction": "gh",
   "focus": "Ghana tax-benefit surface: national income tax (PAYE and self-assessment), personal reliefs, social contributions, and cash-transfer / social-protection programmes.",
   "purpose": "Household-level comparison-oracle and supporting-source references for Ghana Axiom coverage. None of these are legal authority.",
@@ -13,7 +13,7 @@
       "commit": null,
       "model": "SOUTHMOD_A4.0",
       "dataset": "gh_2013_a8.txt, gh_2017_a8.txt (GLSS-based input microdata shipped in the bundle)",
-      "role": "Intended household-level tax-benefit comparison oracle for Ghana. GHAMOD is the SOUTHMOD tax-benefit microsimulation model for Ghana (UNU-WIDER, in collaboration with the University of Ghana, the Ghana Statistical Service, and the Ministry of Finance / GRA). Built on the EUROMOD platform.",
+      "role": "Household-level tax-benefit comparison oracle for Ghana, wired through per-case suites in axiom-oracles (see wired). GHAMOD is the SOUTHMOD tax-benefit microsimulation model for Ghana (UNU-WIDER), built on the EUROMOD platform.",
       "coverage": [
         "personal_income_tax",
         "paye",
@@ -21,14 +21,130 @@
         "cash_transfers",
         "household_disposable_income"
       ],
-      "authority": "bundle_in_hand_wiring_pending",
+      "authority": "wired_per_case_parity",
       "availability_check": {
-        "checked_at": "2026-07-07",
-        "status": "bundle_in_hand_wiring_pending",
-        "detail": "UNU-WIDER approved the SOUTHMOD access request on 2026-07-07 and the model bundle (SOUTHMOD A4.0, sha256 above) with Ghana input datasets and DRDs is held locally under the Adhesion Agreement (personal links; non-redistributable; the bundle and datasets must never be committed or shared). GHAMOD runs on the EUROMOD engine; oracle wiring (per-case parity suites against GH_2024/GH_2025 systems for the encoded rate schedule and reliefs, then registry reclassification from not_comparable) is the next lane milestone. Until wired, gh: outputs remain classified not_comparable and parity tests stay deferred."
+        "checked_at": "2026-10-04",
+        "status": "wired_per_case_parity",
+        "detail": "UNU-WIDER approved the SOUTHMOD access request on 2026-07-07; the model bundle (SOUTHMOD A4.0, sha256 above) is held locally under the SOUTHMOD_A4.0 Adhesion Agreement (personal links; non-redistributable; never committed or shared). GHAMOD is wired as the Ghana household oracle by nine per-case comparison suites in TheAxiomFoundation/axiom-oracles (comparisons/gh-*.yaml, axiom-oracles#205 to #221), run on system GH_2025 through scripts/run_comparison.py on the licensed machine. They are manual-lane suites (ci: manual): clause 4 of the agreement bars giving the bundle or its input data to any third party, so they never run on shared CI runners. On 2026-10-04, against rulespec-gh 4d84b15 and axiom-rules-engine 6f62c12: 39 cases, 47 comparisons, 46 matched and 1 dispositioned (at 700,000 GHAMOD omits the Act 1111 35% band; the GHAMOD maintainers confirmed this on 2026-07-16 and said the next release fixes it). Oracle-side findings are recorded in axiom-oracles axiom_oracles/data/ghamod_issues.json. The rulespec-gh modules these suites compare carry manual-attestation manifests, so the comparisons should be re-run after any supervised re-encode."
       },
       "bundle_sha256": "741855bd23cf4c4a0a61a80def06a078fd3f0551a452b5853a2e46c7e2486a5f",
-      "systems": "GH_2013 through GH_2025 (13 policy years; Act 1111 rate schedule in GH_2024/GH_2025, Act 1007 reliefs from GH_2020)"
+      "systems": "GH_2013 through GH_2025 (13 policy years; the wired suites run GH_2025)",
+      "wired": {
+        "oracles_prs": [
+          "TheAxiomFoundation/axiom-oracles#205",
+          "TheAxiomFoundation/axiom-oracles#207",
+          "TheAxiomFoundation/axiom-oracles#210",
+          "TheAxiomFoundation/axiom-oracles#214",
+          "TheAxiomFoundation/axiom-oracles#218",
+          "TheAxiomFoundation/axiom-oracles#219",
+          "TheAxiomFoundation/axiom-oracles#221"
+        ],
+        "system": "GH_2025",
+        "dataset_configuration": "gh_2017_a8 (variable list only; every comparison household is synthetic)",
+        "last_run": {
+          "date": "2026-10-04",
+          "axiom_rules_engine": "6f62c12",
+          "rulespec_gh": "4d84b15"
+        },
+        "suites": [
+          {
+            "suite": "gh-capital-income",
+            "axiom_outputs": [
+              "gh:statutes/act-896/income-tax-2015/first-schedule-8-rates-of-withholding-tax#individual_residential_rent_final_withholding"
+            ],
+            "ghamod_variables": [
+              "tinrt_s"
+            ]
+          },
+          {
+            "suite": "gh-dispy",
+            "axiom_outputs": [
+              "gh:statutes/composed/pilot-worker-disposable-income-pipeline#pilot_worker_disposable_income"
+            ],
+            "ghamod_variables": [
+              "ils_dispy"
+            ]
+          },
+          {
+            "suite": "gh-excise",
+            "axiom_outputs": [
+              "gh:statutes/act-1108/excise-duty-amendment-no2-2023/first-schedule-goods-liable-to-excise-duty#beer_excise_amount"
+            ],
+            "ghamod_variables": [
+              "tvl04_s"
+            ]
+          },
+          {
+            "suite": "gh-income-tax-rate-schedule",
+            "axiom_outputs": [
+              "gh:statutes/act-1111/income-tax-amendment-no2-2023/first-schedule-rates-of-income-tax-for-individuals#resident_individual_income_tax"
+            ],
+            "ghamod_variables": [
+              "tin_s"
+            ]
+          },
+          {
+            "suite": "gh-personal-reliefs",
+            "axiom_outputs": [
+              "gh:statutes/act-896/income-tax-2015/fifth-schedule#old_age_personal_relief",
+              "gh:statutes/act-896/income-tax-2015/fifth-schedule#disability_personal_relief",
+              "gh:statutes/act-896/income-tax-2015/fifth-schedule#child_education_personal_relief",
+              "gh:statutes/act-896/income-tax-2015/fifth-schedule#aged_dependant_relative_personal_relief",
+              "gh:statutes/act-896/income-tax-2015/fifth-schedule#dependant_spouse_or_children_personal_relief"
+            ],
+            "ghamod_variables": [
+              "tinta03_s",
+              "tinta07_s",
+              "tinta05_s",
+              "tinta06_s",
+              "tinta01_s"
+            ]
+          },
+          {
+            "suite": "gh-presumptive-turnover",
+            "axiom_outputs": [
+              "gh:statutes/act-1071/income-tax-amendment-no2-2021/second-schedule-substitutions#paragraph_5_turnover_tax_payable",
+              "gh:statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy#covid_health_recovery_levy_amount"
+            ],
+            "ghamod_variables": [
+              "ttn01_s",
+              "ttn02_s"
+            ]
+          },
+          {
+            "suite": "gh-ssnit-contributions",
+            "axiom_outputs": [
+              "gh:statutes/act-766/national-pensions-2008/section-3-contributions-to-the-scheme#employee_social_security_contribution",
+              "gh:statutes/act-766/national-pensions-2008/section-3-contributions-to-the-scheme#employer_social_security_contribution"
+            ],
+            "ghamod_variables": [
+              "tscee_s",
+              "tscer_s"
+            ]
+          },
+          {
+            "suite": "gh-transfers",
+            "axiom_outputs": [
+              "gh:policies/gsfp/feeding-grant#school_feeding_value_per_year"
+            ],
+            "ghamod_variables": [
+              "bed_s"
+            ],
+            "note": "Regression check, not a rate test: both sides use GHAMOD's every-weekday day count (365 x 5/7), so a rate error and a calendar error cannot be told apart."
+          },
+          {
+            "suite": "gh-vat-levies",
+            "axiom_outputs": [
+              "gh:statutes/act-1156/national-health-insurance-amendment-2025/section-47-nhil-substituted#national_health_insurance_levy_amount",
+              "gh:statutes/act-1152/ghana-education-trust-fund-amendment-2025/section-3a-getfund-levy-substituted#getfund_levy_amount"
+            ],
+            "ghamod_variables": [
+              "tva01_s",
+              "tva02_s"
+            ]
+          }
+        ]
+      }
     }
   ]
 }

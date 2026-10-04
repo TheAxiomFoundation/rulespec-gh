@@ -18,7 +18,7 @@ This repo stores Ghana RuleSpec source registry materials, oracle references, an
 - Add RuleSpec under `gh/statutes/`, `gh/regulations/`, or `gh/policies/` with companion `.test.yaml` files.
 - Keep source law provenance in corpus artifacts and cite those corpus paths from RuleSpec modules via `module.source_verification.corpus_citation_path`.
 - Use the current Ghanaian tax year (2026) as the validation year for encoded amounts; indexed/annual values must be corpus-grounded, never invented.
-- Keep exact oracle versions in `data/oracles/oracle-index.json` when GHAMOD (or another executable comparison surface) is pinned. GHAMOD attaches only when the UNU-WIDER SOUTHMOD/GHAMOD bundle clears licensing.
+- Keep exact oracle versions in `data/oracles/oracle-index.json`. GHAMOD is wired through axiom-oracles' manual-lane suites; the SOUTHMOD A4.0 bundle is licensed and non-redistributable. Record only GHAMOD output variable names used as comparison bindings, outputs observed on synthetic households, and comparison statistics. Never commit bundle files, dataset rows, microdata-derived statistics, or model content (parameter names or values, policy/function names, conditions, income-list compositions, DRD text).
 - Sync `axiom-encode` and `.axiom/toolchain.toml` before substantial encoding runs.
 
 ## Do Not

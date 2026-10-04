@@ -19,7 +19,7 @@ Policy must come from the furthest upstream available source.
 
 An oracle is an executable, pinned external calculator that accepts household-level inputs and returns household-level tax-benefit outputs comparable to Axiom outputs. Aggregate simulators, distributional reports, parameter documentation, and public model summaries are not oracles for RuleSpec parity, even when they are useful as background references.
 
-The Ghana household oracle target is **GHAMOD**, the SOUTHMOD tax-benefit microsimulation model for Ghana (UNU-WIDER, in collaboration with the University of Ghana and partners). GHAMOD is **not yet attached**: the oracle wiring lands when the UNU-WIDER SOUTHMOD/GHAMOD model-and-data bundle clears licensing for use as a pinned comparison surface. Until then this repo encodes source-first from Act 896 and GRA/LEAP documentation, with oracle parity tests deferred. `data/oracles/` holds the placeholder index and records the pending-bundle status.
+The Ghana household oracle is **GHAMOD**, the SOUTHMOD tax-benefit microsimulation model for Ghana (UNU-WIDER). UNU-WIDER approved access on 2026-07-07, and GHAMOD is wired by nine per-case comparison suites in [axiom-oracles](https://github.com/TheAxiomFoundation/axiom-oracles) (`comparisons/gh-*.yaml`), run on system GH_2025. The SOUTHMOD_A4.0 Adhesion Agreement bars giving the bundle to third parties, so those suites run only on the machine that holds it, never on shared CI; the committed reports are the record. `data/oracles/oracle-index.json` pins the bundle hash and lists each suite with the outputs it compares.
 
 ## Layout
 
@@ -28,7 +28,7 @@ The Ghana household oracle target is **GHAMOD**, the SOUTHMOD tax-benefit micros
 - `gh/policies/`: GRA administrative guidance, rate surfaces, and social-protection programme rules (e.g. LEAP) when statute/regulation decomposition is not yet complete or the rule is set administratively.
 - `data/corpus/`: source inventory, ingestion manifests, provision locators, and promoted official extracts.
 - `data/coverage/`: tax-benefit coverage backlog and official source map.
-- `data/oracles/`: pinned household-level comparison references (GHAMOD, once the bundle clears).
+- `data/oracles/`: pinned household-level comparison references (GHAMOD).
 
 ## Initial Build Strategy
 
@@ -47,6 +47,6 @@ Every policy-bearing monetary value — currency parameters, currency parameter-
 This lane is marked `app_visibility = "experimental"` in `.axiom/registry.toml`, which keeps its encodings off the axiom.org app surfaces (encoded search, jurisdiction tiles, navigation encoding badges) while it matures; corpus provisions remain visible under release-scopes gating. Flip the marker to `"public"` in a one-line PR when all four gates hold:
 
 1. **Composed end-to-end calculation** — an axiom-programs compose spec chains the modules so the flagship calculation (gross income to individual income-tax liability) runs as one program. For Ghana this also needs the section 2 assessable-to-chargeable chain encoded so the Fifth Schedule reliefs connect to the First Schedule rate module. Status: **open** (tracked in the listing-gates issue).
-2. **Independent numerical validation** — GHAMOD (SOUTHMOD Ghana) parity once the UNU-WIDER bundle clears (requested July 2026), or, until then, independently published worked figures reproduced exactly as companion fixtures citing their sources. Status: **partially met** — the GRA PAYE annual band table's cumulative-tax column (effective 1 January 2024; retrieved 2026-07-06) is reproduced at every published cumulative boundary, including 164,744 at 605,000.
+2. **Independent numerical validation** — GHAMOD (SOUTHMOD Ghana) parity, or independently published worked figures reproduced exactly as companion fixtures citing their sources. Status: **partially met** — GHAMOD comparisons run for nine suites (46 of 47 comparisons match; the one difference is GHAMOD's missing 35% band, see `data/oracles/oracle-index.json`). Not every module has a comparison, and gh-transfers is a regression check rather than independent validation. The GRA PAYE annual band table's cumulative-tax column (effective 1 January 2024; retrieved 2026-07-06) is reproduced at every published cumulative boundary, including 164,744 at 605,000.
 3. **Open legal questions closed or prominently caveated** — Status: **met.** The 605,000 top-band operation (vs the "Exceeding 600,000" drafting label) is corroborated by the GRA table and documented in the rate module; the 2025 amendment act-number question (Act 1134 on the print vs "Act 1129" in tax alerts) is resolved in the corpus metadata; the Fifth Schedule supersession chain 2015-2026 is documented in the corpus manifest.
 4. **Second-maintainer review** — another maintainer has reviewed module scope and semantics (the top-band boundary call, relief conditions, currency-point conversion). Status: **open**.
