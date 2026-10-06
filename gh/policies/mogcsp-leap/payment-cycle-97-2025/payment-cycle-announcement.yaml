@@ -1,0 +1,257 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: gh/policy/mogcsp-leap/payment-cycle-97-2025/payment-cycle-announcement
+  summary: |-
+    The grant amount for the 97th cycle, including top-up arrears from the 96th cycle, is GH₵384 for one-member households, GH₵456 for two-member households, GH₵528 for three-member households, and GH₵636 for households with four or more members.
+rules:
+  - name: one_member_household_size
+    kind: parameter
+    dtype: Integer
+    source: MoGCSP 97th LEAP payment cycle announcement, grant amount table
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/policy/mogcsp-leap/payment-cycle-97-2025/payment-cycle-announcement
+              excerpt: "One-member household"
+    versions:
+      - effective_from: '2025-08-04'
+        formula: |-
+          1
+
+  - name: two_member_household_size
+    kind: parameter
+    dtype: Integer
+    source: MoGCSP 97th LEAP payment cycle announcement, grant amount table
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/policy/mogcsp-leap/payment-cycle-97-2025/payment-cycle-announcement
+              excerpt: "Two-member household"
+    versions:
+      - effective_from: '2025-08-04'
+        formula: |-
+          2
+
+  - name: three_member_household_size
+    kind: parameter
+    dtype: Integer
+    source: MoGCSP 97th LEAP payment cycle announcement, grant amount table
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/policy/mogcsp-leap/payment-cycle-97-2025/payment-cycle-announcement
+              excerpt: "Three-member household"
+    versions:
+      - effective_from: '2025-08-04'
+        formula: |-
+          3
+
+  - name: four_member_household_size
+    kind: parameter
+    dtype: Integer
+    source: MoGCSP 97th LEAP payment cycle announcement, grant amount table
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/policy/mogcsp-leap/payment-cycle-97-2025/payment-cycle-announcement
+              excerpt: "Four or more-member household"
+    versions:
+      - effective_from: '2025-08-04'
+        formula: |-
+          4
+
+  - name: regular_grant_amount
+    kind: parameter
+    dtype: Money
+    unit: GHS
+    indexed_by: household_size_band
+    source: MoGCSP 97th LEAP payment cycle announcement, grant amount table
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].values
+            kind: parameter_table
+            source:
+              corpus_citation_path: gh/policy/mogcsp-leap/payment-cycle-97-2025/payment-cycle-announcement
+              table:
+                header: "The grant amount for the 97th cycle"
+                row_key: household_size
+                column_key: 97th_payment
+    versions:
+      - effective_from: '2025-08-04'
+        values:
+          1: 320
+          2: 380
+          3: 440
+          4: 530
+
+  - name: top_up_arrears_amount
+    kind: parameter
+    dtype: Money
+    unit: GHS
+    indexed_by: household_size_band
+    source: MoGCSP 97th LEAP payment cycle announcement, grant amount table
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].values
+            kind: parameter_table
+            source:
+              corpus_citation_path: gh/policy/mogcsp-leap/payment-cycle-97-2025/payment-cycle-announcement
+              table:
+                header: "The grant amount for the 97th cycle"
+                row_key: household_size
+                column_key: arrears
+    versions:
+      - effective_from: '2025-08-04'
+        values:
+          1: 64
+          2: 76
+          3: 88
+          4: 106
+
+  - name: government_released_amount
+    kind: parameter
+    dtype: Money
+    unit: GHS
+    source: MoGCSP 97th LEAP payment cycle announcement, disbursement release
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/policy/mogcsp-leap/payment-cycle-97-2025/payment-cycle-announcement
+              excerpt: "GH₵150,162,434.00 has been released"
+    versions:
+      - effective_from: '2025-08-04'
+        formula: |-
+          150162434
+
+  - name: supported_household_count
+    kind: parameter
+    dtype: Count
+    source: MoGCSP 97th LEAP payment cycle announcement, disbursement release
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/policy/mogcsp-leap/payment-cycle-97-2025/payment-cycle-announcement
+              excerpt: "350,580 households"
+    versions:
+      - effective_from: '2025-08-04'
+        formula: |-
+          350580
+
+  - name: covered_individual_count
+    kind: parameter
+    dtype: Count
+    source: MoGCSP 97th LEAP payment cycle announcement, disbursement release
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/policy/mogcsp-leap/payment-cycle-97-2025/payment-cycle-announcement
+              excerpt: "approximately 1,555,677 individuals"
+    versions:
+      - effective_from: '2025-08-04'
+        formula: |-
+          1555677
+
+  - name: household_size_band
+    kind: derived
+    entity: Household
+    dtype: Integer
+    period: Month
+    source: MoGCSP 97th LEAP payment cycle announcement, grant amount table
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: ordering
+            source:
+              corpus_citation_path: gh/policy/mogcsp-leap/payment-cycle-97-2025/payment-cycle-announcement
+              excerpt: "One-member household: GH₵320 (97th payment) + GH₵64 (arrears) = GH₵384\n\n• Two-member household: GH₵380 (97th payment) + GH₵76 (arrears) = GH₵456\n\n• Three-member household: GH₵440 (97th payment) + GH₵88 (arrears) = GH₵528\n\n• Four or more-member household: GH₵530 (97th payment) + GH₵106 (arrears) = GH₵636"
+    versions:
+      - effective_from: '2025-08-04'
+        formula: |-
+          if household_member_count < one_member_household_size: -1 else: if household_member_count == one_member_household_size: one_member_household_size else: if household_member_count == two_member_household_size: two_member_household_size else: if household_member_count == three_member_household_size: three_member_household_size else: four_member_household_size
+
+  - name: payment_cycle_97_regular_grant
+    kind: derived
+    entity: Household
+    dtype: Money
+    period: Month
+    unit: GHS
+    source: MoGCSP 97th LEAP payment cycle announcement, grant amount table
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/policy/mogcsp-leap/payment-cycle-97-2025/payment-cycle-announcement
+              excerpt: "One-member household: GH₵320 (97th payment) + GH₵64 (arrears) = GH₵384\n\n• Two-member household: GH₵380 (97th payment) + GH₵76 (arrears) = GH₵456\n\n• Three-member household: GH₵440 (97th payment) + GH₵88 (arrears) = GH₵528\n\n• Four or more-member household: GH₵530 (97th payment) + GH₵106 (arrears) = GH₵636"
+    versions:
+      - effective_from: '2025-08-04'
+        formula: |-
+          if household_size_band == -1: 0 else: regular_grant_amount[household_size_band]
+
+  - name: payment_cycle_97_top_up_arrears
+    kind: derived
+    entity: Household
+    dtype: Money
+    period: Month
+    unit: GHS
+    source: MoGCSP 97th LEAP payment cycle announcement, grant amount table
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/policy/mogcsp-leap/payment-cycle-97-2025/payment-cycle-announcement
+              excerpt: "One-member household: GH₵320 (97th payment) + GH₵64 (arrears) = GH₵384\n\n• Two-member household: GH₵380 (97th payment) + GH₵76 (arrears) = GH₵456\n\n• Three-member household: GH₵440 (97th payment) + GH₵88 (arrears) = GH₵528\n\n• Four or more-member household: GH₵530 (97th payment) + GH₵106 (arrears) = GH₵636"
+    versions:
+      - effective_from: '2025-08-04'
+        formula: |-
+          if household_size_band == -1: 0 else: top_up_arrears_amount[household_size_band]
+
+  - name: payment_cycle_97_grant_including_arrears
+    kind: derived
+    entity: Household
+    dtype: Money
+    period: Month
+    unit: GHS
+    source: MoGCSP 97th LEAP payment cycle announcement, grant amount table
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/policy/mogcsp-leap/payment-cycle-97-2025/payment-cycle-announcement
+              excerpt: "GH₵320 (97th payment) + GH₵64 (arrears) = GH₵384"
+    versions:
+      - effective_from: '2025-08-04'
+        formula: |-
+          payment_cycle_97_regular_grant + payment_cycle_97_top_up_arrears

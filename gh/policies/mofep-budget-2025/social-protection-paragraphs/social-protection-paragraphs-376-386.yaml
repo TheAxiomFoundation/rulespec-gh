@@ -1,0 +1,448 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: gh/policy/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386
+  summary: |-
+    “The allocation for 2025 reflects an increase in the feeding cost per meal per child per day from GH¢1.50 to GH¢2.00.” “Under the LEAP programme, benefits will be indexed to inflation and the number of beneficiary households will be increased from 350,000 to 400,000 from July 2025.”
+  deferred_outputs:
+    - output: gh:policies/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386#budget_change_statistics
+      reason: Paragraphs 376-386 announce the allocations and their year-on-year changes as budget statistics. The increase rates are rounded descriptors of the stated prior/current allocation pairs (applying the stated 33% to GH₵1,344,000,000 yields 1,787,520,000, not the stated GH₵1,788,000,000), and the beneficiary expansion from 350,000 to 400,000 households is a coverage statistic, so no benefit-unit computation in this document consumes these values; they are recorded for downstream budget-tracking outputs.
+      source_values:
+        - gh:policies/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386#school_feeding_budget_allocation
+        - gh:policies/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386#school_feeding_prior_budget_allocation
+        - gh:policies/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386#school_feeding_budget_increase_rate
+        - gh:policies/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386#capitation_grant_budget_increase_rate
+        - gh:policies/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386#leap_beneficiary_households
+        - gh:policies/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386#leap_benefits_budget_allocation
+        - gh:policies/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386#leap_benefits_budget_increase_rate
+rules:
+  - name: curricula_textbooks_allocation
+    kind: parameter
+    dtype: Money
+    period: Year
+    unit: GHS
+    source: Budget Statement paragraph 380
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/policy/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386
+              excerpt: "allocated an amount of GH¢564.6 million"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          564600000
+
+  - name: kindergarten_textbook_sets
+    kind: parameter
+    dtype: Count
+    period: Year
+    source: Budget Statement paragraph 380
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/policy/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386
+              excerpt: "four (4) sets of KG books and workbooks"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          4
+
+  - name: kindergarten_textbook_learners
+    kind: parameter
+    dtype: Count
+    period: Year
+    source: Budget Statement paragraph 380
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/policy/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386
+              excerpt: "about 2.8 million learners"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          2800000
+
+  - name: primary_textbook_sets
+    kind: parameter
+    dtype: Count
+    period: Year
+    source: Budget Statement paragraph 380
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/policy/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386
+              excerpt: "four (4) sets of primary textbooks"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          4
+
+  - name: primary_textbook_learners
+    kind: parameter
+    dtype: Count
+    period: Year
+    source: Budget Statement paragraph 380
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/policy/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386
+              excerpt: "800,000 learners"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          800000
+
+  - name: junior_high_school_textbook_sets
+    kind: parameter
+    dtype: Count
+    period: Year
+    source: Budget Statement paragraph 380
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/policy/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386
+              excerpt: "nine (9) sets of JHS 3 textbooks"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          9
+
+  - name: junior_high_school_textbook_learners
+    kind: parameter
+    dtype: Count
+    period: Year
+    source: Budget Statement paragraph 380
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/policy/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386
+              excerpt: "540,000 learners"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          540000
+
+  - name: school_feeding_budget_allocation
+    kind: parameter
+    dtype: Money
+    period: Year
+    unit: GHS
+    source: Budget Statement paragraph 381
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/policy/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386
+              excerpt: "increased from GH¢1.344 billion to GH¢1.788 billion in 2025"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          1788000000
+
+  - name: school_feeding_prior_budget_allocation
+    kind: parameter
+    dtype: Money
+    period: Year
+    unit: GHS
+    source: Budget Statement paragraph 381
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/policy/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386
+              excerpt: "increased from GH¢1.344 billion"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          1344000000
+
+  - name: school_feeding_budget_increase_rate
+    kind: parameter
+    dtype: Rate
+    period: Year
+    source: Budget Statement paragraph 381
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/policy/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386
+              excerpt: "representing an 33% increase"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          0.33
+
+  - name: school_feeding_cost_per_meal_per_child_per_day
+    kind: parameter
+    dtype: Money
+    period: Day
+    unit: GHS
+    source: Budget Statement paragraph 381
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/policy/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386
+              excerpt: "feeding cost per meal per child per day from GH¢1.50 to GH¢2.00"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          2
+
+  - name: school_feeding_prior_cost_per_meal_per_child_per_day
+    kind: parameter
+    dtype: Money
+    period: Day
+    unit: GHS
+    source: Budget Statement paragraph 381
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/policy/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386
+              excerpt: "feeding cost per meal per child per day from GH¢1.50"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          1.5
+
+  - name: school_feeding_cost_increase_rate
+    kind: parameter
+    dtype: Rate
+    period: Year
+    source: Budget Statement paragraph 381
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/policy/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386
+              excerpt: "representing 33.3%"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          0.333
+
+  - name: capitation_grant_budget_allocation
+    kind: parameter
+    dtype: Money
+    period: Year
+    unit: GHS
+    source: Budget Statement paragraph 382
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/policy/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386
+              excerpt: "allocated GH¢ 145.5 million"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          145500000
+
+  - name: capitation_grant_prior_budget_allocation
+    kind: parameter
+    dtype: Money
+    period: Year
+    unit: GHS
+    source: Budget Statement paragraph 382
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/policy/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386
+              excerpt: "up from GH¢84 million in 2024"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          84000000
+
+  - name: capitation_grant_budget_increase_rate
+    kind: parameter
+    dtype: Rate
+    period: Year
+    source: Budget Statement paragraph 382
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/policy/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386
+              excerpt: "an increase of 73.2%"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          0.732
+
+  - name: teacher_trainee_allowances_allocation
+    kind: parameter
+    dtype: Money
+    period: Year
+    unit: GHS
+    source: Budget Statement paragraph 383
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/policy/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386
+              excerpt: "allocated GH¢203 million for the payment of the Teacher Trainee allowances"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          203000000
+
+  - name: nursing_trainee_allowances_allocation
+    kind: parameter
+    dtype: Money
+    period: Year
+    unit: GHS
+    source: Budget Statement paragraph 383
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/policy/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386
+              excerpt: "another GH¢480 million for Nursing Trainee allowances"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          480000000
+
+  - name: national_health_insurance_scheme_budget_allocation
+    kind: parameter
+    dtype: Money
+    period: Year
+    unit: GHS
+    source: Budget Statement paragraph 384
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/policy/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386
+              excerpt: "GH¢9.93 billion has been programmed for the National Health Insurance Scheme"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          9930000000
+
+  - name: leap_beneficiary_households
+    kind: parameter
+    dtype: Count
+    period: Year
+    source: Budget Statement paragraph 386
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/policy/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386
+              excerpt: "increased from 350,000 to 400,000 from July 2025"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          350000
+      - effective_from: '2025-07-01'
+        formula: |-
+          400000
+
+  - name: leap_benefits_budget_allocation
+    kind: parameter
+    dtype: Money
+    period: Year
+    unit: GHS
+    source: Budget Statement paragraph 386
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/policy/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386
+              excerpt: "increased by 30.8% from GH¢728.8 million to GH¢953.5 million in 2025"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          953500000
+
+  - name: leap_prior_benefits_budget_allocation
+    kind: parameter
+    dtype: Money
+    period: Year
+    unit: GHS
+    source: Budget Statement paragraph 386
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/policy/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386
+              excerpt: "from GH¢728.8 million"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          728800000
+
+  - name: leap_benefits_budget_increase_rate
+    kind: parameter
+    dtype: Rate
+    period: Year
+    source: Budget Statement paragraph 386
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/policy/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386
+              excerpt: "increased by 30.8%"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          0.308

@@ -1,0 +1,28 @@
+- name: lottery winning within nil band
+  period:
+    period_kind: custom
+    name: day
+    start: '2016-02-18'
+    end: '2016-02-18'
+  input:
+    gh:statutes/act-907/income-tax-amendment-2016/first-schedule-substitutions#input.lottery_winning_amount: 2000
+    gh:statutes/act-907/income-tax-amendment-2016/first-schedule-substitutions#input.service_fee_amount_under_section_116_2_c: 800
+    gh:statutes/act-907/income-tax-amendment-2016/first-schedule-substitutions#input.payment_amount_under_section_85_2: 1000
+  output:
+    gh:statutes/act-907/income-tax-amendment-2016/first-schedule-substitutions#lottery_winning_tax_withheld: 0
+    gh:statutes/act-907/income-tax-amendment-2016/first-schedule-substitutions#service_fee_tax_withheld: 60
+    gh:statutes/act-907/income-tax-amendment-2016/first-schedule-substitutions#section_85_2_payment_tax_withheld: 30
+- name: lottery winning exceeding nil band
+  period:
+    period_kind: custom
+    name: day
+    start: '2016-02-19'
+    end: '2016-02-19'
+  input:
+    gh:statutes/act-907/income-tax-amendment-2016/first-schedule-substitutions#input.lottery_winning_amount: 3000
+    gh:statutes/act-907/income-tax-amendment-2016/first-schedule-substitutions#input.service_fee_amount_under_section_116_2_c: 400
+    gh:statutes/act-907/income-tax-amendment-2016/first-schedule-substitutions#input.payment_amount_under_section_85_2: 2000
+  output:
+    gh:statutes/act-907/income-tax-amendment-2016/first-schedule-substitutions#lottery_winning_tax_withheld: 20.4
+    gh:statutes/act-907/income-tax-amendment-2016/first-schedule-substitutions#service_fee_tax_withheld: 30
+    gh:statutes/act-907/income-tax-amendment-2016/first-schedule-substitutions#section_85_2_payment_tax_withheld: 60

@@ -1,0 +1,10 @@
+format: rulespec/v1
+module:
+  status: entity_not_supported
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: gh/statute/act-1150/covid-19-health-recovery-levy-repeal-2025/section-1-act-1068-repealed
+  summary: |-
+    The COVID-19 Health Recovery Levy Act, 2021 (Act 1068) is repealed. Despite the repeal, rights, liabilities, and obligations existing immediately before repeal continue until exercised or terminated.
+rules: []

@@ -1,0 +1,104 @@
+- name: resident_financial_institution_interest_is_exempt
+  period:
+    period_kind: tax_year
+    start: '2016-01-01'
+    end: '2016-12-31'
+  input: {}
+  tables:
+    Payment:
+    - gh:statutes/act-907/income-tax-amendment-2016/section-7-exempt-interest-inserted#input.payment_is_interest: true
+      gh:statutes/act-907/income-tax-amendment-2016/section-7-exempt-interest-inserted#input.payment_paid_to_individual: true
+      ? gh:statutes/act-907/income-tax-amendment-2016/section-7-exempt-interest-inserted#input.payer_is_resident_financial_institution
+      : true
+      ? gh:statutes/act-907/income-tax-amendment-2016/section-7-exempt-interest-inserted#input.payment_is_on_bonds_issued_by_government_of_ghana
+      : false
+      gh:statutes/act-907/income-tax-amendment-2016/section-7-exempt-interest-inserted#input.payment_is_interest_or_dividend: true
+      ? gh:statutes/act-907/income-tax-amendment-2016/section-7-exempt-interest-inserted#input.payment_paid_or_credited_to_holder_or_member
+      : false
+      ? gh:statutes/act-907/income-tax-amendment-2016/section-7-exempt-interest-inserted#input.payment_is_return_on_investment_in_approved_unit_trust_scheme_or_mutual_fund
+      : false
+  output:
+    ? gh:statutes/act-907/income-tax-amendment-2016/section-7-exempt-interest-inserted#interest_from_resident_financial_institution_exempt
+    : - holds
+    gh:statutes/act-907/income-tax-amendment-2016/section-7-exempt-interest-inserted#interest_on_government_bonds_exempt:
+    - not_holds
+    ? gh:statutes/act-907/income-tax-amendment-2016/section-7-exempt-interest-inserted#approved_unit_trust_or_mutual_fund_return_exempt
+    : - not_holds
+- name: government_bond_interest_is_exempt
+  period:
+    period_kind: tax_year
+    start: '2016-01-01'
+    end: '2016-12-31'
+  input: {}
+  tables:
+    Payment:
+    - gh:statutes/act-907/income-tax-amendment-2016/section-7-exempt-interest-inserted#input.payment_is_interest: true
+      gh:statutes/act-907/income-tax-amendment-2016/section-7-exempt-interest-inserted#input.payment_paid_to_individual: true
+      ? gh:statutes/act-907/income-tax-amendment-2016/section-7-exempt-interest-inserted#input.payer_is_resident_financial_institution
+      : false
+      ? gh:statutes/act-907/income-tax-amendment-2016/section-7-exempt-interest-inserted#input.payment_is_on_bonds_issued_by_government_of_ghana
+      : true
+      gh:statutes/act-907/income-tax-amendment-2016/section-7-exempt-interest-inserted#input.payment_is_interest_or_dividend: true
+      ? gh:statutes/act-907/income-tax-amendment-2016/section-7-exempt-interest-inserted#input.payment_paid_or_credited_to_holder_or_member
+      : false
+      ? gh:statutes/act-907/income-tax-amendment-2016/section-7-exempt-interest-inserted#input.payment_is_return_on_investment_in_approved_unit_trust_scheme_or_mutual_fund
+      : false
+  output:
+    ? gh:statutes/act-907/income-tax-amendment-2016/section-7-exempt-interest-inserted#interest_from_resident_financial_institution_exempt
+    : - not_holds
+    gh:statutes/act-907/income-tax-amendment-2016/section-7-exempt-interest-inserted#interest_on_government_bonds_exempt:
+    - holds
+    ? gh:statutes/act-907/income-tax-amendment-2016/section-7-exempt-interest-inserted#approved_unit_trust_or_mutual_fund_return_exempt
+    : - not_holds
+- name: approved_fund_interest_or_dividend_is_exempt
+  period:
+    period_kind: tax_year
+    start: '2016-01-01'
+    end: '2016-12-31'
+  input: {}
+  tables:
+    Payment:
+    - gh:statutes/act-907/income-tax-amendment-2016/section-7-exempt-interest-inserted#input.payment_is_interest: false
+      gh:statutes/act-907/income-tax-amendment-2016/section-7-exempt-interest-inserted#input.payment_paid_to_individual: false
+      ? gh:statutes/act-907/income-tax-amendment-2016/section-7-exempt-interest-inserted#input.payer_is_resident_financial_institution
+      : false
+      ? gh:statutes/act-907/income-tax-amendment-2016/section-7-exempt-interest-inserted#input.payment_is_on_bonds_issued_by_government_of_ghana
+      : false
+      gh:statutes/act-907/income-tax-amendment-2016/section-7-exempt-interest-inserted#input.payment_is_interest_or_dividend: true
+      ? gh:statutes/act-907/income-tax-amendment-2016/section-7-exempt-interest-inserted#input.payment_paid_or_credited_to_holder_or_member
+      : true
+      ? gh:statutes/act-907/income-tax-amendment-2016/section-7-exempt-interest-inserted#input.payment_is_return_on_investment_in_approved_unit_trust_scheme_or_mutual_fund
+      : true
+  output:
+    ? gh:statutes/act-907/income-tax-amendment-2016/section-7-exempt-interest-inserted#interest_from_resident_financial_institution_exempt
+    : - not_holds
+    gh:statutes/act-907/income-tax-amendment-2016/section-7-exempt-interest-inserted#interest_on_government_bonds_exempt:
+    - not_holds
+    ? gh:statutes/act-907/income-tax-amendment-2016/section-7-exempt-interest-inserted#approved_unit_trust_or_mutual_fund_return_exempt
+    : - holds
+- name: nonqualifying_payment_is_not_exempt_under_inserted_paragraphs
+  period:
+    period_kind: tax_year
+    start: '2016-01-01'
+    end: '2016-12-31'
+  input: {}
+  tables:
+    Payment:
+    - gh:statutes/act-907/income-tax-amendment-2016/section-7-exempt-interest-inserted#input.payment_is_interest: false
+      gh:statutes/act-907/income-tax-amendment-2016/section-7-exempt-interest-inserted#input.payment_paid_to_individual: true
+      ? gh:statutes/act-907/income-tax-amendment-2016/section-7-exempt-interest-inserted#input.payer_is_resident_financial_institution
+      : true
+      ? gh:statutes/act-907/income-tax-amendment-2016/section-7-exempt-interest-inserted#input.payment_is_on_bonds_issued_by_government_of_ghana
+      : true
+      gh:statutes/act-907/income-tax-amendment-2016/section-7-exempt-interest-inserted#input.payment_is_interest_or_dividend: false
+      ? gh:statutes/act-907/income-tax-amendment-2016/section-7-exempt-interest-inserted#input.payment_paid_or_credited_to_holder_or_member
+      : true
+      ? gh:statutes/act-907/income-tax-amendment-2016/section-7-exempt-interest-inserted#input.payment_is_return_on_investment_in_approved_unit_trust_scheme_or_mutual_fund
+      : true
+  output:
+    ? gh:statutes/act-907/income-tax-amendment-2016/section-7-exempt-interest-inserted#interest_from_resident_financial_institution_exempt
+    : - not_holds
+    gh:statutes/act-907/income-tax-amendment-2016/section-7-exempt-interest-inserted#interest_on_government_bonds_exempt:
+    - not_holds
+    ? gh:statutes/act-907/income-tax-amendment-2016/section-7-exempt-interest-inserted#approved_unit_trust_or_mutual_fund_return_exempt
+    : - not_holds

@@ -1,0 +1,439 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: gh/statute/act-1135/energy-sector-levies-2025/schedule-types-of-levies
+    source_sha256: 05be38f8abdbcdfdaa54a404770ecffd2d32676bb286d6a519f55584b9beac73
+  summary: |-
+    Energy Sector Shortfall and Debt Repayment Levy: GHp 95 per litre on petrol, GHp 93 per litre on diesel, GHp 95 per litre on naphtha, GHp 4 per litre on fuel oil, GHp 3 per litre on marine gas oil, and GHp 73 per kilogramme on liquefied petroleum gas. Road Fund Levy: GHp 48 per litre on petrol, diesel and naphtha. Energy Fund Levy: GHp 1 per litre on petrol, diesel, fuel oil and naphtha and GHp 1 per kilogramme on kerosene. Public Lighting Levy: three per cent. National Electrification Scheme Levy: two per cent.
+rules:
+  - name: shortfall_debt_petrol_rate_per_litre
+    kind: parameter
+    dtype: Money
+    unit: GHp
+    source: Schedule, Energy Sector Shortfall and Debt Repayment Levy (a)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1135/energy-sector-levies-2025/schedule-types-of-levies
+              excerpt: "GHp 95 per litre on petrol"
+    versions:
+      - effective_from: '2025-04-02'
+        formula: |-
+          95
+
+  - name: shortfall_debt_diesel_rate_per_litre
+    kind: parameter
+    dtype: Money
+    unit: GHp
+    source: Schedule, Energy Sector Shortfall and Debt Repayment Levy (b)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1135/energy-sector-levies-2025/schedule-types-of-levies
+              excerpt: "GHp 93 per litre on diesel"
+    versions:
+      - effective_from: '2025-04-02'
+        formula: |-
+          93
+
+  - name: shortfall_debt_naphtha_rate_per_litre
+    kind: parameter
+    dtype: Money
+    unit: GHp
+    source: Schedule, Energy Sector Shortfall and Debt Repayment Levy (c)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1135/energy-sector-levies-2025/schedule-types-of-levies
+              excerpt: "GHp 95 per litre on naphtha"
+    versions:
+      - effective_from: '2025-04-02'
+        formula: |-
+          95
+
+  - name: shortfall_debt_fuel_oil_rate_per_litre
+    kind: parameter
+    dtype: Money
+    unit: GHp
+    source: Schedule, Energy Sector Shortfall and Debt Repayment Levy (d)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1135/energy-sector-levies-2025/schedule-types-of-levies
+              excerpt: "GHp 4 per litre on fuel oil"
+    versions:
+      - effective_from: '2025-04-02'
+        formula: |-
+          4
+
+  - name: shortfall_debt_marine_gas_oil_rate_per_litre
+    kind: parameter
+    dtype: Money
+    unit: GHp
+    source: Schedule, Energy Sector Shortfall and Debt Repayment Levy (e)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1135/energy-sector-levies-2025/schedule-types-of-levies
+              excerpt: "GHp 3 per litre on marine gas oil"
+    versions:
+      - effective_from: '2025-04-02'
+        formula: |-
+          3
+
+  - name: shortfall_debt_liquefied_petroleum_gas_rate_per_kilogramme
+    kind: parameter
+    dtype: Money
+    unit: GHp
+    source: Schedule, Energy Sector Shortfall and Debt Repayment Levy (f)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1135/energy-sector-levies-2025/schedule-types-of-levies
+              excerpt: "GHp 73 per kilogramme on liquefied petroleum gas"
+    versions:
+      - effective_from: '2025-04-02'
+        formula: |-
+          73
+
+  - name: road_fund_rate_per_litre
+    kind: parameter
+    dtype: Money
+    unit: GHp
+    source: Schedule, Road Fund Levy
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1135/energy-sector-levies-2025/schedule-types-of-levies
+              excerpt: "GHp 48 per litre on petrol, diesel and naphtha"
+    versions:
+      - effective_from: '2025-04-02'
+        formula: |-
+          48
+
+  - name: energy_fund_rate_per_litre
+    kind: parameter
+    dtype: Money
+    unit: GHp
+    source: Schedule, Energy Fund Levy (a)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1135/energy-sector-levies-2025/schedule-types-of-levies
+              excerpt: "GHp 1 per litre on petrol, diesel, fuel oil and naphtha"
+    versions:
+      - effective_from: '2025-04-02'
+        formula: |-
+          1
+
+  - name: energy_fund_kerosene_rate_per_kilogramme
+    kind: parameter
+    dtype: Money
+    unit: GHp
+    source: Schedule, Energy Fund Levy (b)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1135/energy-sector-levies-2025/schedule-types-of-levies
+              excerpt: "GHp 1 per kilogramme on kerosene"
+    versions:
+      - effective_from: '2025-04-02'
+        formula: |-
+          1
+
+  - name: public_lighting_levy_rate
+    kind: parameter
+    dtype: Rate
+    source: Schedule, Public Lighting Levy
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-1135/energy-sector-levies-2025/schedule-types-of-levies
+              excerpt: "Three per cent per kWh of electricity charged on all categories of consumers."
+    versions:
+      - effective_from: '2025-04-02'
+        formula: |-
+          0.03
+
+  - name: national_electrification_scheme_levy_rate
+    kind: parameter
+    dtype: Rate
+    source: Schedule, National Electrification Scheme Levy
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-1135/energy-sector-levies-2025/schedule-types-of-levies
+              excerpt: "Two per cent per kWh of electricity charged on all categories of consumers."
+    versions:
+      - effective_from: '2025-04-02'
+        formula: |-
+          0.02
+
+  - name: volta_river_authority_public_lighting_transfer_share
+    kind: parameter
+    dtype: Rate
+    source: Schedule, Public Lighting Levy payment information (a)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-1135/energy-sector-levies-2025/schedule-types-of-levies
+              excerpt: "Volta River Authority is required to transfer hundred per cent"
+    versions:
+      - effective_from: '2025-04-02'
+        formula: |-
+          1.00
+
+  - name: electricity_distribution_companies_public_lighting_transfer_share
+    kind: parameter
+    dtype: Rate
+    source: Schedule, Public Lighting Levy payment information (b)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-1135/energy-sector-levies-2025/schedule-types-of-levies
+              excerpt: "Electricity Company of Ghana Limited and Northern Electricity Distribution Company Limited are required to transfer fifty per cent"
+    versions:
+      - effective_from: '2025-04-02'
+        formula: |-
+          0.50
+
+  - name: electricity_distribution_companies_public_lighting_retained_share
+    kind: parameter
+    dtype: Rate
+    source: Schedule, Public Lighting Levy payment information (c)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-1135/energy-sector-levies-2025/schedule-types-of-levies
+              excerpt: "shall retain fifty per cent"
+    versions:
+      - effective_from: '2025-04-02'
+        formula: |-
+          0.50
+
+  - name: energy_sector_shortfall_and_debt_repayment_levy
+    kind: derived
+    entity: Payment
+    dtype: Money
+    unit: GHp
+    source: Schedule, Energy Sector Shortfall and Debt Repayment Levy
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-1135/energy-sector-levies-2025/schedule-types-of-levies
+              excerpt: "GHp 95 per litre on petrol, GHp 93 per litre on diesel"
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-1135/energy-sector-levies-2025/schedule-types-of-levies
+              excerpt: "GHp 95 per litre on naphtha"
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-1135/energy-sector-levies-2025/schedule-types-of-levies
+              excerpt: "GHp 4 per litre on fuel oil"
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-1135/energy-sector-levies-2025/schedule-types-of-levies
+              excerpt: "GHp 3 per litre on marine gas oil"
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-1135/energy-sector-levies-2025/schedule-types-of-levies
+              excerpt: "GHp 73 per kilogramme on liquefied petroleum gas"
+    versions:
+      - effective_from: '2025-04-02'
+        formula: |-
+          (shortfall_debt_petrol_rate_per_litre * petrol_litres)
+          + (shortfall_debt_diesel_rate_per_litre * diesel_litres)
+          + (shortfall_debt_naphtha_rate_per_litre * naphtha_litres)
+          + (shortfall_debt_fuel_oil_rate_per_litre * fuel_oil_litres)
+          + (shortfall_debt_marine_gas_oil_rate_per_litre * marine_gas_oil_litres)
+          + (shortfall_debt_liquefied_petroleum_gas_rate_per_kilogramme * liquefied_petroleum_gas_kilogrammes)
+
+  - name: road_fund_levy
+    kind: derived
+    entity: Payment
+    dtype: Money
+    unit: GHp
+    source: Schedule, Road Fund Levy
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-1135/energy-sector-levies-2025/schedule-types-of-levies
+              excerpt: "GHp 48 per litre on petrol, diesel and naphtha"
+    versions:
+      - effective_from: '2025-04-02'
+        formula: |-
+          road_fund_rate_per_litre * (petrol_litres + diesel_litres + naphtha_litres)
+
+  - name: energy_fund_levy
+    kind: derived
+    entity: Payment
+    dtype: Money
+    unit: GHp
+    source: Schedule, Energy Fund Levy
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-1135/energy-sector-levies-2025/schedule-types-of-levies
+              excerpt: "GHp 1 per litre on petrol, diesel, fuel oil and naphtha"
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-1135/energy-sector-levies-2025/schedule-types-of-levies
+              excerpt: "GHp 1 per kilogramme on kerosene"
+    versions:
+      - effective_from: '2025-04-02'
+        formula: |-
+          (energy_fund_rate_per_litre * (petrol_litres + diesel_litres + fuel_oil_litres + naphtha_litres))
+          + (energy_fund_kerosene_rate_per_kilogramme * kerosene_kilogrammes)
+
+  - name: public_lighting_levy
+    kind: derived
+    entity: Payment
+    dtype: Money
+    unit: GHp
+    source: Schedule, Public Lighting Levy
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-1135/energy-sector-levies-2025/schedule-types-of-levies
+              excerpt: "Three per cent per kWh of electricity charged on all categories of consumers."
+    versions:
+      - effective_from: '2025-04-02'
+        formula: |-
+          public_lighting_levy_rate * electricity_charge_amount
+
+  - name: national_electrification_scheme_levy
+    kind: derived
+    entity: Payment
+    dtype: Money
+    unit: GHp
+    source: Schedule, National Electrification Scheme Levy
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-1135/energy-sector-levies-2025/schedule-types-of-levies
+              excerpt: "Two per cent per kWh of electricity charged on all categories of consumers."
+    versions:
+      - effective_from: '2025-04-02'
+        formula: |-
+          national_electrification_scheme_levy_rate * electricity_charge_amount
+
+  - name: volta_river_authority_public_lighting_transfer
+    kind: derived
+    entity: Payment
+    dtype: Money
+    unit: GHp
+    source: Schedule, Public Lighting Levy payment information (a)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-1135/energy-sector-levies-2025/schedule-types-of-levies
+              excerpt: "Volta River Authority is required to transfer hundred per cent"
+    versions:
+      - effective_from: '2025-04-02'
+        formula: |-
+          volta_river_authority_public_lighting_transfer_share * volta_river_authority_public_lighting_levy_collected
+
+  - name: electricity_distribution_companies_public_lighting_transfer
+    kind: derived
+    entity: Payment
+    dtype: Money
+    unit: GHp
+    source: Schedule, Public Lighting Levy payment information (b)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-1135/energy-sector-levies-2025/schedule-types-of-levies
+              excerpt: "required to transfer fifty per cent to the Public Lighting Levy Account"
+    versions:
+      - effective_from: '2025-04-02'
+        formula: |-
+          electricity_distribution_companies_public_lighting_transfer_share * electricity_distribution_companies_public_lighting_levy_collected
+
+  - name: electricity_distribution_companies_public_lighting_retained
+    kind: derived
+    entity: Payment
+    dtype: Money
+    unit: GHp
+    source: Schedule, Public Lighting Levy payment information (c)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-1135/energy-sector-levies-2025/schedule-types-of-levies
+              excerpt: "shall retain fifty per cent"
+    versions:
+      - effective_from: '2025-04-02'
+        formula: |-
+          electricity_distribution_companies_public_lighting_retained_share * electricity_distribution_companies_public_lighting_levy_collected

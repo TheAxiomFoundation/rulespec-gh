@@ -1,0 +1,61 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: gh/statute/act-896/income-tax-2015/133
+  summary: |-
+    “clase company” means a company owned by not more than five persons;
+    “currency point” means one Cedi.
+rules:
+  - name: maximum_close_company_owners
+    kind: parameter
+    dtype: Count
+    source: Income Tax Act, 2015 (Act 896), section 133, definition of “close company”
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/133
+              excerpt: "a company owned by not more than five persons"
+    versions:
+      - effective_from: '2016-01-01'
+        formula: |-
+          5
+  - name: close_company
+    kind: derived
+    entity: Corporation
+    dtype: Judgment
+    period: Year
+    source: Income Tax Act, 2015 (Act 896), section 133, definition of “close company”
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: definition
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/133
+              excerpt: "“clase company” means a company owned by not more than five persons"
+    versions:
+      - effective_from: '2016-01-01'
+        formula: |-
+          company_owner_count <= maximum_close_company_owners
+  - name: currency_point_value
+    kind: parameter
+    dtype: Money
+    unit: GHS
+    source: Income Tax Act, 2015 (Act 896), section 133, definition of “currency point”
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/133
+              excerpt: "“currency point” means one Cedi"
+    versions:
+      - effective_from: '2016-01-01'
+        formula: |-
+          1

@@ -1,0 +1,157 @@
+- name: employer_provident_fund_contribution_is_deductible
+  period:
+    period_kind: tax_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    ? gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.employer_made_contribution_to_provident_fund_scheme_on_behalf_of_contributor
+    : true
+  output:
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#employer_provident_fund_contribution_is_deductible: holds
+- name: qualifying_contributor_and_informal_sector_deductions
+  period: 2024-06
+  input:
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.contributor_provident_fund_contributions: 100
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.employer_provident_fund_contributions: 50
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.contributor_monthly_income: 1000
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.contributor_is_in_informal_sector: true
+    ? gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.contributor_not_covered_by_mandatory_first_tier_basic_national_social_security_scheme
+    : true
+    ? gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.contributor_not_covered_by_second_tier_occupational_pension_scheme
+    : true
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.contributor_declared_income: 1000
+  output:
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#contributor_provident_fund_contributions_are_deductible: holds
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#informal_sector_declared_income_deduction: 350
+- name: retirement_withdrawal_is_exempt
+  period:
+    period_kind: tax_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    ? gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.withdrawal_is_from_provident_fund_or_personal_pension_scheme
+    : true
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.withdrawal_is_on_or_after_retirement: true
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.contributor_is_in_formal_sector: false
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.contributor_is_in_informal_sector: false
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.withdrawal_contributor_years_of_contributions: 12
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.withdrawal_is_before_retirement: false
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.contributor_has_medical_board_certification: false
+    ? gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.contributor_is_incapable_of_normal_gainful_employment_due_to_permanent_physical_or_mental_disability
+    : false
+    ? gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.withdrawal_is_by_beneficiary_of_estate_of_deceased_contributor
+    : false
+  output:
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#withdrawal_after_retirement_is_tax_exempt: holds
+- name: formal_sector_early_withdrawal_is_taxable
+  period:
+    period_kind: tax_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    ? gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.withdrawal_is_from_provident_fund_or_personal_pension_scheme
+    : true
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.withdrawal_is_on_or_after_retirement: false
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.contributor_is_in_formal_sector: true
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.contributor_is_in_informal_sector: false
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.withdrawal_contributor_years_of_contributions: 9
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.withdrawal_is_before_retirement: true
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.contributor_has_medical_board_certification: false
+    ? gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.contributor_is_incapable_of_normal_gainful_employment_due_to_permanent_physical_or_mental_disability
+    : false
+    ? gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.withdrawal_is_by_beneficiary_of_estate_of_deceased_contributor
+    : false
+  output:
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#formal_sector_early_withdrawal_is_subject_to_income_tax: holds
+- name: informal_sector_early_withdrawal_is_taxable
+  period:
+    period_kind: tax_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    ? gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.withdrawal_is_from_provident_fund_or_personal_pension_scheme
+    : true
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.withdrawal_is_on_or_after_retirement: false
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.contributor_is_in_formal_sector: false
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.contributor_is_in_informal_sector: true
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.withdrawal_contributor_years_of_contributions: 4
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.withdrawal_is_before_retirement: true
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.contributor_has_medical_board_certification: false
+    ? gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.contributor_is_incapable_of_normal_gainful_employment_due_to_permanent_physical_or_mental_disability
+    : false
+    ? gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.withdrawal_is_by_beneficiary_of_estate_of_deceased_contributor
+    : false
+  output:
+    ? gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#informal_sector_early_withdrawal_is_subject_to_income_tax
+    : holds
+- name: disability_withdrawal_is_exempt
+  period:
+    period_kind: tax_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    ? gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.withdrawal_is_from_provident_fund_or_personal_pension_scheme
+    : true
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.withdrawal_is_on_or_after_retirement: false
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.contributor_is_in_formal_sector: false
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.contributor_is_in_informal_sector: false
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.withdrawal_contributor_years_of_contributions: 0
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.withdrawal_is_before_retirement: false
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.contributor_has_medical_board_certification: true
+    ? gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.contributor_is_incapable_of_normal_gainful_employment_due_to_permanent_physical_or_mental_disability
+    : true
+    ? gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.withdrawal_is_by_beneficiary_of_estate_of_deceased_contributor
+    : false
+  output:
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#disability_withdrawal_is_tax_exempt: holds
+- name: deceased_contributor_beneficiary_withdrawal_is_exempt
+  period:
+    period_kind: tax_year
+    start: '2024-01-01'
+    end: '2024-12-31'
+  input:
+    ? gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.withdrawal_is_from_provident_fund_or_personal_pension_scheme
+    : true
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.withdrawal_is_on_or_after_retirement: false
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.contributor_is_in_formal_sector: false
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.contributor_is_in_informal_sector: false
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.withdrawal_contributor_years_of_contributions: 0
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.withdrawal_is_before_retirement: false
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.contributor_has_medical_board_certification: false
+    ? gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.contributor_is_incapable_of_normal_gainful_employment_due_to_permanent_physical_or_mental_disability
+    : false
+    ? gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.withdrawal_is_by_beneficiary_of_estate_of_deceased_contributor
+    : true
+  output:
+    ? gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#deceased_contributor_beneficiary_withdrawal_is_tax_exempt
+    : holds
+- name: auto_zero_informal_sector_declared_income_deduction
+  period:
+    period_kind: tax_year
+    start: '2026-01-01'
+    end: '2026-12-31'
+  input:
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.contributor_declared_income: 0
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.contributor_has_medical_board_certification: false
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.contributor_is_in_formal_sector: false
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.contributor_is_in_informal_sector: false
+    ? gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.contributor_is_incapable_of_normal_gainful_employment_due_to_permanent_physical_or_mental_disability
+    : false
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.contributor_monthly_income: 0
+    ? gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.contributor_not_covered_by_mandatory_first_tier_basic_national_social_security_scheme
+    : false
+    ? gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.contributor_not_covered_by_second_tier_occupational_pension_scheme
+    : false
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.contributor_provident_fund_contributions: 0
+    ? gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.employer_made_contribution_to_provident_fund_scheme_on_behalf_of_contributor
+    : false
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.employer_provident_fund_contributions: 0
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.withdrawal_contributor_years_of_contributions: 0
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.withdrawal_is_before_retirement: false
+    ? gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.withdrawal_is_by_beneficiary_of_estate_of_deceased_contributor
+    : false
+    ? gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.withdrawal_is_from_provident_fund_or_personal_pension_scheme
+    : false
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#input.withdrawal_is_on_or_after_retirement: false
+  output:
+    gh:statutes/act-766/national-pensions-2008/section-112-tax-reliefs#informal_sector_declared_income_deduction: 0

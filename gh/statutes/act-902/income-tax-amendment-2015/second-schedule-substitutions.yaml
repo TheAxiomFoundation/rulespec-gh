@@ -1,0 +1,147 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: gh/statute/act-902/income-tax-amendment-2015/second-schedule-substitutions
+    source_sha256: aeb4d24d584d5a31f4f9cacc45901f79a4d8b9f75331f3c07eff54884c02c9d4
+  summary: "\u201Cthe tax payable by that individual for a year of assessment ...\
+    \ is three percent of the turnover of the business, where the turnover is more\
+    \ than twenty thousand cedis but does not exceed two hundred thousand cedis.\u201D"
+rules:
+- name: presumptive_tax_turnover_rate
+  kind: parameter
+  dtype: Rate
+  source: Act 902, Second Schedule substitution, paragraph 5
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: gh/statute/act-902/income-tax-amendment-2015/second-schedule-substitutions
+          excerpt: three percent of the turnover of the business
+  versions:
+  - effective_from: '2015-12-30'
+    formula: '0.03'
+- name: presumptive_tax_turnover_lower_threshold
+  kind: parameter
+  dtype: Money
+  unit: GHS
+  source: Act 902, Second Schedule substitution, paragraph 5
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: gh/statute/act-902/income-tax-amendment-2015/second-schedule-substitutions
+          excerpt: more than twenty thousand cedis
+  versions:
+  - effective_from: '2015-12-30'
+    formula: '20000'
+- name: presumptive_tax_turnover_upper_limit
+  kind: parameter
+  dtype: Money
+  unit: GHS
+  source: Act 902, Second Schedule substitution, paragraph 5
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: gh/statute/act-902/income-tax-amendment-2015/second-schedule-substitutions
+          excerpt: does not exceed two hundred thousand cedis
+  versions:
+  - effective_from: '2015-12-30'
+    formula: '200000'
+- name: modified_cash_basis_turnover_limit
+  kind: parameter
+  dtype: Money
+  unit: GHS
+  source: Act 902, Second Schedule substitution, paragraph 6(1)(b)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: gh/statute/act-902/income-tax-amendment-2015/second-schedule-substitutions
+          excerpt: turnover of that individual does not exceed two hundred thousand
+            cedis
+  versions:
+  - effective_from: '2015-12-30'
+    formula: '200000'
+- name: presumptive_tax_turnover_band_applies
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: Act 902, Second Schedule substitution, paragraph 5
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: gh/statute/act-902/income-tax-amendment-2015/second-schedule-substitutions
+          excerpt: Where presumptive taxation applies to an individual as referred
+            to in paragraph 2 (1) (c) (ii)
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: gh/statute/act-902/income-tax-amendment-2015/second-schedule-substitutions
+          excerpt: turnover is more than twenty thousand cedis but does not exceed
+            two hundred thousand cedis
+  versions:
+  - effective_from: '2015-12-30'
+    formula: 'presumptive_taxation_applies_under_paragraph_2_1_c_ii
+
+      and business_turnover > presumptive_tax_turnover_lower_threshold
+
+      and business_turnover <= presumptive_tax_turnover_upper_limit'
+- name: presumptive_tax_payable
+  kind: derived
+  entity: Person
+  dtype: Money
+  period: Year
+  unit: GHS
+  source: Act 902, Second Schedule substitution, paragraph 5
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: gh/statute/act-902/income-tax-amendment-2015/second-schedule-substitutions
+          excerpt: tax payable by that individual for a year of assessment ... is
+            three percent of the turnover of the business
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: gh/statute/act-902/income-tax-amendment-2015/second-schedule-substitutions
+          excerpt: turnover is more than twenty thousand cedis but does not exceed
+            two hundred thousand cedis
+  versions:
+  - effective_from: '2015-12-30'
+    formula: 'if presumptive_tax_turnover_band_applies: presumptive_tax_turnover_rate
+      * business_turnover else: 0'
+- name: modified_cash_basis_turnover_condition_satisfied
+  kind: derived
+  entity: Person
+  dtype: Judgment
+  period: Year
+  source: Act 902, Second Schedule substitution, paragraph 6(1)(b)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: gh/statute/act-902/income-tax-amendment-2015/second-schedule-substitutions
+          excerpt: turnover of that individual does not exceed two hundred thousand
+            cedis, calculated using the modified cash basis
+  versions:
+  - effective_from: '2015-12-30'
+    formula: modified_cash_basis_turnover <= modified_cash_basis_turnover_limit

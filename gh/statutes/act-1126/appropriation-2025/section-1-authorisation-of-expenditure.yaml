@@ -1,0 +1,528 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: gh/statute/act-1126/appropriation-2025/section-1-authorisation-of-expenditure
+    source_sha256: 902c267554a15d2e54a981d75e5987e6584ea4026e48483550aff96616940572
+  summary: |-
+    “money not exceeding Two Hundred and Ninety-Three Billion, One Hundred and Eighteen Million, Twenty-Six Thousand, One Hundred and Thirty-Seven Ghana Cedis (GH¢ 293,118,026,137) shall be issued from the Consolidated Fund and other public funds during the financial year commencing on the 1st day of January, 2025 and ending on the 31st day of December, 2025 and shall be appropriated for the purposes specified in the First Schedule”
+rules:
+  - name: total_appropriation_limit
+    kind: parameter
+    dtype: Money
+    period: Year
+    unit: GHS
+    source: Act 1126, s. 1 and First Schedule
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1126/appropriation-2025/section-1-authorisation-of-expenditure
+              excerpt: "GH¢ 293,118,026,137"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          293118026137
+
+  - name: compensation_of_employees_appropriation
+    kind: parameter
+    dtype: Money
+    period: Year
+    unit: GHS
+    source: Act 1126, First Schedule
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1126/appropriation-2025/section-1-authorisation-of-expenditure
+              excerpt: "Compensation of Employees 76,203,158,241"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          76203158241
+
+  - name: wages_and_salaries_appropriation
+    kind: parameter
+    dtype: Money
+    period: Year
+    unit: GHS
+    source: Act 1126, First Schedule
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1126/appropriation-2025/section-1-authorisation-of-expenditure
+              excerpt: "Wages & Salaries 68,197,291,119"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          68197291119
+
+  - name: social_security_appropriation
+    kind: parameter
+    dtype: Money
+    period: Year
+    unit: GHS
+    source: Act 1126, First Schedule
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1126/appropriation-2025/section-1-authorisation-of-expenditure
+              excerpt: "Social Security 4,000,823,923"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          4000823923
+
+  - name: pensions_appropriation
+    kind: parameter
+    dtype: Money
+    period: Year
+    unit: GHS
+    source: Act 1126, First Schedule
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1126/appropriation-2025/section-1-authorisation-of-expenditure
+              excerpt: "Pensions 3,050,281,124"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          3050281124
+
+  - name: gratuities_appropriation
+    kind: parameter
+    dtype: Money
+    period: Year
+    unit: GHS
+    source: Act 1126, First Schedule
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1126/appropriation-2025/section-1-authorisation-of-expenditure
+              excerpt: "Gratuities 954,762,076"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          954762076
+
+  - name: goods_and_services_appropriation
+    kind: parameter
+    dtype: Money
+    period: Year
+    unit: GHS
+    source: Act 1126, First Schedule
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1126/appropriation-2025/section-1-authorisation-of-expenditure
+              excerpt: "Use of Goods and Services 6,671,071,606"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          6671071606
+
+  - name: interest_payments_appropriation
+    kind: parameter
+    dtype: Money
+    period: Year
+    unit: GHS
+    source: Act 1126, First Schedule
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1126/appropriation-2025/section-1-authorisation-of-expenditure
+              excerpt: "Interest Payments 64,163,490,789"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          64163490789
+
+  - name: external_interest_appropriation
+    kind: parameter
+    dtype: Money
+    period: Year
+    unit: GHS
+    source: Act 1126, First Schedule
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1126/appropriation-2025/section-1-authorisation-of-expenditure
+              excerpt: "External (due) 7,916,027,624"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          7916027624
+
+  - name: domestic_interest_appropriation
+    kind: parameter
+    dtype: Money
+    period: Year
+    unit: GHS
+    source: Act 1126, First Schedule
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1126/appropriation-2025/section-1-authorisation-of-expenditure
+              excerpt: "Domestic 56,247,463,165"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          56247463165
+
+  - name: subsidies_appropriation
+    kind: parameter
+    dtype: Money
+    period: Year
+    unit: GHS
+    source: Act 1126, First Schedule
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1126/appropriation-2025/section-1-authorisation-of-expenditure
+              excerpt: "Subsidies 342,028,321"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          342028321
+
+  - name: petroleum_products_subsidies_appropriation
+    kind: parameter
+    dtype: Money
+    period: Year
+    unit: GHS
+    source: Act 1126, First Schedule
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1126/appropriation-2025/section-1-authorisation-of-expenditure
+              excerpt: "Subsidies on Petroleum products 342,028,321"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          342028321
+
+  - name: grants_to_other_government_units_appropriation
+    kind: parameter
+    dtype: Money
+    period: Year
+    unit: GHS
+    source: Act 1126, First Schedule
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1126/appropriation-2025/section-1-authorisation-of-expenditure
+              excerpt: "Grants to Other Government Units 54,566,582,264"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          54566582264
+
+  - name: national_health_insurance_fund_appropriation
+    kind: parameter
+    dtype: Money
+    period: Year
+    unit: GHS
+    source: Act 1126, First Schedule
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1126/appropriation-2025/section-1-authorisation-of-expenditure
+              excerpt: "National Health Insurance Fund (NHF) 9,764,972,288"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          9764972288
+
+  - name: ghana_education_trust_fund_appropriation
+    kind: parameter
+    dtype: Money
+    period: Year
+    unit: GHS
+    source: Act 1126, First Schedule
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1126/appropriation-2025/section-1-authorisation-of-expenditure
+              excerpt: "Ghana Education Trust Fund 8,571,909,122"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          8571909122
+
+  - name: road_fund_appropriation
+    kind: parameter
+    dtype: Money
+    period: Year
+    unit: GHS
+    source: Act 1126, First Schedule
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1126/appropriation-2025/section-1-authorisation-of-expenditure
+              excerpt: "Road Fund 2,814,916,075"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          2814916075
+
+  - name: energy_fund_appropriation
+    kind: parameter
+    dtype: Money
+    period: Year
+    unit: GHS
+    source: Act 1126, First Schedule
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1126/appropriation-2025/section-1-authorisation-of-expenditure
+              excerpt: "Energy Fund 32,007,671"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          32007671
+
+  - name: district_assembly_common_fund_appropriation
+    kind: parameter
+    dtype: Money
+    period: Year
+    unit: GHS
+    source: Act 1126, First Schedule
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1126/appropriation-2025/section-1-authorisation-of-expenditure
+              excerpt: "District Assembly Common Fund 7,683,570,940"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          7683570940
+
+  - name: internally_generated_funds_retention_appropriation
+    kind: parameter
+    dtype: Money
+    period: Year
+    unit: GHS
+    source: Act 1126, First Schedule
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1126/appropriation-2025/section-1-authorisation-of-expenditure
+              excerpt: "Internally Generated Funds (IGF) Retention 13,572,771,499"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          13572771499
+
+  - name: national_oil_company_transfer_appropriation
+    kind: parameter
+    dtype: Money
+    period: Year
+    unit: GHS
+    source: Act 1126, First Schedule
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1126/appropriation-2025/section-1-authorisation-of-expenditure
+              excerpt: "Transfer to the National Oil Company from Oil Revenue 3,146,011,215"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          3146011215
+
+  - name: other_earmarked_funds_appropriation
+    kind: parameter
+    dtype: Money
+    period: Year
+    unit: GHS
+    source: Act 1126, First Schedule
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1126/appropriation-2025/section-1-authorisation-of-expenditure
+              excerpt: "Other Earmarked Funds 8,980,423,453"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          8980423453
+
+  - name: youth_employment_agency_appropriation
+    kind: parameter
+    dtype: Money
+    period: Year
+    unit: GHS
+    source: Act 1126, First Schedule
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1126/appropriation-2025/section-1-authorisation-of-expenditure
+              excerpt: "Youth Employment Agency 583,822,653"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          583822653
+
+  - name: students_loan_trust_fund_appropriation
+    kind: parameter
+    dtype: Money
+    period: Year
+    unit: GHS
+    source: Act 1126, First Schedule
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1126/appropriation-2025/section-1-authorisation-of-expenditure
+              excerpt: "Student's Loan Trust Fund 6,015,202"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          6015202
+
+  - name: minerals_income_investment_fund_appropriation
+    kind: parameter
+    dtype: Money
+    period: Year
+    unit: GHS
+    source: Act 1126, First Schedule
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1126/appropriation-2025/section-1-authorisation-of-expenditure
+              excerpt: "Minerals Income Investment Fund 67,389,967"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          67389967
+
+  - name: minerals_development_fund_appropriation
+    kind: parameter
+    dtype: Money
+    period: Year
+    unit: GHS
+    source: Act 1126, First Schedule
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1126/appropriation-2025/section-1-authorisation-of-expenditure
+              excerpt: "Minerals Development Fund 673,899,671"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          673899671
+
+  - name: ghana_revenue_authority_retention_appropriation
+    kind: parameter
+    dtype: Money
+    period: Year
+    unit: GHS
+    source: Act 1126, First Schedule
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1126/appropriation-2025/section-1-authorisation-of-expenditure
+              excerpt: "Ghana Revenue Authority Retention 5,197,713,220"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          5197713220
+
+  - name: proposed_expenditure_is_authorised
+    kind: derived
+    entity: GhanaFinancialYear
+    dtype: Judgment
+    period: Year
+    source: Act 1126, s. 1
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: gh/statute/act-1126/appropriation-2025/section-1-authorisation-of-expenditure
+              excerpt: "money not exceeding ... GH¢ 293,118,026,137 shall be issued"
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-1126/appropriation-2025/section-1-authorisation-of-expenditure
+              excerpt: "GH¢ 293,118,026,137"
+    versions:
+      - effective_from: '2025-01-01'
+        formula: |-
+          proposed_expenditure >= 0
+          and proposed_expenditure <= total_appropriation_limit

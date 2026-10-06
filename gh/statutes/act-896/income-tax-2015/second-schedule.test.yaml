@@ -1,0 +1,95 @@
+- name: qualifying low-turnover individual uses instalment basis
+  period:
+    period_kind: tax_year
+    start: '2016-01-01'
+    end: '2016-12-31'
+  input:
+    gh:statutes/act-896/income-tax-2015/second-schedule#input.individual_is_resident: true
+    gh:statutes/act-896/income-tax-2015/second-schedule#input.chargeable_income_consists_exclusively_of_business_income: true
+    gh:statutes/act-896/income-tax-2015/second-schedule#input.business_income_is_exclusively_from_sources_in_ghana: true
+    gh:statutes/act-896/income-tax-2015/second-schedule#input.individual_is_registered_for_value_added_tax: false
+    gh:statutes/act-896/income-tax-2015/second-schedule#input.turnover_average_year_count: 3
+    gh:statutes/act-896/income-tax-2015/second-schedule#input.average_annual_business_turnover: 18000
+    gh:statutes/act-896/income-tax-2015/second-schedule#input.commissioner_general_determined_turnover_calculation: false
+    gh:statutes/act-896/income-tax-2015/second-schedule#input.annual_business_turnover: 18000
+    gh:statutes/act-896/income-tax-2015/second-schedule#input.individual_is_required_to_register_for_value_added_tax: false
+    gh:statutes/act-896/income-tax-2015/second-schedule#input.individual_has_professional_qualification: false
+    ? gh:statutes/act-896/income-tax-2015/second-schedule#input.individual_engages_in_prescribed_high_profit_to_turnover_business
+    : false
+    gh:statutes/act-896/income-tax-2015/second-schedule#input.individual_has_more_than_one_business: false
+    gh:statutes/act-896/income-tax-2015/second-schedule#input.individual_has_business_with_more_than_one_outlet: false
+    gh:statutes/act-896/income-tax-2015/second-schedule#input.individual_is_in_partnership: false
+    gh:statutes/act-896/income-tax-2015/second-schedule#input.individual_elected_to_disapply_paragraphs_4_and_5: false
+    gh:statutes/act-896/income-tax-2015/second-schedule#input.years_since_disapplication_election: 0
+  output:
+    gh:statutes/act-896/income-tax-2015/second-schedule#presumptive_tax_exclusion_applies: not_holds
+    gh:statutes/act-896/income-tax-2015/second-schedule#presumptive_taxation_applies: holds
+    gh:statutes/act-896/income-tax-2015/second-schedule#instalment_basis_applies: holds
+    gh:statutes/act-896/income-tax-2015/second-schedule#turnover_basis_applies: not_holds
+- name: qualifying turnover-band individual uses turnover basis
+  period:
+    period_kind: tax_year
+    start: '2016-01-01'
+    end: '2016-12-31'
+  input:
+    gh:statutes/act-896/income-tax-2015/second-schedule#input.individual_is_resident: true
+    gh:statutes/act-896/income-tax-2015/second-schedule#input.chargeable_income_consists_exclusively_of_business_income: true
+    gh:statutes/act-896/income-tax-2015/second-schedule#input.business_income_is_exclusively_from_sources_in_ghana: true
+    gh:statutes/act-896/income-tax-2015/second-schedule#input.individual_is_registered_for_value_added_tax: false
+    gh:statutes/act-896/income-tax-2015/second-schedule#input.turnover_average_year_count: 3
+    gh:statutes/act-896/income-tax-2015/second-schedule#input.average_annual_business_turnover: 60000
+    gh:statutes/act-896/income-tax-2015/second-schedule#input.commissioner_general_determined_turnover_calculation: false
+    gh:statutes/act-896/income-tax-2015/second-schedule#input.annual_business_turnover: 60000
+    gh:statutes/act-896/income-tax-2015/second-schedule#input.individual_is_required_to_register_for_value_added_tax: false
+    gh:statutes/act-896/income-tax-2015/second-schedule#input.individual_has_professional_qualification: false
+    ? gh:statutes/act-896/income-tax-2015/second-schedule#input.individual_engages_in_prescribed_high_profit_to_turnover_business
+    : false
+    gh:statutes/act-896/income-tax-2015/second-schedule#input.individual_has_more_than_one_business: false
+    gh:statutes/act-896/income-tax-2015/second-schedule#input.individual_has_business_with_more_than_one_outlet: false
+    gh:statutes/act-896/income-tax-2015/second-schedule#input.individual_is_in_partnership: false
+    gh:statutes/act-896/income-tax-2015/second-schedule#input.individual_elected_to_disapply_paragraphs_4_and_5: false
+    gh:statutes/act-896/income-tax-2015/second-schedule#input.years_since_disapplication_election: 0
+  output:
+    gh:statutes/act-896/income-tax-2015/second-schedule#presumptive_tax_exclusion_applies: not_holds
+    gh:statutes/act-896/income-tax-2015/second-schedule#presumptive_taxation_applies: holds
+    gh:statutes/act-896/income-tax-2015/second-schedule#instalment_basis_applies: not_holds
+    gh:statutes/act-896/income-tax-2015/second-schedule#turnover_basis_applies: holds
+- name: professional qualification excludes otherwise qualifying individual
+  period:
+    period_kind: tax_year
+    start: '2016-01-01'
+    end: '2016-12-31'
+  input:
+    gh:statutes/act-896/income-tax-2015/second-schedule#input.individual_is_resident: true
+    gh:statutes/act-896/income-tax-2015/second-schedule#input.chargeable_income_consists_exclusively_of_business_income: true
+    gh:statutes/act-896/income-tax-2015/second-schedule#input.business_income_is_exclusively_from_sources_in_ghana: true
+    gh:statutes/act-896/income-tax-2015/second-schedule#input.individual_is_registered_for_value_added_tax: false
+    gh:statutes/act-896/income-tax-2015/second-schedule#input.turnover_average_year_count: 3
+    gh:statutes/act-896/income-tax-2015/second-schedule#input.average_annual_business_turnover: 18000
+    gh:statutes/act-896/income-tax-2015/second-schedule#input.commissioner_general_determined_turnover_calculation: false
+    gh:statutes/act-896/income-tax-2015/second-schedule#input.annual_business_turnover: 18000
+    gh:statutes/act-896/income-tax-2015/second-schedule#input.individual_is_required_to_register_for_value_added_tax: false
+    gh:statutes/act-896/income-tax-2015/second-schedule#input.individual_has_professional_qualification: true
+    ? gh:statutes/act-896/income-tax-2015/second-schedule#input.individual_engages_in_prescribed_high_profit_to_turnover_business
+    : false
+    gh:statutes/act-896/income-tax-2015/second-schedule#input.individual_has_more_than_one_business: false
+    gh:statutes/act-896/income-tax-2015/second-schedule#input.individual_has_business_with_more_than_one_outlet: false
+    gh:statutes/act-896/income-tax-2015/second-schedule#input.individual_is_in_partnership: false
+    gh:statutes/act-896/income-tax-2015/second-schedule#input.individual_elected_to_disapply_paragraphs_4_and_5: false
+    gh:statutes/act-896/income-tax-2015/second-schedule#input.years_since_disapplication_election: 0
+  output:
+    gh:statutes/act-896/income-tax-2015/second-schedule#presumptive_tax_exclusion_applies: holds
+    gh:statutes/act-896/income-tax-2015/second-schedule#presumptive_taxation_applies: not_holds
+    gh:statutes/act-896/income-tax-2015/second-schedule#instalment_basis_applies: not_holds
+    gh:statutes/act-896/income-tax-2015/second-schedule#turnover_basis_applies: not_holds
+- name: modified cash basis turnover cap
+  period:
+    period_kind: tax_year
+    start: '2016-01-01'
+    end: '2016-12-31'
+  input:
+    ? gh:statutes/act-896/income-tax-2015/second-schedule#input.assessable_income_from_all_businesses_is_exclusively_from_sources_in_ghana
+    : true
+    gh:statutes/act-896/income-tax-2015/second-schedule#input.turnover_calculated_using_modified_cash_basis: 120000
+  output:
+    gh:statutes/act-896/income-tax-2015/second-schedule#modified_cash_basis_applies: holds

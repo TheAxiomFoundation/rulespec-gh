@@ -1,0 +1,289 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: gh/statute/act-896/income-tax-2015/second-schedule
+    source_sha256: 0ea2ace2c8c084105d8a378ceec9b34cf1b8238a482a882712f586013f598bca
+  summary: |-
+    Paragraphs 2 and 3 apply presumptive taxation to qualifying resident individuals whose business income is exclusively Ghana-sourced, subject to turnover, VAT-registration, business-structure, professional, prescribed-business, partnership, and election conditions. Paragraph 5 states a three percent turnover tax where turnover is more than twenty thousand cedis but does not exceed one hundred and twenty thousand cedis. Paragraph 6 applies modified cash-basis accounting where all business assessable income is Ghana-sourced and turnover does not exceed one hundred and twenty thousand cedis.
+  deferred_outputs:
+    - output: gh:statutes/act-896/income-tax-2015/second-schedule#presumptive_tax_payable_by_instalments
+      reason: Paragraph 4 defines the tax payable by reference to instalments payable under section 121 and tax imposed under section 1, but neither cited computation is supplied as RuleSpec context.
+    - output: gh:statutes/act-896/income-tax-2015/second-schedule#presumptive_tax_based_on_turnover
+      reason: Paragraph 5 states the rate and turnover band, but the final tax-payable surface is expressly under section 1, whose cited computation is not supplied as RuleSpec context.
+      source_values:
+        - gh:statutes/act-896/income-tax-2015/second-schedule#turnover_presumptive_tax_rate
+        - gh:statutes/act-896/income-tax-2015/second-schedule#turnover_tax_lower_threshold
+        - gh:statutes/act-896/income-tax-2015/second-schedule#turnover_tax_upper_limit
+    - output: gh:statutes/act-896/income-tax-2015/second-schedule#business_income_calculated_using_modified_cash_basis
+      reason: Paragraph 6 requires the standard business-income rules and specifies that sections 17, 21(4), 25, 26, and 31 do not apply, but those cited computations are not supplied as RuleSpec context.
+    - output: gh:statutes/act-896/income-tax-2015/second-schedule#turnover_of_business
+      reason: Paragraph 6(4) defines turnover through amounts required to be included under section 3(2), whose cited computation is not supplied as RuleSpec context.
+rules:
+  - name: presumptive_tax_average_turnover_limit
+    kind: parameter
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: Second Schedule paragraph 2(1)(c)(i)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/second-schedule
+              excerpt: "annual turnover of not more than twenty thousand Cedis"
+    versions:
+      - effective_from: '2016-01-01'
+        formula: |-
+          20000
+
+  - name: presumptive_tax_high_turnover_threshold
+    kind: parameter
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: Second Schedule paragraph 2(1)(c)(ii)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/second-schedule
+              excerpt: "annual turnover of more than twenty thousand Cedis"
+    versions:
+      - effective_from: '2016-01-01'
+        formula: |-
+          20000
+
+  - name: turnover_average_period_years
+    kind: parameter
+    dtype: Count
+    unit: year
+    source: Second Schedule paragraph 2(1)(c)(i)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/second-schedule
+              excerpt: "computed as an average of the turnover for three consecutive years"
+    versions:
+      - effective_from: '2016-01-01'
+        formula: |-
+          3
+
+  - name: election_disapplication_following_years
+    kind: parameter
+    dtype: Count
+    unit: year
+    source: Second Schedule paragraph 3(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/second-schedule
+              excerpt: "that year of assessment and the following five years of assessment"
+    versions:
+      - effective_from: '2016-01-01'
+        formula: |-
+          5
+
+  - name: turnover_tax_lower_threshold
+    kind: parameter
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: Second Schedule paragraph 5
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/second-schedule
+              excerpt: "turnover is more than twenty thousand cedis"
+    versions:
+      - effective_from: '2016-01-01'
+        formula: |-
+          20000
+
+  - name: turnover_tax_upper_limit
+    kind: parameter
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: Second Schedule paragraph 5
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/second-schedule
+              excerpt: "does not exceed one hundred and twenty thousand cedis"
+    versions:
+      - effective_from: '2016-01-01'
+        formula: |-
+          120000
+
+  - name: turnover_presumptive_tax_rate
+    kind: parameter
+    dtype: Rate
+    source: Second Schedule paragraph 5
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/second-schedule
+              excerpt: "three percent of the turnover of the business"
+    versions:
+      - effective_from: '2016-01-01'
+        formula: |-
+          0.03
+
+  - name: modified_cash_basis_turnover_limit
+    kind: parameter
+    dtype: Money
+    unit: GHS
+    period: Year
+    source: Second Schedule paragraph 6(1)(b)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: amount
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/second-schedule
+              excerpt: "turnover of that individual does not exceed one hundred and twenty thousand cedis"
+    versions:
+      - effective_from: '2016-01-01'
+        formula: |-
+          120000
+
+  - name: presumptive_tax_exclusion_applies
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Second Schedule paragraph 3
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/second-schedule
+    versions:
+      - effective_from: '2016-01-01'
+        formula: |-
+          individual_has_professional_qualification
+          or individual_engages_in_prescribed_high_profit_to_turnover_business
+          or individual_has_more_than_one_business
+          or individual_has_business_with_more_than_one_outlet
+          or individual_is_in_partnership
+          or (individual_elected_to_disapply_paragraphs_4_and_5
+          and years_since_disapplication_election >= 0
+          and years_since_disapplication_election <= election_disapplication_following_years)
+
+  - name: presumptive_taxation_applies
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Second Schedule paragraphs 2 and 3
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/second-schedule
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/second-schedule
+    versions:
+      - effective_from: '2016-01-01'
+        formula: |-
+          individual_is_resident
+          and chargeable_income_consists_exclusively_of_business_income
+          and business_income_is_exclusively_from_sources_in_ghana
+          and ((not individual_is_registered_for_value_added_tax
+          and ((turnover_average_year_count == turnover_average_period_years
+          and average_annual_business_turnover <= presumptive_tax_average_turnover_limit)
+          or commissioner_general_determined_turnover_calculation))
+          or (annual_business_turnover > presumptive_tax_high_turnover_threshold
+          and not individual_is_required_to_register_for_value_added_tax))
+          and not presumptive_tax_exclusion_applies
+
+  - name: instalment_basis_applies
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Second Schedule paragraphs 2(1)(c)(i) and 4
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/second-schedule
+    versions:
+      - effective_from: '2016-01-01'
+        formula: |-
+          presumptive_taxation_applies
+          and not individual_is_registered_for_value_added_tax
+          and ((turnover_average_year_count == turnover_average_period_years
+          and average_annual_business_turnover <= presumptive_tax_average_turnover_limit)
+          or commissioner_general_determined_turnover_calculation)
+
+  - name: turnover_basis_applies
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Second Schedule paragraphs 2(1)(c)(ii) and 5
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/second-schedule
+              excerpt: "turnover is more than twenty thousand cedis but does not exceed one hundred and twenty thousand cedis"
+    versions:
+      - effective_from: '2016-01-01'
+        formula: |-
+          presumptive_taxation_applies
+          and annual_business_turnover > turnover_tax_lower_threshold
+          and annual_business_turnover <= turnover_tax_upper_limit
+          and not individual_is_required_to_register_for_value_added_tax
+
+  - name: modified_cash_basis_applies
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Year
+    source: Second Schedule paragraph 6(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: gh/statute/act-896/income-tax-2015/second-schedule
+    versions:
+      - effective_from: '2016-01-01'
+        formula: |-
+          assessable_income_from_all_businesses_is_exclusively_from_sources_in_ghana
+          and turnover_calculated_using_modified_cash_basis <= modified_cash_basis_turnover_limit

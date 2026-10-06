@@ -1,0 +1,32 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: gh/statute/act-896/income-tax-2015/section-119-final-withholding-payments
+  summary: |-
+    “A final withholding payment is” the listed payment categories; tax withheld from a final withholding payment, and tax paid in accordance with section 117(3), satisfy the withholdee’s tax liability. Act 1134 deletes the lottery-winnings paragraph.
+  deferred_outputs:
+    - output: gh:statutes/act-896/income-tax-2015/section-119-final-withholding-payments#final_withholding_payment
+      reason: The complete payment classification depends on missing cited provisions sections 71(4), 115(2), and 116.
+    - output: gh:statutes/act-896/income-tax-2015/section-119-final-withholding-payments#withholdee_tax_liability_satisfied
+      reason: The liability-satisfaction rule depends on the unresolved final-withholding-payment classification and missing section 117(3).
+rules:
+  - name: lottery_winnings_are_final_withholding_payment
+    kind: derived
+    entity: Payment
+    dtype: Judgment
+    period: Year
+    source: Income Tax Act, 2015 (Act 896), section 119(1)(f), as amended by Income Tax (Amendment) Act, 2025 (Act 1134), section 4
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: gh/statute/act-1134/income-tax-amendment-2025/withholding-and-first-schedule-paragraph-8/document-1
+              excerpt: "section 119 by the deletion of paragraph (f) of subsection (1)"
+    versions:
+      - effective_from: '2025-04-02'
+        formula: |-
+          false

@@ -1,0 +1,47 @@
+- name: fy2025 social protection allocations are the announced amounts
+  period:
+    period_kind: custom
+    name: fiscal_year_2025
+    start: "2025-01-01"
+    end: "2025-12-31"
+  input: {}
+  output:
+    gh:policies/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386#curricula_textbooks_allocation: 564600000
+    gh:policies/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386#school_feeding_budget_allocation: 1788000000
+    gh:policies/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386#school_feeding_cost_per_meal_per_child_per_day: 2
+    gh:policies/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386#capitation_grant_budget_allocation: 145500000
+    gh:policies/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386#teacher_trainee_allowances_allocation: 203000000
+    gh:policies/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386#nursing_trainee_allowances_allocation: 480000000
+    gh:policies/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386#national_health_insurance_scheme_budget_allocation: 9930000000
+    gh:policies/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386#leap_benefits_budget_allocation: 953500000
+- name: leap beneficiary households before the July 2025 expansion
+  period:
+    period_kind: custom
+    name: h1_2025
+    start: "2025-01-01"
+    end: "2025-06-30"
+  input: {}
+  output:
+    gh:policies/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386#leap_beneficiary_households: 350000
+- name: leap beneficiary households from the July 2025 expansion
+  period:
+    period_kind: custom
+    name: h2_2025
+    start: "2025-07-01"
+    end: "2025-12-31"
+  input: {}
+  output:
+    gh:policies/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386#leap_beneficiary_households: 400000
+- name: textbook set and learner counts match paragraph 377
+  period:
+    period_kind: custom
+    name: fiscal_year_2025
+    start: "2025-01-01"
+    end: "2025-12-31"
+  input: {}
+  output:
+    gh:policies/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386#kindergarten_textbook_sets: 4
+    gh:policies/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386#kindergarten_textbook_learners: 2800000
+    gh:policies/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386#primary_textbook_learners: 800000
+    gh:policies/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386#junior_high_school_textbook_sets: 9
+    gh:policies/mofep-budget-2025/social-protection-paragraphs/social-protection-paragraphs-376-386#junior_high_school_textbook_learners: 540000

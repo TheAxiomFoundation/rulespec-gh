@@ -1,0 +1,243 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: gh/statute/act-766/national-pensions-2008/section-112-tax-reliefs
+    source_sha256: 97db451b590b3f97bfe6458f1f7d1df47f8aea41e61aa252da2d0975765321da
+  summary: |-
+    “Contributions made by an employer to a provident fund scheme ... shall be treated as part of the deductible income”; contributions not exceeding “sixteen and one half per centum” are deductible, and qualifying informal-sector contributors receive a “thirty-five per centum” declared-income deduction. Withdrawals after retirement, disability certification, or death are tax exempt; specified early withdrawals are subject to income tax.
+rules:
+  - name: employer_provident_fund_contribution_is_deductible
+    kind: derived
+    entity: Employer
+    dtype: Judgment
+    period: Year
+    source: Act 766, section 112(1)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: gh/statute/act-766/national-pensions-2008/section-112-tax-reliefs
+    versions:
+      - effective_from: '2008-12-12'
+        formula: |-
+          employer_made_contribution_to_provident_fund_scheme_on_behalf_of_contributor
+
+  - name: provident_fund_contribution_deduction_rate
+    kind: parameter
+    dtype: Rate
+    source: Act 766, section 112(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-766/national-pensions-2008/section-112-tax-reliefs
+              excerpt: "not exceeding sixteen and one half per centum of a contributor's monthly income"
+    versions:
+      - effective_from: '2008-12-12'
+        formula: |-
+          0.165
+
+  - name: contributor_provident_fund_contributions_are_deductible
+    kind: derived
+    entity: Person
+    dtype: Judgment
+    period: Month
+    source: Act 766, section 112(2)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-766/national-pensions-2008/section-112-tax-reliefs
+              excerpt: "Contributions not exceeding sixteen and one half per centum of a contributor's monthly income"
+    versions:
+      - effective_from: '2008-12-12'
+        formula: |-
+          contributor_provident_fund_contributions
+          + employer_provident_fund_contributions
+          <= provident_fund_contribution_deduction_rate * contributor_monthly_income
+
+  - name: informal_sector_declared_income_deduction_rate
+    kind: parameter
+    dtype: Rate
+    source: Act 766, section 112(3)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-766/national-pensions-2008/section-112-tax-reliefs
+              excerpt: "thirty-five per centum of their declared income"
+    versions:
+      - effective_from: '2008-12-12'
+        formula: |-
+          0.35
+
+  - name: informal_sector_declared_income_deduction
+    kind: derived
+    entity: Person
+    dtype: Money
+    period: Year
+    source: Act 766, section 112(3)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: formula
+            source:
+              corpus_citation_path: gh/statute/act-766/national-pensions-2008/section-112-tax-reliefs
+              excerpt: "Persons in the informal sector who are not covered by the mandatory first tier basic national social security scheme and second tier occupational pension scheme"
+    versions:
+      - effective_from: '2008-12-12'
+        formula: |-
+          if contributor_is_in_informal_sector
+          and contributor_not_covered_by_mandatory_first_tier_basic_national_social_security_scheme
+          and contributor_not_covered_by_second_tier_occupational_pension_scheme:
+            informal_sector_declared_income_deduction_rate * contributor_declared_income
+          else: 0
+
+  - name: formal_sector_early_withdrawal_contribution_years
+    kind: parameter
+    dtype: Integer
+    source: Act 766, section 112(5)(b)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-766/national-pensions-2008/section-112-tax-reliefs
+              excerpt: "before ten years of contributions"
+    versions:
+      - effective_from: '2008-12-12'
+        formula: |-
+          10
+
+  - name: informal_sector_early_withdrawal_contribution_years
+    kind: parameter
+    dtype: Integer
+    source: Act 766, section 112(5)(c)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: parameter
+            source:
+              corpus_citation_path: gh/statute/act-766/national-pensions-2008/section-112-tax-reliefs
+              excerpt: "before five years of contributions"
+    versions:
+      - effective_from: '2008-12-12'
+        formula: |-
+          5
+
+  - name: withdrawal_after_retirement_is_tax_exempt
+    kind: derived
+    entity: Payment
+    dtype: Judgment
+    period: Year
+    source: Act 766, section 112(5)(a)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: gh/statute/act-766/national-pensions-2008/section-112-tax-reliefs
+              excerpt: "on or after retirement shall be tax exempt"
+    versions:
+      - effective_from: '2008-12-12'
+        formula: |-
+          withdrawal_is_from_provident_fund_or_personal_pension_scheme
+          and withdrawal_is_on_or_after_retirement
+
+  - name: formal_sector_early_withdrawal_is_subject_to_income_tax
+    kind: derived
+    entity: Payment
+    dtype: Judgment
+    period: Year
+    source: Act 766, section 112(5)(b)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: gh/statute/act-766/national-pensions-2008/section-112-tax-reliefs
+              excerpt: "subject to the appropriate income tax for contributors in the formal sector before ten years of contributions and before retirement"
+    versions:
+      - effective_from: '2008-12-12'
+        formula: |-
+          withdrawal_is_from_provident_fund_or_personal_pension_scheme
+          and contributor_is_in_formal_sector
+          and withdrawal_contributor_years_of_contributions < formal_sector_early_withdrawal_contribution_years
+          and withdrawal_is_before_retirement
+
+  - name: informal_sector_early_withdrawal_is_subject_to_income_tax
+    kind: derived
+    entity: Payment
+    dtype: Judgment
+    period: Year
+    source: Act 766, section 112(5)(c)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: gh/statute/act-766/national-pensions-2008/section-112-tax-reliefs
+              excerpt: "subject to the appropriate income tax for contributors in the informal sector before five years of contributions and before retirement"
+    versions:
+      - effective_from: '2008-12-12'
+        formula: |-
+          withdrawal_is_from_provident_fund_or_personal_pension_scheme
+          and contributor_is_in_informal_sector
+          and withdrawal_contributor_years_of_contributions < informal_sector_early_withdrawal_contribution_years
+          and withdrawal_is_before_retirement
+
+  - name: disability_withdrawal_is_tax_exempt
+    kind: derived
+    entity: Payment
+    dtype: Judgment
+    period: Year
+    source: Act 766, section 112(6)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: gh/statute/act-766/national-pensions-2008/section-112-tax-reliefs
+              excerpt: "after certification by a medical board that the contributor is incapable of normal gainful employment due to a permanent physical or mental disability is tax exempt"
+    versions:
+      - effective_from: '2008-12-12'
+        formula: |-
+          contributor_has_medical_board_certification
+          and contributor_is_incapable_of_normal_gainful_employment_due_to_permanent_physical_or_mental_disability
+
+  - name: deceased_contributor_beneficiary_withdrawal_is_tax_exempt
+    kind: derived
+    entity: Payment
+    dtype: Judgment
+    period: Year
+    source: Act 766, section 112(7)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: gh/statute/act-766/national-pensions-2008/section-112-tax-reliefs
+              excerpt: "by the beneficiaries of the estate of a deceased contributor is tax exempt"
+    versions:
+      - effective_from: '2008-12-12'
+        formula: |-
+          withdrawal_is_from_provident_fund_or_personal_pension_scheme
+          and withdrawal_is_by_beneficiary_of_estate_of_deceased_contributor

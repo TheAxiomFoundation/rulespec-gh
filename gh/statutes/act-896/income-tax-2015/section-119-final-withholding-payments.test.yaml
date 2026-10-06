@@ -1,0 +1,8 @@
+- name: lottery_winnings_not_final_withholding_payment_after_amendment
+  period:
+    period_kind: tax_year
+    start: '2025-01-01'
+    end: '2025-12-31'
+  input: {}
+  output:
+    gh:statutes/act-896/income-tax-2015/section-119-final-withholding-payments#lottery_winnings_are_final_withholding_payment: not_holds

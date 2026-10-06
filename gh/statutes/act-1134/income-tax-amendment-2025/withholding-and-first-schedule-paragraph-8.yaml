@@ -1,0 +1,85 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: gh/statute/act-1134/income-tax-amendment-2025/withholding-and-first-schedule-paragraph-8
+    source_sha256: 962a5db897d296d6979f071bbbacf4501cf2548357235ce0fb3390b6bf274370
+  summary: |-
+    Section 115 is substituted to require a resident person to withhold tax where that person pays specified payments with a source in the country. Section 6(2)(a)(vii) and First Schedule paragraph 8 subparagraph 1(b)(x) are deleted, removing withholding on lottery winnings and purchases of unprocessed gold.
+rules:
+  - name: withholding_required_for_section_115_payment
+    kind: derived
+    entity: Payment
+    dtype: Judgment
+    period: Year
+    source: Income Tax (Amendment) Act, 2025 (Act 1134), s. 3
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: gh/statute/act-1134/income-tax-amendment-2025/withholding-and-first-schedule-paragraph-8
+              excerpt: "a resident person shall withhold tax ... where that person pays"
+          - path: versions[0].formula
+            kind: predicate
+            source:
+              corpus_citation_path: gh/statute/act-1134/income-tax-amendment-2025/withholding-and-first-schedule-paragraph-8
+              excerpt: "any dividend, interest, natural resource payment, rent or royalty"
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: gh/statute/act-1134/income-tax-amendment-2025/withholding-and-first-schedule-paragraph-8
+              excerpt: "consideration ... in respect of the realisation of an asset or a liability and the payment has a source in the country"
+    versions:
+      - effective_from: '2025-04-02'
+        formula: |-
+          payer_is_resident_person
+          and payment_has_source_in_country
+          and (
+            payment_is_dividend
+            or payment_is_interest
+            or payment_is_natural_resource_payment
+            or payment_is_rent
+            or payment_is_royalty
+            or payment_is_consideration_for_realisation_of_asset_or_liability
+          )
+
+  - name: withholding_on_lottery_winnings_applies
+    kind: derived
+    entity: Payment
+    dtype: Judgment
+    period: Year
+    source: Income Tax (Amendment) Act, 2025 (Act 1134), s. 1
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: gh/statute/act-1134/income-tax-amendment-2025/withholding-and-first-schedule-paragraph-8
+              excerpt: "deletion of subparagraph (vii) of paragraph (a) of subsection (2)"
+    versions:
+      - effective_from: '2025-04-02'
+        formula: |-
+          false
+
+  - name: withholding_on_unprocessed_gold_purchase_applies
+    kind: derived
+    entity: Payment
+    dtype: Judgment
+    period: Year
+    source: Income Tax (Amendment) Act, 2025 (Act 1134), s. 5
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: exception
+            source:
+              corpus_citation_path: gh/statute/act-1134/income-tax-amendment-2025/withholding-and-first-schedule-paragraph-8
+              excerpt: "paragraph 8 by the deletion of subparagraph 1(b)(x)"
+    versions:
+      - effective_from: '2025-04-02'
+        formula: |-
+          false

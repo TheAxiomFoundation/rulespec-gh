@@ -1,0 +1,14 @@
+format: rulespec/v1
+module:
+  status: deferred
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: gh/statute/act-896/income-tax-2015/51
+    source_sha256: 87466c5cf5022d0dc2399286987d5b2394cc458a9e1a659a39d05a74aa629887
+  summary: |-
+    For a year of assessment under section 2, deduct the personal reliefs specified in the Fifth Schedule.
+  deferred_outputs:
+    - output: gh:statutes/act-896/income-tax-2015/51#personal_reliefs_deductible
+      reason: The source directs deduction of Fifth Schedule personal reliefs, but does not provide the Schedule’s eligibility conditions or complete current relief amounts.
+rules: []

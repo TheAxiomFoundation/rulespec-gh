@@ -1,0 +1,165 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: gh/statute/act-907/income-tax-amendment-2016/first-schedule-substitutions
+    source_sha256: 3ee9cbfd499562718743fbd8919b88fd28d9d1ff8d4f99d5597c2644198f334b
+  summary: "\u201Cin the case of lottery winning: (i) First 2,592 \u2014 Nil (ii)\
+    \ Exceeding 2,592 \u2014 5 percent\u201D; \u201Cservice fees referred to in section\
+    \ 116(2)(c), 7.5 percent\u201D; and \u201Cpayment under section 85(2) is three\
+    \ percent of the amount.\u201D"
+rules:
+- name: lottery_first_band_upper_limit
+  kind: parameter
+  dtype: Money
+  unit: GHS
+  source: First Schedule paragraph 8(1)(b)(viii)(i)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: gh/statute/act-907/income-tax-amendment-2016/first-schedule-substitutions
+          excerpt: "First 2,592 \u2014 Nil"
+  versions:
+  - effective_from: '2016-02-18'
+    formula: '2592'
+- name: lottery_first_band_rate
+  kind: parameter
+  dtype: Rate
+  source: First Schedule paragraph 8(1)(b)(viii)(i)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: gh/statute/act-907/income-tax-amendment-2016/first-schedule-substitutions
+          excerpt: "First 2,592 \u2014 Nil"
+  versions:
+  - effective_from: '2016-02-18'
+    formula: '0'
+- name: lottery_excess_band_lower_limit
+  kind: parameter
+  dtype: Money
+  unit: GHS
+  source: First Schedule paragraph 8(1)(b)(viii)(ii)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: amount
+        source:
+          corpus_citation_path: gh/statute/act-907/income-tax-amendment-2016/first-schedule-substitutions
+          excerpt: "Exceeding 2,592 \u2014 5 percent"
+  versions:
+  - effective_from: '2016-02-18'
+    formula: '2592'
+- name: lottery_excess_rate
+  kind: parameter
+  dtype: Rate
+  source: First Schedule paragraph 8(1)(b)(viii)(ii)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: gh/statute/act-907/income-tax-amendment-2016/first-schedule-substitutions
+          excerpt: "Exceeding 2,592 \u2014 5 percent"
+  versions:
+  - effective_from: '2016-02-18'
+    formula: '0.05'
+- name: lottery_winning_tax_withheld
+  kind: derived
+  entity: Payment
+  dtype: Money
+  unit: GHS
+  period: Day
+  source: First Schedule paragraph 8(1)(b)(viii)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: condition
+        source:
+          corpus_citation_path: gh/statute/act-907/income-tax-amendment-2016/first-schedule-substitutions
+          excerpt: "First 2,592 \u2014 Nil"
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: gh/statute/act-907/income-tax-amendment-2016/first-schedule-substitutions
+          excerpt: "Exceeding 2,592 \u2014 5 percent"
+  versions:
+  - effective_from: '2016-02-18'
+    formula: 'if lottery_winning_amount <= lottery_first_band_upper_limit: lottery_first_band_rate
+      * lottery_winning_amount else: lottery_excess_rate * max(0, lottery_winning_amount
+      - lottery_excess_band_lower_limit)'
+- name: service_fee_withholding_rate
+  kind: parameter
+  dtype: Rate
+  source: First Schedule paragraph 8(1)(c)(vii)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: gh/statute/act-907/income-tax-amendment-2016/first-schedule-substitutions
+          excerpt: service fees referred to in section 116(2) (c), 7.5 percent
+  versions:
+  - effective_from: '2016-02-18'
+    formula: '0.075'
+- name: service_fee_tax_withheld
+  kind: derived
+  entity: Payment
+  dtype: Money
+  unit: GHS
+  period: Day
+  source: First Schedule paragraph 8(1)(c)(vii)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: gh/statute/act-907/income-tax-amendment-2016/first-schedule-substitutions
+          excerpt: service fees referred to in section 116(2) (c), 7.5 percent
+  versions:
+  - effective_from: '2016-02-18'
+    formula: service_fee_amount_under_section_116_2_c * service_fee_withholding_rate
+- name: section_85_2_payment_withholding_rate
+  kind: parameter
+  dtype: Rate
+  source: First Schedule paragraph 8(3)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: parameter
+        source:
+          corpus_citation_path: gh/statute/act-907/income-tax-amendment-2016/first-schedule-substitutions
+          excerpt: payment under section 85(2) is three percent of the amount
+  versions:
+  - effective_from: '2016-02-18'
+    formula: '0.03'
+- name: section_85_2_payment_tax_withheld
+  kind: derived
+  entity: Payment
+  dtype: Money
+  unit: GHS
+  period: Day
+  source: First Schedule paragraph 8(3)
+  metadata:
+    proof:
+      atoms:
+      - path: versions[0].formula
+        kind: formula
+        source:
+          corpus_citation_path: gh/statute/act-907/income-tax-amendment-2016/first-schedule-substitutions
+          excerpt: payment under section 85(2) is three percent of the amount
+  versions:
+  - effective_from: '2016-02-18'
+    formula: payment_amount_under_section_85_2 * section_85_2_payment_withholding_rate

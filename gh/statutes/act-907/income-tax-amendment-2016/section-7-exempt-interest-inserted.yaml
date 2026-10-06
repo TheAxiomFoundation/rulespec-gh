@@ -1,0 +1,68 @@
+format: rulespec/v1
+module:
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: gh/statute/act-907/income-tax-amendment-2016/section-7-exempt-interest-inserted
+  summary: |-
+    “interest paid to an individual” by a resident financial institution or on bonds issued by the Government of Ghana, and interest or dividend paid or credited on an investment in an approved unit trust scheme or mutual fund, is exempt.
+rules:
+  - name: interest_from_resident_financial_institution_exempt
+    kind: derived
+    entity: Payment
+    dtype: Judgment
+    period: Year
+    source: Act 907, section 1(c), inserting Act 896 section 7(1)(p)(i)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: gh/statute/act-907/income-tax-amendment-2016/section-7-exempt-interest-inserted
+    versions:
+      - effective_from: '2016-02-18'
+        formula: |-
+          payment_is_interest
+          and payment_paid_to_individual
+          and payer_is_resident_financial_institution
+
+  - name: interest_on_government_bonds_exempt
+    kind: derived
+    entity: Payment
+    dtype: Judgment
+    period: Year
+    source: Act 907, section 1(c), inserting Act 896 section 7(1)(p)(ii)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: gh/statute/act-907/income-tax-amendment-2016/section-7-exempt-interest-inserted
+    versions:
+      - effective_from: '2016-02-18'
+        formula: |-
+          payment_is_interest
+          and payment_paid_to_individual
+          and payment_is_on_bonds_issued_by_government_of_ghana
+
+  - name: approved_unit_trust_or_mutual_fund_return_exempt
+    kind: derived
+    entity: Payment
+    dtype: Judgment
+    period: Year
+    source: Act 907, section 1(c), inserting Act 896 section 7(1)(q)
+    metadata:
+      proof:
+        atoms:
+          - path: versions[0].formula
+            kind: condition
+            source:
+              corpus_citation_path: gh/statute/act-907/income-tax-amendment-2016/section-7-exempt-interest-inserted
+    versions:
+      - effective_from: '2016-02-18'
+        formula: |-
+          payment_is_interest_or_dividend
+          and payment_paid_or_credited_to_holder_or_member
+          and payment_is_return_on_investment_in_approved_unit_trust_scheme_or_mutual_fund

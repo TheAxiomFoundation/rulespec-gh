@@ -1,0 +1,14 @@
+format: rulespec/v1
+module:
+  status: deferred
+  proof_validation:
+    required: true
+  source_verification:
+    corpus_citation_path: gh/statute/act-896/income-tax-2015/section-115-withholding-from-investment-returns
+    source_sha256: 22b930094b29ab9d3a4e927cd7ccf611a21ee241aa9fb821f1517488a15aface
+  summary: |-
+    Tax is withheld at the First Schedule paragraph 8 rate on specified payments with a source in the country; the section excludes payments subject to section 114, certain individual payments, interest paid to a resident financial institution, and exempt amounts.
+  deferred_outputs:
+    - output: gh:statutes/act-896/income-tax-2015/section-115-withholding-from-investment-returns#withholding_from_investment_returns_applies
+      reason: The operative applicability test depends on the section 114 withholding exception, whose cited source is not available, and on the applicable First Schedule paragraph 8 rate, whose RuleSpec export is not supplied.
+rules: []

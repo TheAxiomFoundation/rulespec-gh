@@ -1,0 +1,30 @@
+- name: all scheduled levies and public-lighting allocations
+  period:
+    period_kind: custom
+    name: day
+    start: '2025-04-02'
+    end: '2025-04-02'
+  input:
+    gh:statutes/act-1135/energy-sector-levies-2025/schedule-types-of-levies#input.petrol_litres: 1
+    gh:statutes/act-1135/energy-sector-levies-2025/schedule-types-of-levies#input.diesel_litres: 1
+    gh:statutes/act-1135/energy-sector-levies-2025/schedule-types-of-levies#input.naphtha_litres: 1
+    gh:statutes/act-1135/energy-sector-levies-2025/schedule-types-of-levies#input.fuel_oil_litres: 1
+    gh:statutes/act-1135/energy-sector-levies-2025/schedule-types-of-levies#input.marine_gas_oil_litres: 1
+    gh:statutes/act-1135/energy-sector-levies-2025/schedule-types-of-levies#input.liquefied_petroleum_gas_kilogrammes: 1
+    gh:statutes/act-1135/energy-sector-levies-2025/schedule-types-of-levies#input.kerosene_kilogrammes: 1
+    gh:statutes/act-1135/energy-sector-levies-2025/schedule-types-of-levies#input.electricity_charge_amount: 1000
+    ? gh:statutes/act-1135/energy-sector-levies-2025/schedule-types-of-levies#input.volta_river_authority_public_lighting_levy_collected
+    : 1000
+    ? gh:statutes/act-1135/energy-sector-levies-2025/schedule-types-of-levies#input.electricity_distribution_companies_public_lighting_levy_collected
+    : 1000
+  output:
+    gh:statutes/act-1135/energy-sector-levies-2025/schedule-types-of-levies#energy_sector_shortfall_and_debt_repayment_levy: 363
+    gh:statutes/act-1135/energy-sector-levies-2025/schedule-types-of-levies#road_fund_levy: 144
+    gh:statutes/act-1135/energy-sector-levies-2025/schedule-types-of-levies#energy_fund_levy: 5
+    gh:statutes/act-1135/energy-sector-levies-2025/schedule-types-of-levies#public_lighting_levy: 30
+    gh:statutes/act-1135/energy-sector-levies-2025/schedule-types-of-levies#national_electrification_scheme_levy: 20
+    gh:statutes/act-1135/energy-sector-levies-2025/schedule-types-of-levies#volta_river_authority_public_lighting_transfer: 1000
+    ? gh:statutes/act-1135/energy-sector-levies-2025/schedule-types-of-levies#electricity_distribution_companies_public_lighting_transfer
+    : 500
+    ? gh:statutes/act-1135/energy-sector-levies-2025/schedule-types-of-levies#electricity_distribution_companies_public_lighting_retained
+    : 500

@@ -1,0 +1,60 @@
+- name: presumptive tax applies within turnover band
+  period:
+    period_kind: tax_year
+    start: '2016-01-01'
+    end: '2016-12-31'
+  input:
+    ? gh:statutes/act-902/income-tax-amendment-2015/second-schedule-substitutions#input.presumptive_taxation_applies_under_paragraph_2_1_c_ii
+    : true
+    gh:statutes/act-902/income-tax-amendment-2015/second-schedule-substitutions#input.business_turnover: 100000
+    gh:statutes/act-902/income-tax-amendment-2015/second-schedule-substitutions#input.modified_cash_basis_turnover: 150000
+  output:
+    gh:statutes/act-902/income-tax-amendment-2015/second-schedule-substitutions#presumptive_tax_turnover_band_applies: holds
+    gh:statutes/act-902/income-tax-amendment-2015/second-schedule-substitutions#presumptive_tax_payable: 3000
+    ? gh:statutes/act-902/income-tax-amendment-2015/second-schedule-substitutions#modified_cash_basis_turnover_condition_satisfied
+    : holds
+- name: turnover equal to lower threshold does not qualify
+  period:
+    period_kind: tax_year
+    start: '2016-01-01'
+    end: '2016-12-31'
+  input:
+    ? gh:statutes/act-902/income-tax-amendment-2015/second-schedule-substitutions#input.presumptive_taxation_applies_under_paragraph_2_1_c_ii
+    : true
+    gh:statutes/act-902/income-tax-amendment-2015/second-schedule-substitutions#input.business_turnover: 20000
+    gh:statutes/act-902/income-tax-amendment-2015/second-schedule-substitutions#input.modified_cash_basis_turnover: 200001
+  output:
+    gh:statutes/act-902/income-tax-amendment-2015/second-schedule-substitutions#presumptive_tax_turnover_band_applies: not_holds
+    gh:statutes/act-902/income-tax-amendment-2015/second-schedule-substitutions#presumptive_tax_payable: 0
+    ? gh:statutes/act-902/income-tax-amendment-2015/second-schedule-substitutions#modified_cash_basis_turnover_condition_satisfied
+    : not_holds
+- name: turnover above upper limit does not qualify
+  period:
+    period_kind: tax_year
+    start: '2016-01-01'
+    end: '2016-12-31'
+  input:
+    ? gh:statutes/act-902/income-tax-amendment-2015/second-schedule-substitutions#input.presumptive_taxation_applies_under_paragraph_2_1_c_ii
+    : true
+    gh:statutes/act-902/income-tax-amendment-2015/second-schedule-substitutions#input.business_turnover: 200001
+    gh:statutes/act-902/income-tax-amendment-2015/second-schedule-substitutions#input.modified_cash_basis_turnover: 200000
+  output:
+    gh:statutes/act-902/income-tax-amendment-2015/second-schedule-substitutions#presumptive_tax_turnover_band_applies: not_holds
+    gh:statutes/act-902/income-tax-amendment-2015/second-schedule-substitutions#presumptive_tax_payable: 0
+    ? gh:statutes/act-902/income-tax-amendment-2015/second-schedule-substitutions#modified_cash_basis_turnover_condition_satisfied
+    : holds
+- name: presumptive taxation must apply under referenced paragraph
+  period:
+    period_kind: tax_year
+    start: '2016-01-01'
+    end: '2016-12-31'
+  input:
+    ? gh:statutes/act-902/income-tax-amendment-2015/second-schedule-substitutions#input.presumptive_taxation_applies_under_paragraph_2_1_c_ii
+    : false
+    gh:statutes/act-902/income-tax-amendment-2015/second-schedule-substitutions#input.business_turnover: 100000
+    gh:statutes/act-902/income-tax-amendment-2015/second-schedule-substitutions#input.modified_cash_basis_turnover: 100000
+  output:
+    gh:statutes/act-902/income-tax-amendment-2015/second-schedule-substitutions#presumptive_tax_turnover_band_applies: not_holds
+    gh:statutes/act-902/income-tax-amendment-2015/second-schedule-substitutions#presumptive_tax_payable: 0
+    ? gh:statutes/act-902/income-tax-amendment-2015/second-schedule-substitutions#modified_cash_basis_turnover_condition_satisfied
+    : holds
