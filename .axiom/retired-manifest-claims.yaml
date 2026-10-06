@@ -1,0 +1,114 @@
+# Retired encoding-manifest claims
+#
+# Each entry retires ONE committed manifest claim — (manifest, attested_path,
+# attested_sha256), or one deletion marker — in place. The record it lives in
+# is kept rather than deleted: usually because it also carries the only true
+# attestation for another file it covers, sometimes because it sits where the
+# apply transaction does not delete. A retired claim is not live: it does not
+# count toward "one live record per file" and its staleness is not a finding.
+#
+# An entry is a reviewed exception, nothing more. It verifies nothing and
+# authorizes nothing; the pull request that adds it (or the apply transaction
+# that wrote it alongside a successor manifest) is where the retirement was
+# accepted. `axiom-encode manifest-audit` keeps an entry only while it is
+# still real: the claim must exist in the manifest with that exact digest; a
+# claim that is still true may be retired only if another live record attests
+# the file's current content; and a stale claim whose file has no matching
+# live attestation at all must say so with `unattested: true`. An entry that
+# stops meeting those conditions FAILS the audit and must be removed.
+# Re-encoding the rule is what removes `unattested` entries.
+#
+# See https://github.com/TheAxiomFoundation/axiom-encode/issues/1282
+
+schema_version: axiom-encode/retired-manifest-claims/v1
+retired_claims:
+  - manifest: ".axiom/encoding-manifests/gh/policies/free-shs/fee-free-structure.json"
+    attested_path: "gh/policies/free-shs/fee-free-structure.yaml"
+    attested_sha256: "5cc55e31bdbec7277a6229a02bb9e5e3c0934359b9e817f9551c1fa04dd36c45"
+    unattested: true
+    note: >-
+      Rule regenerated after the #1078 manifest relocation; this record also carries the
+      only attestation for a companion file it covers, so the claim is retired in place
+      rather than the record deleted.
+    issue: "https://github.com/TheAxiomFoundation/axiom-encode/issues/1282"
+  - manifest: ".axiom/encoding-manifests/gh/policies/gsfp/feeding-grant.json"
+    attested_path: "gh/policies/gsfp/feeding-grant.yaml"
+    attested_sha256: "8498ffebdd8c5e654f28ed65923bf3d8aabbdd276efbedc42b533d50d0c99de5"
+    unattested: true
+    note: >-
+      Rule regenerated after the #1078 manifest relocation; this record also carries the
+      only attestation for a companion file it covers, so the claim is retired in place
+      rather than the record deleted.
+    issue: "https://github.com/TheAxiomFoundation/axiom-encode/issues/1282"
+  - manifest: ".axiom/encoding-manifests/gh/programs/gh/income-tax/fy-2026.json"
+    attested_path: "programs/gh/income-tax/fy-2026.yaml"
+    attested_sha256: "2e37d027287f6ffb361f9a6e307d7a6311526ffaf4529cc1b3b41ee4f57d59ff"
+    unattested: true
+    note: >-
+      Content relocated (now at gh/programs/income-tax/fy-2026.yaml) by the reviewed
+      #1101 corpus-migration commit; the attested path holds nothing and no record
+      attests the new location yet.
+    issue: "https://github.com/TheAxiomFoundation/axiom-encode/issues/1282"
+  - manifest: ".axiom/encoding-manifests/gh/statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy.json"
+    attested_path: "gh/statutes/act-1068/covid-19-health-recovery-levy-2021/section-1-imposition-of-levy.yaml"
+    attested_sha256: "e5ad3b3cb35606486ae7ecdd5dc2e8502b629e69fbd9ae4695ace0f8ae0cc578"
+    unattested: true
+    note: >-
+      Rule regenerated after the #1078 manifest relocation; this record also carries the
+      only attestation for a companion file it covers, so the claim is retired in place
+      rather than the record deleted.
+    issue: "https://github.com/TheAxiomFoundation/axiom-encode/issues/1282"
+  - manifest: ".axiom/encoding-manifests/gh/statutes/act-1071/income-tax-amendment-no2-2021/second-schedule-substitutions.json"
+    attested_path: "gh/statutes/act-1071/income-tax-amendment-no2-2021/second-schedule-substitutions.yaml"
+    attested_sha256: "4ed2a85be03f2997018fc61e9e56af57a4fa077fb6476f79e79ec9d3a4f5563e"
+    unattested: true
+    note: >-
+      Rule regenerated after the #1078 manifest relocation; this record also carries the
+      only attestation for a companion file it covers, so the claim is retired in place
+      rather than the record deleted.
+    issue: "https://github.com/TheAxiomFoundation/axiom-encode/issues/1282"
+  - manifest: ".axiom/encoding-manifests/gh/statutes/act-1141/energy-sector-levies-amendment-2025/schedule-shortfall-row-substituted.json"
+    attested_path: "gh/statutes/act-1141/energy-sector-levies-amendment-2025/schedule-shortfall-row-substituted.yaml"
+    attested_sha256: "35c9e50cdd6264c21caed0b4deb7325e7ea4d456ae2e4ebef7d3cd785ff56490"
+    unattested: true
+    note: >-
+      Rule regenerated after the #1078 manifest relocation; this record also carries the
+      only attestation for a companion file it covers, so the claim is retired in place
+      rather than the record deleted.
+    issue: "https://github.com/TheAxiomFoundation/axiom-encode/issues/1282"
+  - manifest: ".axiom/encoding-manifests/gh/statutes/act-1151/value-added-tax-2025/section-3-rate-of-the-tax.json"
+    attested_path: "gh/statutes/act-1151/value-added-tax-2025/section-3-rate-of-the-tax.yaml"
+    attested_sha256: "2cfe98f7107e6ed7498f226c88351a494b53b6eeff009ba9f2fae25da6c43336"
+    unattested: true
+    note: >-
+      Rule regenerated after the #1078 manifest relocation; this record also carries the
+      only attestation for a companion file it covers, so the claim is retired in place
+      rather than the record deleted.
+    issue: "https://github.com/TheAxiomFoundation/axiom-encode/issues/1282"
+  - manifest: ".axiom/encoding-manifests/gh/statutes/act-896/income-tax-2015/fifth-schedule.json"
+    attested_path: "gh/statutes/act-896/income-tax-2015/fifth-schedule.yaml"
+    attested_sha256: "be361f3f2f48ebd01ab54a7011b0296796c25e8037cd0a5e0dc545e4bd19872f"
+    unattested: true
+    note: >-
+      Rule regenerated after the #1078 manifest relocation; this record also carries the
+      only attestation for a companion file it covers, so the claim is retired in place
+      rather than the record deleted.
+    issue: "https://github.com/TheAxiomFoundation/axiom-encode/issues/1282"
+  - manifest: ".axiom/encoding-manifests/gh/statutes/act-896/income-tax-2015/first-schedule-8-rates-of-withholding-tax.json"
+    attested_path: "gh/statutes/act-896/income-tax-2015/first-schedule-8-rates-of-withholding-tax.yaml"
+    attested_sha256: "927c60a19a46ee8050c407db6c013c5357de13562281e00b754b336e986c09ba"
+    unattested: true
+    note: >-
+      Rule regenerated after the #1078 manifest relocation; this record also carries the
+      only attestation for a companion file it covers, so the claim is retired in place
+      rather than the record deleted.
+    issue: "https://github.com/TheAxiomFoundation/axiom-encode/issues/1282"
+  - manifest: ".axiom/encoding-manifests/gh/statutes/composed/pilot-worker-disposable-income-pipeline.json"
+    attested_path: "gh/statutes/composed/pilot-worker-disposable-income-pipeline.yaml"
+    attested_sha256: "a15af5356ef95c9956dc3f018f086cc9dca37593eed165c260dbe3e1d885003f"
+    unattested: true
+    note: >-
+      Rule regenerated after the #1078 manifest relocation; this record also carries the
+      only attestation for a companion file it covers, so the claim is retired in place
+      rather than the record deleted.
+    issue: "https://github.com/TheAxiomFoundation/axiom-encode/issues/1282"
