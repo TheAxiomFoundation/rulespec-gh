@@ -1,5 +1,18 @@
 # Bulk encode (GH)
 
+> **Retired (2026-10-14).** The bulk-encode workflow is deleted. It would have
+> generated with a metered `--backend openai` model outside the supervised
+> encoder, and it handed the encode step a repository copy of the apply signing
+> key that any branch could read; that key copy was deleted. No run ever signed
+> or applied anything: every run failed, and every run whose log survives
+> (2026-07-21 onward) failed in the encoder's preflight, which refuses a private
+> signing key passed through the environment. Encodings for this repository come only from the supervised
+> encoder, and signed re-encodes go through axiom-encode's
+> `targeted-signed-reencode` workflow, which signs only on main in a protected
+> environment. `worklist.yaml` and the helper scripts stay as a record of the
+> queue; nothing runs them. The sections below describe the retired workflow and
+> are kept only as a record.
+
 A durable queue → runner → PR loop for bulk RuleSpec encoding, independent of
 any local session. It encodes already-ingested Ghanaian provisions with
 `axiom-encode encode <citation> --apply`, pre-checks them with the same gate
