@@ -4,9 +4,9 @@
 > generated with a metered `--backend openai` model outside the supervised
 > encoder, and it handed the encode step a repository copy of the apply signing
 > key that any branch could read; that key copy was deleted. No run ever signed
-> or applied anything: every run since the first (2026-07-07) failed in the
-> encoder's preflight, which refuses a private signing key passed through the
-> environment. Encodings for this repository come only from the supervised
+> or applied anything: every run failed, and every run whose log survives
+> (2026-07-21 onward) failed in the encoder's preflight, which refuses a private
+> signing key passed through the environment. Encodings for this repository come only from the supervised
 > encoder, and signed re-encodes go through axiom-encode's
 > `targeted-signed-reencode` workflow, which signs only on main in a protected
 > environment. `worklist.yaml` and the helper scripts stay as a record of the
